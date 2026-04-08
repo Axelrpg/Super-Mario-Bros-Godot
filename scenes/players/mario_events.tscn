@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cfffm5t0x82x1"]
+
+[ext_resource type="Script" uid="uid://bwa5r61el7x03" path="res://scenes/players/mario_events.gd" id="1_x5cc1"]
+
+[node name="MarioEvents" type="CanvasLayer" unique_id=1120694437]
+script = ExtResource("1_x5cc1")
+
+[node name="Container" type="VBoxContainer" parent="." unique_id=1060959781]
+offset_right = 424.0
+offset_bottom = 240.0
+
+[node name="VelocityX" type="HBoxContainer" parent="Container" unique_id=260692684]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Container/VelocityX" unique_id=480163081]
+layout_mode = 2
+text = "Vel X: "
+
+[node name="Value" type="Label" parent="Container/VelocityX" unique_id=1554681768]
+layout_mode = 2
+text = "400"
+horizontal_alignment = 2
+
+[node name="AnimSpeedScale" type="HBoxContainer" parent="Container" unique_id=763578145]
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Container/AnimSpeedScale" unique_id=1220443884]
+layout_mode = 2
+text = "Vel anim: "
+
+[node name="Value" type="Label" parent="Container/AnimSpeedScale" unique_id=160167072]
+layout_mode = 2
+text = "400"
+horizontal_alignment = 2
