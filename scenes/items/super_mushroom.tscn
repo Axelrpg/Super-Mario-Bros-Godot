@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://yjsjblcd4kgp"]
+
+[ext_resource type="Script" uid="uid://djnddxk8junms" path="res://scenes/items/super_mushroom.gd" id="1_bpov2"]
+[ext_resource type="Texture2D" uid="uid://c77c2nyp72so6" path="res://sprites/items/Super Mushroom.png" id="1_jx1jm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bpov2"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhvwr"]
+size = Vector2(18, 18)
+
+[node name="SuperMushroom" type="CharacterBody2D" unique_id=1134941182]
+collision_layer = 8
+script = ExtResource("1_bpov2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1854218060]
+texture = ExtResource("1_jx1jm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1285114084]
+shape = SubResource("RectangleShape2D_bpov2")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=2036768688]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=517850132]
+shape = SubResource("RectangleShape2D_rhvwr")
+debug_color = Color(0.82656354, 0.20623535, 0.8322414, 0.41960785)
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
