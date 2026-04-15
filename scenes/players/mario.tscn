@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://clltjckvyo84f" path="res://scenes/players/mario.gd" id="1_5fuva"]
 [ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="1_s0cxq"]
+[ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="3_iovkf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0cxq"]
-size = Vector2(12, 16)
+size = Vector2(12, 15.5)
 
 [sub_resource type="Animation" id="Animation_5fuva"]
 length = 0.001
@@ -137,6 +138,12 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StompDetector" unique_id=1983271702]
 position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_5fuva")
-debug_color = Color(3.85046e-07, 0.39023894, 0.45954716, 0.41960785)
+debug_color = Color(0.578132, 0.10253476, 0.48463356, 0.41960785)
+
+[node name="VisualSuper" type="Sprite2D" parent="." unique_id=2020600531]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("3_iovkf")
+hframes = 16
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
