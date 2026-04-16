@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://c2amt26unoytd"]
+
+[ext_resource type="Texture2D" uid="uid://csu753tmkqm8f" path="res://sprites/items/Fire Flower.png" id="1_1ucse"]
+[ext_resource type="Script" uid="uid://c8c7m8bj3n5ao" path="res://scenes/items/fire_flower.gd" id="1_ewn1v"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ewn1v"]
+size = Vector2(16, 15.5)
+
+[sub_resource type="Animation" id="Animation_1ucse"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_ewn1v"]
+resource_name = "idle"
+length = 0.8
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wg4r5"]
+_data = {
+&"RESET": SubResource("Animation_1ucse"),
+&"idle": SubResource("Animation_ewn1v")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1ucse"]
+size = Vector2(18, 18)
+
+[node name="FireFlower" type="CharacterBody2D" unique_id=918453710]
+collision_layer = 8
+script = ExtResource("1_ewn1v")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1482545931]
+texture = ExtResource("1_1ucse")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=68437994]
+shape = SubResource("RectangleShape2D_ewn1v")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1748691190]
+libraries/ = SubResource("AnimationLibrary_wg4r5")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=2086101788]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=137120016]
+shape = SubResource("RectangleShape2D_1ucse")
+debug_color = Color(0.783299, 0.29731667, 0.7973643, 0.41960785)
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
