@@ -22,12 +22,14 @@ var height_idle = 80
 var height_walk = 96
 var height_run = 128
 var invulnerability_duration = 3
+var starman_tween: Tween
 
 var is_skidding = false
 var is_dying = false
 var is_super = false
 var is_ceiling_blocked = false
 var is_invulnerable = false
+var is_starman = false
 
 func _ready() -> void:
 	visual_small = get_node_or_null("VisualSmall")
@@ -48,6 +50,7 @@ func set_global_variables():
 	GameEvents.SPEED_X = velocity.x
 	GameEvents.SPEED_Y = velocity.y
 	GameEvents.ANIM_SPEED_SCALE = animation_player.speed_scale
+	GameEvents.CURRENT_ANIMATION = animation_player.current_animation
 	
 func handle_movement(delta: float):
 	if not is_on_floor():
@@ -100,6 +103,9 @@ func handle_movement(delta: float):
 		update_animations(direction)
 	
 func update_animations(direction):
+	if animation_player.current_animation == "shoot":
+		return
+	
 	if not is_on_floor():
 		if is_ceiling_blocked or Input.is_action_pressed("crouch"):
 			animation_player.play("crouch")
@@ -166,6 +172,32 @@ func upgrade_to_super():
 	get_parent().add_child(super_mario)
 	queue_free()
 	
+func upgrade_to_fire():
+	set_physics_process(false)
+	is_dying = true
+	collision_layer = 0
+	collision_mask = 0
+	stomp_detector.monitoring = false
+	
+	var fire_mario_scene = load("res://scenes/players/fire_mario.tscn")
+	var fire_mario = fire_mario_scene.instantiate()
+	
+	for i in range(8):
+		sprite.visible = !sprite.visible
+		visual_fire.visible = !visual_fire.visible
+		visual_fire.flip_h = sprite.flip_h
+		await get_tree().create_timer(0.1).timeout
+		
+	fire_mario.global_position = visual_fire.global_position
+	fire_mario.velocity = velocity
+	
+	var fire_sprite = fire_mario.get_node("Sprite2D")
+	if fire_sprite:
+		fire_sprite.flip_h = sprite.flip_h
+	
+	get_parent().add_child(fire_mario)
+	queue_free()
+	
 func downgrade_to_small():
 	set_physics_process(false)
 	is_dying = true
@@ -185,13 +217,45 @@ func downgrade_to_small():
 	small_mario.global_position = visual_small.global_position
 	small_mario.velocity = velocity
 	
-	var super_sprite = small_mario.get_node("Sprite2D")
+	var small_sprite = small_mario.get_node("Sprite2D")
+	if small_sprite:
+		small_sprite.flip_h = sprite.flip_h
+	
+	get_parent().add_child(small_mario)
+	
+	if small_mario.has_method("start_invulnerability_cpu"):
+		small_mario.start_invulnerability_cpu()
+		
+	queue_free()
+	
+func downgrade_to_super():
+	set_physics_process(false)
+	is_dying = true
+	collision_layer = 0
+	collision_mask = 0
+	stomp_detector.monitoring = false
+	
+	var super_mario_scene = load("res://scenes/players/super_mario.tscn")
+	var super_mario = super_mario_scene.instantiate()
+	
+	for i in range(8):
+		sprite.visible = !sprite.visible
+		visual_super.visible = !visual_super.visible
+		visual_super.flip_h = sprite.flip_h
+		await get_tree().create_timer(0.1).timeout
+		
+	super_mario.global_position = visual_super.global_position
+	super_mario.velocity = velocity
+	
+	var super_sprite = super_mario.get_node("Sprite2D")
 	if super_sprite:
 		super_sprite.flip_h = sprite.flip_h
 	
-	get_parent().add_child(small_mario)
-	if small_mario.has_method("start_invulnerability_cpu"):
-		small_mario.start_invulnerability_cpu()
+	get_parent().add_child(super_mario)
+	
+	if super_mario.has_method("start_invulnerability_cpu"):
+		super_mario.start_invulnerability_cpu()
+		
 	queue_free()
 
 func start_invulnerability_cpu():
@@ -204,4 +268,24 @@ func start_invulnerability_cpu():
 	is_invulnerable = false
 	sprite.modulate.a = 1.0
 	
+func become_starman():
+	is_starman = true
+	start_starman_flicker()
+	await get_tree().create_timer(10.0).timeout
+	end_starman_effect()
+	
+func start_starman_flicker():
+	starman_tween = create_tween().set_loops()
+	var flicker_time = 0.05
+	
+	starman_tween.tween_property(sprite, "modulate", Color.WHITE, flicker_time)
+	starman_tween.tween_property(sprite, "modulate", Color.YELLOW, flicker_time)
+	starman_tween.tween_property(sprite, "modulate", Color.CYAN, flicker_time)
+	starman_tween.tween_property(sprite, "modulate", Color.RED, flicker_time)
+	
+func end_starman_effect():
+	is_starman = true
+	if starman_tween:
+		starman_tween.kill()
+	sprite.modulate = Color.WHITE
 	

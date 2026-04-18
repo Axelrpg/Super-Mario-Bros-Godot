@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c77c2nyp72so6" path="res://sprites/items/Super Mushroom.png" id="1_jx1jm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpov2"]
-size = Vector2(16, 15.5)
+size = Vector2(15.5, 15.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rhvwr"]
 size = Vector2(18, 18)

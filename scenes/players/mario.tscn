@@ -3,9 +3,10 @@
 [ext_resource type="Script" uid="uid://clltjckvyo84f" path="res://scenes/players/mario.gd" id="1_5fuva"]
 [ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="1_s0cxq"]
 [ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="3_iovkf"]
+[ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="4_8aya7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0cxq"]
-size = Vector2(12, 15.5)
+size = Vector2(11.5, 15.5)
 
 [sub_resource type="Animation" id="Animation_5fuva"]
 length = 0.001
@@ -145,5 +146,11 @@ visible = false
 position = Vector2(0, -8)
 texture = ExtResource("3_iovkf")
 hframes = 16
+
+[node name="VisualFire" type="Sprite2D" parent="." unique_id=2041592585]
+visible = false
+position = Vector2(0, -8)
+texture = ExtResource("4_8aya7")
+hframes = 17
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]

@@ -34,3 +34,17 @@ text = "Vel anim: "
 layout_mode = 2
 text = "400"
 horizontal_alignment = 2
+
+[node name="CurrentAnimation" type="HBoxContainer" parent="Container" unique_id=1278638297]
+visible = false
+layout_mode = 2
+alignment = 2
+
+[node name="Label" type="Label" parent="Container/CurrentAnimation" unique_id=885282000]
+layout_mode = 2
+text = "Current anim:"
+
+[node name="Value" type="Label" parent="Container/CurrentAnimation" unique_id=448446044]
+layout_mode = 2
+text = "Idle"
+horizontal_alignment = 2

@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://dtjgaj01xdky6"]
+[gd_scene format=3 uid="uid://1l5lfealu6h1"]
 
-[ext_resource type="Script" uid="uid://bbyr2beah5tn7" path="res://scenes/players/super_mario.gd" id="1_mcqk5"]
-[ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="1_o4t04"]
-[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="3_r53bw"]
-[ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="4_mlqch"]
+[ext_resource type="Script" uid="uid://coy0j5p3v41yy" path="res://scenes/players/fire_mario.gd" id="1_c4o8a"]
+[ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="1_ldp1i"]
+[ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="2_3l0b1"]
+[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="3_ldyiv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcqk5"]
 size = Vector2(16, 22)
@@ -102,7 +102,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [15]
+"values": [16]
 }
 
 [sub_resource type="Animation" id="Animation_r53bw"]
@@ -161,6 +161,46 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CollisionShape2D:shape:size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(15.5, 31.5)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CollisionShape2D:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3l0b1"]
+resource_name = "shoot"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [15]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -277,6 +317,7 @@ _data = {
 &"die": SubResource("Animation_pkjdd"),
 &"idle": SubResource("Animation_r53bw"),
 &"jump": SubResource("Animation_jxspy"),
+&"shoot": SubResource("Animation_3l0b1"),
 &"skid": SubResource("Animation_l4rif"),
 &"walk": SubResource("Animation_mlqch")
 }
@@ -284,13 +325,13 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_r53bw"]
 size = Vector2(16, 1)
 
-[node name="SuperMario" type="CharacterBody2D" unique_id=804950284 groups=["players"]]
+[node name="FireMario" type="CharacterBody2D" unique_id=804950284 groups=["players"]]
 collision_layer = 2
-script = ExtResource("1_mcqk5")
+script = ExtResource("1_c4o8a")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1803149864]
-texture = ExtResource("1_o4t04")
-hframes = 16
+texture = ExtResource("1_ldp1i")
+hframes = 17
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=691204595]
 position = Vector2(0, 5)
@@ -311,13 +352,13 @@ debug_color = Color(0.77101374, 0.28738725, 0.84567344, 0.41960785)
 [node name="VisualSmall" type="Sprite2D" parent="." unique_id=139281825]
 visible = false
 position = Vector2(0, 8)
-texture = ExtResource("3_r53bw")
+texture = ExtResource("3_ldyiv")
 hframes = 14
 
-[node name="VisualFire" type="Sprite2D" parent="." unique_id=288618895]
+[node name="VisualSuper" type="Sprite2D" parent="." unique_id=1664097333]
 visible = false
-texture = ExtResource("4_mlqch")
-hframes = 17
+texture = ExtResource("2_3l0b1")
+hframes = 16
 
 [node name="CeilingCheck" type="RayCast2D" parent="." unique_id=704164371]
 target_position = Vector2(0, -6)
