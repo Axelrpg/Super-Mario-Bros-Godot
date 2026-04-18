@@ -14,6 +14,8 @@ var WALK_SPEED = 40
 var SHELL_SPEED = 250
 var direction = -1
 
+var is_dying: bool = false
+
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -52,6 +54,31 @@ func die():
 		State.SHELL_MOVING:
 			current_state = State.SHELL_IDLE
 
+func die_special(hit_direction: float = 1.0):
+	if is_dying: return
+	
+	is_dying = true
+	set_physics_process(false)
+	animation_player.play("shell_moving")
+	collision_layer = 0
+	collision_mask = 0
+	sprite.flip_v = true
+	
+	var tween = create_tween().set_parallel(true)
+	var jump_height = global_position.y - 50
+	var fall_depth = global_position.y + 500
+	
+	var x_target = global_position.x + (50 * hit_direction)
+	
+	var y_tween = create_tween()
+	y_tween.tween_property(self, "global_position:y", jump_height, 0.3).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	y_tween.tween_property(self, "global_position:y", fall_depth, 0.6).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
+
+	tween.tween_property(self, "global_position:x", x_target, 0.9)
+	tween.tween_property(sprite, "rotation_degrees", 180 * hit_direction, 0.5)
+
+	await y_tween.finished
+	queue_free()
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):

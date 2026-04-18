@@ -1,9 +1,18 @@
 extends CharacterBody2D
 class_name BaseMario
 
+enum PlayerState {
+	SMALL,
+	SUPER,
+	FIRE
+}
+var current_state = PlayerState.SMALL
+
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var stomp_detector: Area2D = $StompDetector
+@onready var enemy_detector: Area2D = $EnemyDetector
+@onready var starman_timer: Timer = $StarmanTimer
 
 var visual_small: Sprite2D
 var visual_super: Sprite2D
@@ -160,14 +169,20 @@ func upgrade_to_super():
 		sprite.visible = !sprite.visible
 		visual_super.visible = !visual_super.visible
 		visual_super.flip_h = sprite.flip_h
+		visual_super.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	super_mario.global_position = visual_super.global_position
 	super_mario.velocity = velocity
 	
+	if is_starman:
+		var time_left = starman_timer.time_left
+		super_mario.become_starman(time_left)
+	
 	var super_sprite = super_mario.get_node("Sprite2D")
 	if super_sprite:
 		super_sprite.flip_h = sprite.flip_h
+		super_sprite.frame = sprite.frame
 	
 	get_parent().add_child(super_mario)
 	queue_free()
@@ -186,10 +201,15 @@ func upgrade_to_fire():
 		sprite.visible = !sprite.visible
 		visual_fire.visible = !visual_fire.visible
 		visual_fire.flip_h = sprite.flip_h
+		visual_fire.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	fire_mario.global_position = visual_fire.global_position
 	fire_mario.velocity = velocity
+	
+	if is_starman:
+		var time_left = starman_timer.time_left
+		fire_mario.become_starman(time_left)
 	
 	var fire_sprite = fire_mario.get_node("Sprite2D")
 	if fire_sprite:
@@ -212,6 +232,7 @@ func downgrade_to_small():
 		sprite.visible = !sprite.visible
 		visual_small.visible = !visual_small.visible
 		visual_small.flip_h = sprite.flip_h
+		visual_small.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	small_mario.global_position = visual_small.global_position
@@ -242,6 +263,7 @@ func downgrade_to_super():
 		sprite.visible = !sprite.visible
 		visual_super.visible = !visual_super.visible
 		visual_super.flip_h = sprite.flip_h
+		visual_super.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	super_mario.global_position = visual_super.global_position
@@ -268,13 +290,23 @@ func start_invulnerability_cpu():
 	is_invulnerable = false
 	sprite.modulate.a = 1.0
 	
-func become_starman():
+func become_starman(duration: float = 10.0):
 	is_starman = true
+	
+	if not is_inside_tree():
+		await ready
+	
 	start_starman_flicker()
-	await get_tree().create_timer(10.0).timeout
-	end_starman_effect()
+	starman_timer.wait_time = duration
+	starman_timer.start()
 	
 func start_starman_flicker():
+	if enemy_detector:
+		enemy_detector.monitoring = true
+		
+	if starman_tween:
+		starman_tween.kill()
+		
 	starman_tween = create_tween().set_loops()
 	var flicker_time = 0.05
 	
@@ -284,8 +316,10 @@ func start_starman_flicker():
 	starman_tween.tween_property(sprite, "modulate", Color.RED, flicker_time)
 	
 func end_starman_effect():
-	is_starman = true
+	is_starman = false
 	if starman_tween:
 		starman_tween.kill()
 	sprite.modulate = Color.WHITE
+	if enemy_detector:
+		enemy_detector.monitoring = false
 	

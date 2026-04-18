@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var SPEED = 50
 var direction = -1
+var active = false
 
 func  _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -13,9 +14,15 @@ func  _physics_process(delta: float) -> void:
 	velocity.x = direction * SPEED
 	
 	move_and_slide()
+	
+func set_direction():
+	pass
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		if body.has_method("upgrade_to_super"):
-			body.upgrade_to_super()
-		queue_free()
+		if body.current_state == body.PlayerState.SUPER:
+			pass
+		else:
+			if body.has_method("upgrade_to_super"):
+				body.upgrade_to_super()
+			queue_free()

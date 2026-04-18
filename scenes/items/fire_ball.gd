@@ -25,8 +25,8 @@ func  _physics_process(delta: float) -> void:
 		var collider = collision.get_collider()
 		
 		if collider.is_in_group("enemies"):
-			if collider.has_method("die_by_fire"):
-				collider.die_by_fire()
+			if collider.has_method("die_special"):
+				collider.die_special(self.direction)
 			explode()
 			
 	move_and_slide()

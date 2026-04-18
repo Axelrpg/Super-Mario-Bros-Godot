@@ -117,8 +117,11 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fuva"]
 size = Vector2(12, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8aya7"]
+size = Vector2(14, 18)
+
 [node name="Mario" type="CharacterBody2D" unique_id=1679571318 groups=["players"]]
-z_index = 1
+z_index = 10
 collision_layer = 2
 script = ExtResource("1_5fuva")
 
@@ -141,6 +144,15 @@ position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_5fuva")
 debug_color = Color(0.578132, 0.10253476, 0.48463356, 0.41960785)
 
+[node name="EnemyDetector" type="Area2D" parent="." unique_id=166454191]
+collision_layer = 0
+collision_mask = 4
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetector" unique_id=891563449]
+shape = SubResource("RectangleShape2D_8aya7")
+debug_color = Color(0.5893609, 0.5468667, 0.11168406, 0.41960785)
+
 [node name="VisualSuper" type="Sprite2D" parent="." unique_id=2020600531]
 visible = false
 position = Vector2(0, -8)
@@ -153,4 +165,10 @@ position = Vector2(0, -8)
 texture = ExtResource("4_8aya7")
 hframes = 17
 
+[node name="StarmanTimer" type="Timer" parent="." unique_id=1902753287]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
+[connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]
+[connection signal="timeout" from="StarmanTimer" to="." method="_on_starman_timer_timeout"]
