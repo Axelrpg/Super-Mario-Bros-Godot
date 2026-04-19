@@ -23,6 +23,8 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+func set_direction():
+	pass
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):

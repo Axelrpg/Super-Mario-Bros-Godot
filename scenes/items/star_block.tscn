@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://bjbpvwysoi656"]
+[gd_scene format=3 uid="uid://66je12vq2y5r"]
 
-[ext_resource type="Script" uid="uid://d2bnhnitw0b8w" path="res://scenes/items/power_up_block.gd" id="1_a13m0"]
-[ext_resource type="Texture2D" uid="uid://dkmbg32f8d5qq" path="res://sprites/items/Coin Block.png" id="2_bhfgi"]
+[ext_resource type="Script" uid="uid://d2rcblfarjtt4" path="res://scenes/items/star_block.gd" id="1_fmq4w"]
+[ext_resource type="Texture2D" uid="uid://dkmbg32f8d5qq" path="res://sprites/items/Coin Block.png" id="2_h6wh4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sshfo"]
 size = Vector2(15, 16)
@@ -108,12 +108,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g5xr"]
 size = Vector2(16, 1)
 
-[node name="PowerUpBlock" type="StaticBody2D" unique_id=1230654300]
+[node name="StarBlock" type="StaticBody2D" unique_id=1230654300]
 z_index = 1
-script = ExtResource("1_a13m0")
+script = ExtResource("1_fmq4w")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1507092124]
-texture = ExtResource("2_bhfgi")
+texture = ExtResource("2_h6wh4")
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1046613372]

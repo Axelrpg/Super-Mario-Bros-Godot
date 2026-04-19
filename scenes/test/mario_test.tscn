@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://b5d7ygxpjh0wi" path="res://scenes/players/mario.tscn" id="1_kparu"]
 [ext_resource type="Script" uid="uid://c6hygttfryf7g" path="res://scenes/test/mario_test.gd" id="1_qxgy6"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="2_ife33"]
-[ext_resource type="PackedScene" uid="uid://bjbpvwysoi656" path="res://scenes/items/power_up_block.tscn" id="5_qct3o"]
+[ext_resource type="PackedScene" uid="uid://yjsjblcd4kgp" path="res://scenes/items/super_mushroom.tscn" id="6_43hsr"]
 [ext_resource type="PackedScene" uid="uid://cilyxhrkr2424" path="res://scenes/items/coin_block.tscn" id="6_ahwuo"]
 
 [node name="MarioTest" type="Node2D" unique_id=633655566]
@@ -18,11 +18,14 @@ tile_map_data = PackedByteArray("AAAAAA4AAAAAAAEAAAAAAA8AAAAAAAEAAAABAA8AAAAAAAE
 [node name="Mario" parent="." unique_id=1679571318 instance=ExtResource("1_kparu")]
 position = Vector2(80, 216)
 
-[node name="PowerUpBlock" parent="." unique_id=1230654300 instance=ExtResource("5_qct3o")]
-position = Vector2(168, 152)
+[node name="CoinBlock" parent="." unique_id=1230654300 instance=ExtResource("6_ahwuo")]
+position = Vector2(136, 168)
 
-[node name="PowerUpBlock2" parent="." unique_id=1440822359 instance=ExtResource("5_qct3o")]
-position = Vector2(216, 152)
+[node name="CoinBlock2" parent="." unique_id=1186913425 instance=ExtResource("6_ahwuo")]
+position = Vector2(168, 168)
 
-[node name="CoinBlock" parent="." unique_id=1597480065 instance=ExtResource("6_ahwuo")]
-position = Vector2(184, 152)
+[node name="CoinBlock3" parent="." unique_id=781188071 instance=ExtResource("6_ahwuo")]
+position = Vector2(184, 168)
+
+[node name="SuperMushroom" parent="." unique_id=1134941182 instance=ExtResource("6_43hsr")]
+position = Vector2(224, 216)
