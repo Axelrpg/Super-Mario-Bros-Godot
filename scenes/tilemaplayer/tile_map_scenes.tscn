@@ -2,24 +2,22 @@
 
 [ext_resource type="PackedScene" uid="uid://tksj0vxatqlx" path="res://scenes/enemies/goomba.tscn" id="1_o5y8b"]
 [ext_resource type="PackedScene" uid="uid://hwaxlnyo3cfb" path="res://scenes/enemies/koopa_troopa_ow.tscn" id="2_if16p"]
-[ext_resource type="PackedScene" uid="uid://cilyxhrkr2424" path="res://scenes/items/coin_block.tscn" id="3_3afb2"]
-[ext_resource type="PackedScene" uid="uid://bjbpvwysoi656" path="res://scenes/items/power_up_block.tscn" id="4_qnob3"]
-[ext_resource type="PackedScene" uid="uid://66je12vq2y5r" path="res://scenes/items/star_block.tscn" id="5_cojtc"]
+[ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/items/question_block.tscn" id="3_mreei"]
+[ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/items/brick_block.tscn" id="6_qnob3"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_3jy5q"]
 resource_name = "Enemies"
 scenes/1/scene = ExtResource("1_o5y8b")
 scenes/2/scene = ExtResource("2_if16p")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_lff38"]
-resource_name = "Blocks"
-scenes/1/scene = ExtResource("3_3afb2")
-scenes/2/scene = ExtResource("4_qnob3")
-scenes/3/scene = ExtResource("5_cojtc")
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_3afb2"]
+resource_name = "Items"
+scenes/1/scene = ExtResource("3_mreei")
+scenes/2/scene = ExtResource("6_qnob3")
 
 [sub_resource type="TileSet" id="TileSet_8m3t5"]
 sources/0 = SubResource("TileSetScenesCollectionSource_3jy5q")
-sources/1 = SubResource("TileSetScenesCollectionSource_lff38")
+sources/2 = SubResource("TileSetScenesCollectionSource_3afb2")
 
 [node name="TileMapScenes" type="TileMapLayer" unique_id=1398984093]
 tile_set = SubResource("TileSet_8m3t5")

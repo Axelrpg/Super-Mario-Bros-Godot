@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://66je12vq2y5r"]
+[gd_scene format=3 uid="uid://ik88a4xy7jy7"]
 
-[ext_resource type="Script" uid="uid://d2rcblfarjtt4" path="res://scenes/items/star_block.gd" id="1_fmq4w"]
-[ext_resource type="Texture2D" uid="uid://dkmbg32f8d5qq" path="res://sprites/items/Coin Block.png" id="2_h6wh4"]
+[ext_resource type="Script" uid="uid://dwfoaiequwu24" path="res://scenes/items/question_block.gd" id="1_ytprx"]
+[ext_resource type="Texture2D" uid="uid://dkmbg32f8d5qq" path="res://sprites/items/Coin Block.png" id="2_xilsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sshfo"]
 size = Vector2(15, 16)
@@ -33,9 +33,9 @@ tracks/1/keys = {
 "values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_5g5xr"]
-resource_name = "bump"
-length = 0.3
+[sub_resource type="Animation" id="Animation_5wlu2"]
+resource_name = "empy"
+length = 0.1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -56,27 +56,10 @@ tracks/1/path = NodePath("Sprite2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, -8), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_5wlu2"]
-resource_name = "empy"
-length = 0.1
-step = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [3]
+"update": 0,
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_sshfo"]
@@ -96,11 +79,22 @@ tracks/0/keys = {
 "update": 1,
 "values": [0, 1, 2]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5g5xr"]
 _data = {
 &"RESET": SubResource("Animation_ctsc8"),
-&"bump": SubResource("Animation_5g5xr"),
 &"empty": SubResource("Animation_5wlu2"),
 &"idle": SubResource("Animation_sshfo")
 }
@@ -108,12 +102,12 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g5xr"]
 size = Vector2(16, 1)
 
-[node name="StarBlock" type="StaticBody2D" unique_id=1230654300]
+[node name="QuestionBlock" type="StaticBody2D" unique_id=1230654300]
 z_index = 1
-script = ExtResource("1_fmq4w")
+script = ExtResource("1_ytprx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1507092124]
-texture = ExtResource("2_h6wh4")
+texture = ExtResource("2_xilsa")
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1046613372]
@@ -131,4 +125,8 @@ position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_5g5xr")
 debug_color = Color(0.7665944, 0.2975184, 0.83750904, 0.41960785)
 
-[connection signal="body_entered" from="BumpDetector" to="." method="_on_bump_detector_body_entered"]
+[node name="Timer" type="Timer" parent="." unique_id=1030788112]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

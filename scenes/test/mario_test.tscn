@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://b5d7ygxpjh0wi" path="res://scenes/players/mario.tscn" id="1_kparu"]
 [ext_resource type="Script" uid="uid://c6hygttfryf7g" path="res://scenes/test/mario_test.gd" id="1_qxgy6"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="2_ife33"]
-[ext_resource type="PackedScene" uid="uid://yjsjblcd4kgp" path="res://scenes/items/super_mushroom.tscn" id="6_43hsr"]
-[ext_resource type="PackedScene" uid="uid://cilyxhrkr2424" path="res://scenes/items/coin_block.tscn" id="6_ahwuo"]
+[ext_resource type="PackedScene" uid="uid://hx0xw1flquje" path="res://scenes/tilemaplayer/tile_map_scenes.tscn" id="5_qct3o"]
+[ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/items/brick_block.tscn" id="7_43hsr"]
 
 [node name="MarioTest" type="Node2D" unique_id=633655566]
 script = ExtResource("1_qxgy6")
@@ -18,14 +18,26 @@ tile_map_data = PackedByteArray("AAAAAA4AAAAAAAEAAAAAAA8AAAAAAAEAAAABAA8AAAAAAAE
 [node name="Mario" parent="." unique_id=1679571318 instance=ExtResource("1_kparu")]
 position = Vector2(80, 216)
 
-[node name="CoinBlock" parent="." unique_id=1230654300 instance=ExtResource("6_ahwuo")]
-position = Vector2(136, 168)
+[node name="TileMapScenes" parent="." unique_id=1398984093 instance=ExtResource("5_qct3o")]
 
-[node name="CoinBlock2" parent="." unique_id=1186913425 instance=ExtResource("6_ahwuo")]
-position = Vector2(168, 168)
+[node name="Items" type="Node2D" parent="." unique_id=1564962664]
 
-[node name="CoinBlock3" parent="." unique_id=781188071 instance=ExtResource("6_ahwuo")]
-position = Vector2(184, 168)
+[node name="BrickBlock" parent="Items" unique_id=953890872 instance=ExtResource("7_43hsr")]
+position = Vector2(136, 152)
 
-[node name="SuperMushroom" parent="." unique_id=1134941182 instance=ExtResource("6_43hsr")]
-position = Vector2(224, 216)
+[node name="BrickBlock2" parent="Items" unique_id=1498815235 instance=ExtResource("7_43hsr")]
+position = Vector2(168, 152)
+content = 0
+
+[node name="BrickBlock3" parent="Items" unique_id=547652955 instance=ExtResource("7_43hsr")]
+position = Vector2(200, 152)
+content = 0
+is_multi_coin = true
+
+[node name="BrickBlock4" parent="Items" unique_id=697491585 instance=ExtResource("7_43hsr")]
+position = Vector2(232, 152)
+content = 1
+
+[node name="BrickBlock5" parent="Items" unique_id=2129762634 instance=ExtResource("7_43hsr")]
+position = Vector2(264, 152)
+content = 2

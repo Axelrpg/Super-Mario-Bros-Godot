@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://b0rimnocowmou"]
+
+[ext_resource type="Texture2D" uid="uid://cit2ifv6ff3ie" path="res://sprites/tileset/Overworld - Water and Sky.png" id="1_hpk4u"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5perm"]
+texture = ExtResource("1_hpk4u")
+separation = Vector2i(1, 1)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_fb0ve"]
+physics_layer_0/collision_layer = 1
+sources/0 = SubResource("TileSetAtlasSource_5perm")
+
+[node name="Overworld Water_Sky" type="TileMapLayer" unique_id=359691341]
+tile_set = SubResource("TileSet_fb0ve")
