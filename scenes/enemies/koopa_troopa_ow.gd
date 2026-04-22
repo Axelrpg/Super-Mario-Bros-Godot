@@ -15,6 +15,10 @@ var SHELL_SPEED = 250
 var direction = -1
 
 var is_dying: bool = false
+var has_spawned: bool = false
+
+func _ready() -> void:
+	set_physics_process(false)
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():
@@ -91,3 +95,11 @@ func _on_hitbox_body_entered(body: Node2D) -> void:
 			if body.has_method("take_damage"):
 				if body.velocity.y <= 0:
 					body.take_damage()
+	elif body.is_in_group("enemies") and current_state == State.SHELL_MOVING and body != self:
+		if body.has_method("die_special"):
+			body.die_special(self.direction)
+
+func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	if not has_spawned:
+		set_physics_process(true)
+		has_spawned = true

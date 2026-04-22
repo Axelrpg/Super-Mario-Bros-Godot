@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://crki23t4m8xfc"]
+
+[ext_resource type="Script" uid="uid://b8apap8ccgg72" path="res://scenes/enemies/death_zone.gd" id="1_5gw30"]
+[ext_resource type="Texture2D" uid="uid://cf60xxbm4dj5e" path="res://sprites/enemies/Death Zone.png" id="1_ug54e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ug54e"]
+size = Vector2(16, 16)
+
+[node name="DeathZone" type="Area2D" unique_id=278743336]
+collision_layer = 0
+collision_mask = 14
+script = ExtResource("1_5gw30")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=438801623]
+texture = ExtResource("1_ug54e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1027354346]
+shape = SubResource("RectangleShape2D_ug54e")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

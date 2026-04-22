@@ -1,7 +1,7 @@
-[gd_scene format=3 uid="uid://ik88a4xy7jy7"]
+[gd_scene format=3 uid="uid://bqe4gq0kep8h8"]
 
-[ext_resource type="Script" uid="uid://dwfoaiequwu24" path="res://scenes/items/question_block.gd" id="1_ytprx"]
-[ext_resource type="Texture2D" uid="uid://dkmbg32f8d5qq" path="res://sprites/items/Coin Block.png" id="2_xilsa"]
+[ext_resource type="Script" uid="uid://bp0hhmdd3j6kb" path="res://scenes/items/hidden_block.gd" id="1_7ns85"]
+[ext_resource type="Texture2D" uid="uid://dkmbg32f8d5qq" path="res://sprites/items/Coin Block.png" id="2_2g7ux"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sshfo"]
 size = Vector2(15, 16)
@@ -102,12 +102,15 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g5xr"]
 size = Vector2(14, 1)
 
-[node name="QuestionBlock" type="StaticBody2D" unique_id=1230654300]
+[node name="HiddenBlock" type="StaticBody2D" unique_id=1230654300]
 z_index = 1
-script = ExtResource("1_ytprx")
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("1_7ns85")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1507092124]
-texture = ExtResource("2_xilsa")
+modulate = Color(1, 1, 1, 0.47058824)
+texture = ExtResource("2_2g7ux")
 hframes = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1046613372]

@@ -20,7 +20,7 @@ var visual_fire: Sprite2D
 
 var WALK_SPEED = 100
 var RUN_SPEED = 200
-var ACCELERATION = 10
+var ACCELERATION = 5
 var FRICTION = 15
 
 var JUMP_VELOCITY = -400.0
@@ -32,6 +32,7 @@ var height_walk = 96
 var height_run = 128
 var invulnerability_duration = 3
 var starman_tween: Tween
+var just_hit_ceiling: bool = false
 
 var is_skidding = false
 var is_dying = false
@@ -39,6 +40,7 @@ var is_super = false
 var is_ceiling_blocked = false
 var is_invulnerable = false
 var is_starman = false
+var is_manual_jumping = false
 
 func _ready() -> void:
 	visual_small = get_node_or_null("VisualSmall")
@@ -60,12 +62,14 @@ func set_global_variables():
 	GameEvents.SPEED_Y = velocity.y
 	GameEvents.ANIM_SPEED_SCALE = animation_player.speed_scale
 	GameEvents.CURRENT_ANIMATION = animation_player.current_animation
+	GameEvents.MANUAL_JUMPING = is_manual_jumping
 	
 func handle_movement(delta: float):
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor():
+		is_manual_jumping = true
 		var target_height: float
 		var current_speed = abs(velocity.x)
 		
@@ -77,6 +81,9 @@ func handle_movement(delta: float):
 			target_height = height_idle
 			
 		velocity.y = get_jump_velocity(target_height)
+		
+	if velocity.y >= 0:
+		is_manual_jumping = false
 		
 	if Input.is_action_just_released("jump") and velocity.y < 0:
 		velocity.y *= JUMP_RELEASE_FORCE
@@ -116,7 +123,7 @@ func update_animations(direction):
 		return
 	
 	if not is_on_floor():
-		if is_ceiling_blocked or Input.is_action_pressed("crouch"):
+		if (current_state == PlayerState.SUPER or current_state == PlayerState.FIRE) and (is_ceiling_blocked or Input.is_action_pressed("crouch")):
 			animation_player.play("crouch")
 		else:
 			animation_player.play("jump")
@@ -156,6 +163,9 @@ func die():
 	velocity.x = 0
 	
 func upgrade_to_super():
+	if current_state == PlayerState.SUPER:
+		return
+	
 	set_physics_process(false)
 	is_dying = true
 	collision_layer = 0
@@ -188,6 +198,9 @@ func upgrade_to_super():
 	queue_free()
 	
 func upgrade_to_fire():
+	if current_state == PlayerState.FIRE:
+		return
+	
 	set_physics_process(false)
 	is_dying = true
 	collision_layer = 0

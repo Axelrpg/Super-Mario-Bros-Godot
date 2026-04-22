@@ -63,7 +63,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjd6k"]
-size = Vector2(14, 2)
+size = Vector2(14, 1)
 
 [node name="BrickBlock" type="StaticBody2D" unique_id=953890872]
 z_index = 1
@@ -84,7 +84,7 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BumpDetector" unique_id=418383379]
-position = Vector2(0, 8)
+position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_cjd6k")
 debug_color = Color(0.76549476, 0.32927206, 0.77388775, 0.41960785)
 

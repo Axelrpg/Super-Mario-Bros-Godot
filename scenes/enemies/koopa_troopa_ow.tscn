@@ -293,11 +293,14 @@ libraries/ = SubResource("AnimationLibrary_cixaa")
 
 [node name="Hitbox" type="Area2D" parent="." unique_id=293233577]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1355543484]
 position = Vector2(0.5, 6.5)
 shape = SubResource("RectangleShape2D_xy1xt")
 debug_color = Color(0.70663214, 0.4005967, 0.72746676, 0.41960785)
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=582012829]
+
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]

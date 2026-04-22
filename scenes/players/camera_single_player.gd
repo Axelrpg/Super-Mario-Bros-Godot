@@ -1,6 +1,6 @@
 extends Camera2D
 
-@onready var background_sprite: Sprite2D = $"../Background"
+@onready var background_sprite: Sprite2D = $"../Area1/Background"
 
 func _ready() -> void:
 	setup_camera_limits()
@@ -24,3 +24,12 @@ func setup_camera_limits():
 		limit_top = int(background_sprite.global_position.y - (height / 2))
 		limit_bottom = int(background_sprite.global_position.y + (height / 2))
 		
+func teleport_to_zone(new_pos: Vector2, limits: Dictionary):
+	limit_left = limits.left
+	limit_right = limits.right
+	limit_top = limits.top
+	limit_bottom = limits.bottom
+	
+	global_position = new_pos
+	
+	reset_smoothing()

@@ -10,6 +10,7 @@ enum ItemType {
 	COIN,
 	POWER_UP,
 	STAR,
+	EXTRA_LIFE,
 	NONE,
 }
 @export var content: ItemType = ItemType.NONE
@@ -18,9 +19,12 @@ enum ItemType {
 const MUSHROOM_SCENE = preload("res://scenes/items/super_mushroom.tscn")
 const FIRE_FLOWER_SCENE = preload("res://scenes/items/fire_flower.tscn")
 const START_SCENE = preload("res://scenes/items/super_star.tscn")
+const EXTRA_LIFE_SCENE = preload("res://scenes/items/extra_life.tscn")
 
 var is_empty = false
 var timer_started = false
+var is_hidden_block = false
+var is_revealed = true
 
 func _ready() -> void:
 	animation_player.play("idle")
@@ -30,17 +34,31 @@ func _physics_process(_delta: float) -> void:
 	
 	for body in bodies:
 		if body.is_in_group("players"):
-			if body.velocity.y > 10 and not is_empty:
-				handle_hit(body)
-				break
+			var is_below = body.global_position.y > global_position.y
+			
+			if is_hidden_block:
+				if is_below and body.velocity.y < -10 and not is_empty:
+					handle_hit(body)
+			else:
+				if is_below and body.velocity.y > 10 and not is_empty:
+					handle_hit(body)
 				
 func handle_hit(body: CharacterBody2D):
+	if is_hidden_block:
+		set_collision_layer_value(1, true)
+		set_collision_layer_value(5, false)
+		sprite.modulate.a = 1
+		if body.velocity.y < 0:
+			body.velocity.y = 0
+		
 	match content:
 		ItemType.COIN:
 			give_coin()
 		ItemType.POWER_UP:
 			give_power_up(body)
 		ItemType.STAR:
+			give_power_up(body)
+		ItemType.EXTRA_LIFE:
 			give_power_up(body)
 		ItemType.NONE:
 			break_or_bump(body)
@@ -51,9 +69,11 @@ func give_power_up(player):
 	
 	move_sprite()
 	var item_to_spawn
-	
+
 	if content == ItemType.STAR:
 		item_to_spawn = START_SCENE.instantiate()
+	elif content == ItemType.EXTRA_LIFE:
+		item_to_spawn = EXTRA_LIFE_SCENE.instantiate()
 	else:
 		if player.current_state == player.PlayerState.SMALL:
 			item_to_spawn = MUSHROOM_SCENE.instantiate()
@@ -82,8 +102,10 @@ func spawn_animation_tween(item: CharacterBody2D):
 		item.global_position.y - 8, 0.5)\
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		
-		tween.tween_property(item, "modulate:a", 1.0, 0.3)
+		if item.has_method("disable_collection"):
+			item.disable_collection(0.5)
 		
+		tween.tween_property(item, "modulate:a", 1.0, 0.3)
 		await tween.finished
 		if is_instance_valid(item):
 			item.set_physics_process(true)

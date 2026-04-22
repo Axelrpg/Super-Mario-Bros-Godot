@@ -88,4 +88,7 @@ position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_ulfyc")
 debug_color = Color(0.8306116, 0.2707031, 0.71810114, 0.41960785)
 
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=620165563]
+
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
