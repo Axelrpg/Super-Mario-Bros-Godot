@@ -176,11 +176,12 @@ func upgrade_to_super():
 	var super_mario_scene = load("res://scenes/players/super_mario.tscn")
 	var super_mario = super_mario_scene.instantiate()
 	
+	animation_player.stop()
+	visual_super.flip_h = sprite.flip_h
+	visual_super.frame = sprite.frame
 	for i in range(8):
 		sprite.visible = !sprite.visible
 		visual_super.visible = !visual_super.visible
-		visual_super.flip_h = sprite.flip_h
-		visual_super.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	super_mario.global_position = visual_super.global_position
@@ -211,11 +212,12 @@ func upgrade_to_fire():
 	var fire_mario_scene = load("res://scenes/players/fire_mario.tscn")
 	var fire_mario = fire_mario_scene.instantiate()
 	
+	animation_player.stop()
+	visual_super.flip_h = sprite.flip_h
+	visual_super.frame = sprite.frame
 	for i in range(8):
 		sprite.visible = !sprite.visible
 		visual_fire.visible = !visual_fire.visible
-		visual_fire.flip_h = sprite.flip_h
-		visual_fire.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	fire_mario.global_position = visual_fire.global_position
@@ -242,11 +244,12 @@ func downgrade_to_small():
 	var small_mario_scene = load("res://scenes/players/mario.tscn")
 	var small_mario = small_mario_scene.instantiate()
 	
+	animation_player.stop()
+	visual_super.flip_h = sprite.flip_h
+	visual_super.frame = sprite.frame
 	for i in range(8):
 		sprite.visible = !sprite.visible
 		visual_small.visible = !visual_small.visible
-		visual_small.flip_h = sprite.flip_h
-		visual_small.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	small_mario.global_position = visual_small.global_position
@@ -273,11 +276,12 @@ func downgrade_to_super():
 	var super_mario_scene = load("res://scenes/players/super_mario.tscn")
 	var super_mario = super_mario_scene.instantiate()
 	
+	animation_player.stop()
+	visual_super.flip_h = sprite.flip_h
+	visual_super.frame = sprite.frame
 	for i in range(8):
 		sprite.visible = !sprite.visible
 		visual_super.visible = !visual_super.visible
-		visual_super.flip_h = sprite.flip_h
-		visual_super.frame = sprite.frame
 		await get_tree().create_timer(0.1).timeout
 		
 	super_mario.global_position = visual_super.global_position

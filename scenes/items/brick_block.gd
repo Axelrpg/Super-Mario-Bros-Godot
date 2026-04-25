@@ -15,10 +15,10 @@ func break_block():
 	queue_free()
 
 	var debris_velocities = [
-		Vector2(-150, -300),
-		Vector2(150, -300),  
-		Vector2(-200, -200), 
-		Vector2(200, -200)   
+		Vector2(-100, -300),
+		Vector2(100, -300),  
+		Vector2(-150, -200), 
+		Vector2(150, -200)   
 	]
 	
 	for vel in debris_velocities:
