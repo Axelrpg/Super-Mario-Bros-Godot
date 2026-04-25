@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://ju5orl6ajfxu" path="res://scenes/items/brick_debris.gd" id="1_rrern"]
 
 [node name="BrickDebris" type="Node2D" unique_id=2097874020]
+z_index = 4
 script = ExtResource("1_rrern")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=258292262]

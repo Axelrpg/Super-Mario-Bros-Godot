@@ -277,6 +277,7 @@ _data = {
 size = Vector2(15, 11)
 
 [node name="KoopaTroopaOW" type="CharacterBody2D" unique_id=1609158245 groups=["enemies"]]
+z_index = 4
 collision_layer = 4
 script = ExtResource("1_2c837")
 

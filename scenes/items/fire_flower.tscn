@@ -49,6 +49,7 @@ _data = {
 size = Vector2(18, 18)
 
 [node name="FireFlower" type="CharacterBody2D" unique_id=918453710]
+z_index = 3
 collision_layer = 8
 script = ExtResource("1_ewn1v")
 

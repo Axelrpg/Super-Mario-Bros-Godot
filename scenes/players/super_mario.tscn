@@ -432,6 +432,7 @@ size = Vector2(16, 1)
 size = Vector2(18, 18)
 
 [node name="SuperMario" type="CharacterBody2D" unique_id=804950284 groups=["players"]]
+z_index = 4
 collision_layer = 2
 script = ExtResource("1_mcqk5")
 

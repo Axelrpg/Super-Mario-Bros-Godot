@@ -7,6 +7,7 @@
 size = Vector2(16, 16)
 
 [node name="DeathZone" type="Area2D" unique_id=278743336]
+z_index = 4
 collision_layer = 0
 collision_mask = 14
 script = ExtResource("1_5gw30")

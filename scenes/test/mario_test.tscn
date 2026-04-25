@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://c6hygttfryf7g" path="res://scenes/test/mario_test.gd" id="1_qxgy6"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="2_ife33"]
 [ext_resource type="PackedScene" uid="uid://hx0xw1flquje" path="res://scenes/tilemaplayer/tile_map_scenes.tscn" id="5_qct3o"]
-[ext_resource type="PackedScene" uid="uid://ddludn4yid6rf" path="res://scenes/items/pipe.tscn" id="6_ahwuo"]
+[ext_resource type="PackedScene" uid="uid://ddludn4yid6rf" path="res://scenes/items/pipe_ow.tscn" id="6_ahwuo"]
 
 [node name="MarioTest" type="Node2D" unique_id=633655566]
 script = ExtResource("1_qxgy6")

@@ -30,4 +30,5 @@ sources/0 = SubResource("TileSetScenesCollectionSource_3jy5q")
 sources/2 = SubResource("TileSetScenesCollectionSource_3afb2")
 
 [node name="TileMapScenes" type="TileMapLayer" unique_id=1398984093]
+z_index = 4
 tile_set = SubResource("TileSet_8m3t5")

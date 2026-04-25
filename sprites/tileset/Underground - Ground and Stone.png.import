@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bw5gj5gdp1gu1"
-path="res://.godot/imported/Pipe.png-74b793071bd3b11eb6fd771d6d7da522.ctex"
+uid="uid://ircmqupxesq6"
+path="res://.godot/imported/Underground - Ground and Stone.png-b614b2de994d2e737340e75e15e63818.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/items/Pipe.png"
-dest_files=["res://.godot/imported/Pipe.png-74b793071bd3b11eb6fd771d6d7da522.ctex"]
+source_file="res://sprites/tileset/Underground - Ground and Stone.png"
+dest_files=["res://.godot/imported/Underground - Ground and Stone.png-b614b2de994d2e737340e75e15e63818.ctex"]
 
 [params]
 

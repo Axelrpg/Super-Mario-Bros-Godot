@@ -66,6 +66,7 @@ _data = {
 size = Vector2(16, 12)
 
 [node name="Goomba" type="CharacterBody2D" unique_id=337620731 groups=["enemies"]]
+z_index = 4
 collision_layer = 4
 script = ExtResource("1_emeqt")
 

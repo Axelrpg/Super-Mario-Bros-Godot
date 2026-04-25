@@ -155,6 +155,7 @@ func take_damage():
 func die():
 	if is_dying: return
 	is_dying = true
+	z_index = 10
 	collision_layer = 0
 	collision_mask = 0
 	stomp_detector.monitoring = false

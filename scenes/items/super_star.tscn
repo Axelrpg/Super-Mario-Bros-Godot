@@ -49,6 +49,7 @@ _data = {
 size = Vector2(16, 18)
 
 [node name="SuperStar" type="CharacterBody2D" unique_id=456136295]
+z_index = 3
 collision_layer = 8
 script = ExtResource("1_i0ypg")
 

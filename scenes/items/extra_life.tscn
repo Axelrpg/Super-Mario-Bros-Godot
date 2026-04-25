@@ -10,6 +10,7 @@ size = Vector2(15.5, 15.5)
 size = Vector2(18, 18)
 
 [node name="ExtraLife" type="CharacterBody2D" unique_id=1134941182]
+z_index = 3
 collision_layer = 8
 script = ExtResource("1_u5y2s")
 

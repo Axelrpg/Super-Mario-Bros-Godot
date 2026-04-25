@@ -103,7 +103,7 @@ _data = {
 size = Vector2(14, 1)
 
 [node name="QuestionBlock" type="StaticBody2D" unique_id=1230654300]
-z_index = 1
+z_index = 4
 script = ExtResource("1_ytprx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1507092124]

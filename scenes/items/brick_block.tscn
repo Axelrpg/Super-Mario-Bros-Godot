@@ -66,7 +66,7 @@ _data = {
 size = Vector2(14, 1)
 
 [node name="BrickBlock" type="StaticBody2D" unique_id=953890872]
-z_index = 1
+z_index = 4
 script = ExtResource("1_frges")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=233211570]

@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://dinj5ed1cnqf0"]
+[gd_scene format=3 uid="uid://cauo0pbe8ool2"]
 
-[ext_resource type="Texture2D" uid="uid://13qmm6sjnesb" path="res://sprites/tileset/Overworld - Pipes and scenery.png" id="1_a1bji"]
+[ext_resource type="Texture2D" uid="uid://dxmn4hcmvdjtu" path="res://sprites/tileset/Underground - Pipes and scenery.png" id="1_blkkp"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_86q1o"]
-texture = ExtResource("1_a1bji")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vi5id"]
+texture = ExtResource("1_blkkp")
 separation = Vector2i(1, 1)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -58,10 +58,10 @@ separation = Vector2i(1, 1)
 7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 8:3/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_e7k8y"]
+[sub_resource type="TileSet" id="TileSet_m0ktk"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_86q1o")
+sources/0 = SubResource("TileSetAtlasSource_vi5id")
 
-[node name="Overworld Pipes_Scenery" type="TileMapLayer" unique_id=996243211]
+[node name="Underground Pipes_Scenery" type="TileMapLayer" unique_id=1154691974]
 z_index = 3
-tile_set = SubResource("TileSet_e7k8y")
+tile_set = SubResource("TileSet_m0ktk")

@@ -121,7 +121,7 @@ size = Vector2(12, 1)
 size = Vector2(14, 18)
 
 [node name="Mario" type="CharacterBody2D" unique_id=1679571318 groups=["players"]]
-z_index = 10
+z_index = 4
 collision_layer = 2
 script = ExtResource("1_5fuva")
 
