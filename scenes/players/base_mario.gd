@@ -91,7 +91,7 @@ func handle_movement(delta: float):
 	if is_on_ceiling() and velocity.y < 0:
 		velocity.y = 0
 		
-	if is_on_floor() and (Input.is_action_pressed("crouch") or is_ceiling_blocked):
+	if current_state != PlayerState.SMALL and is_on_floor() and (Input.is_action_pressed("crouch") or is_ceiling_blocked):
 		update_animations_crouch()
 		return
 			
@@ -123,28 +123,40 @@ func update_animations(direction):
 		return
 	
 	if not is_on_floor():
-		if (current_state == PlayerState.SUPER or current_state == PlayerState.FIRE) and (is_ceiling_blocked or Input.is_action_pressed("crouch")):
+		if (current_state != PlayerState.SMALL) and (is_ceiling_blocked or Input.is_action_pressed("crouch")):
 			animation_player.play("crouch")
 		else:
 			animation_player.play("jump")
-	elif is_skidding:
-		animation_player.play("skid")
-	elif direction != 0:
-		animation_player.play("walk")
-		var current_velocity = abs(velocity.x)
-		
-		if current_velocity <= WALK_SPEED:
-			anim_speed_scale = remap(current_velocity, 0, WALK_SPEED, 0.8, 1.0)
-		else:
-			anim_speed_scale = remap(current_velocity, WALK_SPEED, RUN_SPEED, 1.0, 2.0)
-		
-		anim_speed_scale = min(2.0, anim_speed_scale)
-		animation_player.speed_scale = anim_speed_scale
 	else:
-		animation_player.play("idle")
+		if Input.is_action_pressed("crouch") or is_ceiling_blocked:
+			if current_state == PlayerState.SMALL:
+				if direction != 0:
+					animation_player.play("walk")
+				else:
+					animation_player.play("idle")
+			else:
+				animation_player.play("crouch")
+		elif is_skidding:
+			animation_player.play("skid")
+		elif direction != 0:
+			animation_player.play("walk")
+			var current_velocity = abs(velocity.x)
+		
+			if current_velocity <= WALK_SPEED:
+				anim_speed_scale = remap(current_velocity, 0, WALK_SPEED, 0.8, 1.0)
+			else:
+				anim_speed_scale = remap(current_velocity, WALK_SPEED, RUN_SPEED, 1.0, 2.0)
+		
+			anim_speed_scale = min(2.0, anim_speed_scale)
+			animation_player.speed_scale = anim_speed_scale
+		else:
+			animation_player.play("idle")
 		
 func update_animations_crouch():
-	pass
+	if current_state == PlayerState.SMALL:
+		animation_player.play("idle")
+	else:
+		animation_player.play("crouch")
 
 func get_jump_velocity(h: float) -> float:
 	return -sqrt(2 * get_gravity().y * h)

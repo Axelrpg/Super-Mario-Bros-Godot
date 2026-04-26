@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ddludn4yid6rf"]
 
-[ext_resource type="Script" uid="uid://v7f6480tiv0u" path="res://scenes/items/pipe_ow.gd" id="1_234el"]
-[ext_resource type="Texture2D" uid="uid://bw5gj5gdp1gu1" path="res://sprites/items/Pipe OW.png" id="1_tde5t"]
+[ext_resource type="Script" uid="uid://v7f6480tiv0u" path="res://scenes/items/overworld/pipe_ow.gd" id="1_234el"]
+[ext_resource type="Texture2D" path="res://sprites/items/Pipe OW.png" id="1_tde5t"]
 [ext_resource type="Texture2D" uid="uid://c8s2wr4lvh3cb" path="res://sprites/tileset/Overworld - Background.png" id="2_alq2m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_234el"]

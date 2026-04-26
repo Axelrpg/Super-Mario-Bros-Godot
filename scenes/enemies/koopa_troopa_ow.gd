@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hit_box: Area2D = $Hitbox
 
 enum State {
 	WALK,
@@ -66,6 +67,7 @@ func die_special(hit_direction: float = 1.0):
 	animation_player.play("shell_moving")
 	collision_layer = 0
 	collision_mask = 0
+	hit_box.monitoring = false
 	sprite.flip_v = true
 	
 	var tween = create_tween().set_parallel(true)

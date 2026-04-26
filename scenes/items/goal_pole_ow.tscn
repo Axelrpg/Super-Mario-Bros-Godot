@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://b1l6qu1vcpcc2"]
+
+[ext_resource type="Script" uid="uid://cs2gx11jvap0j" path="res://scenes/items/goal_pole_ow.gd" id="1_aaqeh"]
+[ext_resource type="Texture2D" uid="uid://c3jk3dluvwamp" path="res://sprites/items/Goal Pole OW.png" id="1_v55qo"]
+[ext_resource type="Texture2D" uid="uid://k4335mrsu0ag" path="res://sprites/items/Flag OW.png" id="2_aaqeh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uhevm"]
+size = Vector2(2, 152)
+
+[node name="GoalPoleOW" type="Area2D" unique_id=1492566677]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_aaqeh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=305886023]
+texture = ExtResource("1_v55qo")
+
+[node name="FlagSprite" type="Sprite2D" parent="." unique_id=720985051]
+position = Vector2(-9, -64)
+texture = ExtResource("2_aaqeh")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=565446157]
+position = Vector2(0, -4)
+shape = SubResource("RectangleShape2D_uhevm")
+
+[node name="ArrivalPoint" type="Marker2D" parent="." unique_id=742893646]
+position = Vector2(0, 72)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

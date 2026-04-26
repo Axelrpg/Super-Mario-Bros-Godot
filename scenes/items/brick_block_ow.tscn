@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4d3gq0jwwx56"]
 
-[ext_resource type="Texture2D" uid="uid://8gvhbi6m7bdl" path="res://sprites/items/Brick Block.png" id="1_cjd6k"]
-[ext_resource type="Script" uid="uid://dnxbmgqpelvcr" path="res://scenes/items/brick_block.gd" id="1_frges"]
+[ext_resource type="Texture2D" uid="uid://d0ekh7whamr57" path="res://sprites/items/Brick Block OW.png" id="1_cjd6k"]
+[ext_resource type="Script" uid="uid://dnxbmgqpelvcr" path="res://scenes/items/brick_block_ow.gd" id="1_frges"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_frges"]
 size = Vector2(15, 16)
@@ -65,7 +65,10 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cjd6k"]
 size = Vector2(14, 1)
 
-[node name="BrickBlock" type="StaticBody2D" unique_id=953890872]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_l2142"]
+size = Vector2(16, 2)
+
+[node name="BrickBlockOW" type="StaticBody2D" unique_id=953890872]
 z_index = 4
 script = ExtResource("1_frges")
 
@@ -87,6 +90,15 @@ collision_mask = 2
 position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_cjd6k")
 debug_color = Color(0.76549476, 0.32927206, 0.77388775, 0.41960785)
+
+[node name="TopChecker" type="Area2D" parent="." unique_id=357898133]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopChecker" unique_id=640756401]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_l2142")
+debug_color = Color(0.8447777, 0.13405094, 0.85703206, 0.41960785)
 
 [node name="Timer" type="Timer" parent="." unique_id=981739708]
 wait_time = 5.0

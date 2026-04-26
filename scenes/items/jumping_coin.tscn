@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bw47qqmdhjc1b"]
 
-[ext_resource type="Texture2D" uid="uid://djnkky22wswsr" path="res://sprites/items/Coin.png" id="1_6xcmn"]
-[ext_resource type="Script" uid="uid://br6bdlxw02idx" path="res://scenes/items/jumping_coin.gd" id="1_i3tqy"]
+[ext_resource type="Texture2D" path="res://sprites/items/Coin.png" id="1_6xcmn"]
+[ext_resource type="Script" uid="uid://br6bdlxw02idx" path="res://scenes/items/overworld/jumping_coin.gd" id="1_i3tqy"]
 
 [sub_resource type="Animation" id="Animation_i3tqy"]
 length = 0.001

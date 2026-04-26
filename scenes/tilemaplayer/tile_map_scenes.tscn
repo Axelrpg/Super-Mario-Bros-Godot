@@ -4,11 +4,14 @@
 [ext_resource type="PackedScene" uid="uid://hwaxlnyo3cfb" path="res://scenes/enemies/koopa_troopa_ow.tscn" id="2_if16p"]
 [ext_resource type="PackedScene" uid="uid://crki23t4m8xfc" path="res://scenes/enemies/death_zone.tscn" id="3_3afb2"]
 [ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/items/question_block.tscn" id="3_mreei"]
-[ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/items/brick_block.tscn" id="6_qnob3"]
+[ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/items/brick_block_ow.tscn" id="6_qnob3"]
 [ext_resource type="PackedScene" uid="uid://bidi5mm7j12x3" path="res://scenes/items/extra_life.tscn" id="6_s63i5"]
 [ext_resource type="PackedScene" uid="uid://c2amt26unoytd" path="res://scenes/items/fire_flower.tscn" id="7_58yj0"]
 [ext_resource type="PackedScene" uid="uid://yjsjblcd4kgp" path="res://scenes/items/super_mushroom.tscn" id="8_hhi0c"]
 [ext_resource type="PackedScene" uid="uid://dxk13k0lwgep8" path="res://scenes/items/super_star.tscn" id="9_mx2xn"]
+[ext_resource type="PackedScene" uid="uid://caxbep8wavio" path="res://scenes/items/coin_ow.tscn" id="10_58yj0"]
+[ext_resource type="PackedScene" uid="uid://demcttsyocvwh" path="res://scenes/items/coin_ug.tscn" id="11_hhi0c"]
+[ext_resource type="PackedScene" uid="uid://33dmkha441ty" path="res://scenes/items/brick_block_ug.tscn" id="12_mx2xn"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_3jy5q"]
 resource_name = "Enemies"
@@ -24,6 +27,9 @@ scenes/3/scene = ExtResource("6_s63i5")
 scenes/4/scene = ExtResource("7_58yj0")
 scenes/5/scene = ExtResource("8_hhi0c")
 scenes/6/scene = ExtResource("9_mx2xn")
+scenes/7/scene = ExtResource("10_58yj0")
+scenes/8/scene = ExtResource("11_hhi0c")
+scenes/9/scene = ExtResource("12_mx2xn")
 
 [sub_resource type="TileSet" id="TileSet_8m3t5"]
 sources/0 = SubResource("TileSetScenesCollectionSource_3jy5q")

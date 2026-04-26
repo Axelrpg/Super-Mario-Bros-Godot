@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b7wqqw02srchq"
-path="res://.godot/imported/Coin Block.png-b0efe4d5ff375f244e9eaa528a35414f.ctex"
+uid="uid://d0ekh7whamr57"
+path="res://.godot/imported/Brick Block OW.png-49303074302e18103e568d247ea3447c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/items/Coin Block.png"
-dest_files=["res://.godot/imported/Coin Block.png-b0efe4d5ff375f244e9eaa528a35414f.ctex"]
+source_file="res://sprites/items/Brick Block OW.png"
+dest_files=["res://.godot/imported/Brick Block OW.png-49303074302e18103e568d247ea3447c.ctex"]
 
 [params]
 

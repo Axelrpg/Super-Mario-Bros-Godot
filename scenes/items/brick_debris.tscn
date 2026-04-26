@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://d3p43gdmcs5fm"]
 
-[ext_resource type="Texture2D" uid="uid://c0mmoq8o6dci6" path="res://sprites/items/Brick Debris.png" id="1_6bwlo"]
+[ext_resource type="Texture2D" uid="uid://3kipahpm8sj2" path="res://sprites/items/Brick Debris.png" id="1_6bwlo"]
 [ext_resource type="Script" uid="uid://ju5orl6ajfxu" path="res://scenes/items/brick_debris.gd" id="1_rrern"]
 
 [node name="BrickDebris" type="Node2D" unique_id=2097874020]

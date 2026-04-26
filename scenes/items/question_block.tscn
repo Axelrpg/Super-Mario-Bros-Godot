@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ik88a4xy7jy7"]
 
-[ext_resource type="Script" uid="uid://dwfoaiequwu24" path="res://scenes/items/question_block.gd" id="1_ytprx"]
-[ext_resource type="Texture2D" uid="uid://dkmbg32f8d5qq" path="res://sprites/items/Coin Block.png" id="2_xilsa"]
+[ext_resource type="Script" uid="uid://dwfoaiequwu24" path="res://scenes/items/overworld/question_block.gd" id="1_ytprx"]
+[ext_resource type="Texture2D" uid="uid://b7wqqw02srchq" path="res://sprites/items/overworld/Coin Block.png" id="2_xilsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sshfo"]
 size = Vector2(15, 16)
@@ -102,6 +102,9 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5g5xr"]
 size = Vector2(14, 1)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ytprx"]
+size = Vector2(16, 2)
+
 [node name="QuestionBlock" type="StaticBody2D" unique_id=1230654300]
 z_index = 4
 script = ExtResource("1_ytprx")
@@ -124,6 +127,15 @@ collision_mask = 2
 position = Vector2(0, 8.5)
 shape = SubResource("RectangleShape2D_5g5xr")
 debug_color = Color(0.7665944, 0.2975184, 0.83750904, 0.41960785)
+
+[node name="TopChecker" type="Area2D" parent="." unique_id=832369778]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopChecker" unique_id=410349212]
+position = Vector2(0, -9)
+shape = SubResource("RectangleShape2D_ytprx")
+debug_color = Color(0.8447777, 0.13405094, 0.85703206, 0.41960785)
 
 [node name="Timer" type="Timer" parent="." unique_id=1030788112]
 wait_time = 5.0

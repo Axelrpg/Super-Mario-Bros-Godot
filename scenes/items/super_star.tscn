@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dxk13k0lwgep8"]
 
-[ext_resource type="Texture2D" uid="uid://c1wopbche7cn2" path="res://sprites/items/Super Star.png" id="1_06s5d"]
-[ext_resource type="Script" uid="uid://djfogl52ug4nm" path="res://scenes/items/super_star.gd" id="1_i0ypg"]
+[ext_resource type="Texture2D" uid="uid://biqhj4d2tg8d0" path="res://sprites/items/overworld/Super Star.png" id="1_06s5d"]
+[ext_resource type="Script" uid="uid://djfogl52ug4nm" path="res://scenes/items/overworld/super_star.gd" id="1_i0ypg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_i0ypg"]
 size = Vector2(13.5, 15.5)

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bidi5mm7j12x3"]
 
-[ext_resource type="Script" uid="uid://bn1iem4lfkfyd" path="res://scenes/items/extra_life.gd" id="1_u5y2s"]
-[ext_resource type="Texture2D" uid="uid://dpa8j7h71r6rp" path="res://sprites/items/Extra Life.png" id="2_u5y2s"]
+[ext_resource type="Script" uid="uid://bn1iem4lfkfyd" path="res://scenes/items/overworld/extra_life.gd" id="1_u5y2s"]
+[ext_resource type="Texture2D" uid="uid://b7pk12wy1mycc" path="res://sprites/items/overworld/Extra Life.png" id="2_u5y2s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpov2"]
 size = Vector2(15.5, 15.5)

@@ -4,6 +4,7 @@ class_name BaseBlocks
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var bump_detector: Area2D = $BumpDetector
+@onready var top_checker: Area2D = $TopChecker
 @onready var timer: Timer = $Timer
 
 enum ItemType {
@@ -134,6 +135,30 @@ func move_sprite():
 	var tween = create_tween()
 	tween.tween_property(sprite, "position:y", -8, 0.1).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(sprite, "position:y", 0, 0.1).set_trans(Tween.TRANS_QUAD)
+	check_objects_above()
+	
+func check_objects_above():
+	var bodies = top_checker.get_overlapping_bodies()
+	
+	for body in bodies:
+		if body.is_in_group("enemies"):
+			if body.global_position.x > global_position.x:
+				if body.has_method("die_special"):
+					body.die_special(1)
+			else:
+				if body.has_method("die_special"):
+					body.die_special(-1)
+				
+		if body.is_in_group("power_ups"):
+			if body is CharacterBody2D:
+				body.velocity.y = -200
+				
+				if body.global_position.x > global_position.x:
+					if body.has_method("set_direction"):
+						body.set_direction(1)
+				else:
+					if body.has_method("set_direction"):
+						body.set_direction(-1)
 
 func break_or_bump(_player: CharacterBody2D):
 	pass

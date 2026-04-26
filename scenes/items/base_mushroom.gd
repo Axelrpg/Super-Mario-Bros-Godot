@@ -8,18 +8,17 @@ var active = false
 var can_be_collected: bool = true
 
 func  _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
+	if is_on_floor():
+		velocity.x = direction * SPEED
 		
-	if is_on_wall():
-		direction *= -1
-		
-	velocity.x = direction * SPEED
-	
+	velocity += get_gravity() * delta
 	move_and_slide()
 	
-func set_direction():
-	pass
+	if is_on_wall():
+		direction *= -1
+	
+func set_direction(new_dir: int = 1):
+	direction = new_dir
 	
 func disable_collection(duration: float):
 	can_be_collected = false
