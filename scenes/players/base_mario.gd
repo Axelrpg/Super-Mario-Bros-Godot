@@ -14,22 +14,25 @@ var current_state = PlayerState.SMALL
 @onready var enemy_detector: Area2D = $EnemyDetector
 @onready var starman_timer: Timer = $StarmanTimer
 
+# Sounds
+@onready var sound_jump: AudioStreamPlayer = $Sounds/JumpSound
+
 var visual_small: Sprite2D
 var visual_super: Sprite2D
 var visual_fire: Sprite2D
 
 var WALK_SPEED = 100
-var RUN_SPEED = 200
-var ACCELERATION = 5
+var RUN_SPEED = 150
+var ACCELERATION = 2.5
 var FRICTION = 15
 
 var JUMP_VELOCITY = -400.0
 var JUMP_RELEASE_FORCE = 0.5
 
 var anim_speed_scale: float
-var height_idle = 80
-var height_walk = 96
-var height_run = 128
+var height_idle = 64
+var height_walk = 64
+var height_run = 80
 var invulnerability_duration = 3
 var starman_tween: Tween
 var just_hit_ceiling: bool = false
@@ -70,6 +73,7 @@ func handle_movement(delta: float):
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		is_manual_jumping = true
+		sound_jump.play()
 		var target_height: float
 		var current_speed = abs(velocity.x)
 		
@@ -174,6 +178,10 @@ func die():
 	animation_player.play("die")
 	velocity.y = JUMP_VELOCITY * 0.8
 	velocity.x = 0
+	GameControl.stop_timer()
+	
+	await get_tree().create_timer(3.0).timeout
+	GameControl.reload_level()
 	
 func upgrade_to_super():
 	if current_state == PlayerState.SUPER:
@@ -225,8 +233,8 @@ func upgrade_to_fire():
 	var fire_mario = fire_mario_scene.instantiate()
 	
 	animation_player.stop()
-	visual_super.flip_h = sprite.flip_h
-	visual_super.frame = sprite.frame
+	visual_fire.flip_h = sprite.flip_h
+	visual_fire.frame = sprite.frame
 	for i in range(8):
 		sprite.visible = !sprite.visible
 		visual_fire.visible = !visual_fire.visible
@@ -257,8 +265,8 @@ func downgrade_to_small():
 	var small_mario = small_mario_scene.instantiate()
 	
 	animation_player.stop()
-	visual_super.flip_h = sprite.flip_h
-	visual_super.frame = sprite.frame
+	visual_small.flip_h = sprite.flip_h
+	visual_small.frame = sprite.frame
 	for i in range(8):
 		sprite.visible = !sprite.visible
 		visual_small.visible = !visual_small.visible

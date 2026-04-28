@@ -12,7 +12,10 @@ func  _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func _on_detection_area_body_entered(body: Node2D) -> void:
-	if body.is_in_group("players"):
-		if body.has_method("upgrade_to_fire"):
+	if body.current_state == body.PlayerState.FIRE:
+			GameControl.spawn_score(1000, global_position)
+	else:
+		if body.has_method("upgrade_to_super"):
 			body.upgrade_to_fire()
+			GameControl.spawn_score(1000, global_position)
 		queue_free()

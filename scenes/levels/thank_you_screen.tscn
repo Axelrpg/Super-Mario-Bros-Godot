@@ -1,0 +1,53 @@
+[gd_scene format=3 uid="uid://6h8m7yb06trg"]
+
+[ext_resource type="Script" uid="uid://dpjrm7aetr0p0" path="res://scenes/levels/thank_you_screen.gd" id="1_hti12"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="2_276kq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hti12"]
+font = ExtResource("2_276kq")
+
+[sub_resource type="LabelSettings" id="LabelSettings_276kq"]
+font = ExtResource("2_276kq")
+font_size = 10
+
+[node name="ThankYouScreen" type="ColorRect" unique_id=2141484306]
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_hti12")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=876396353]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1000505652]
+layout_mode = 2
+alignment = 1
+
+[node name="Label1" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1051372069]
+layout_mode = 2
+text = "THANK YOU FOR PLAYING!
+"
+label_settings = SubResource("LabelSettings_hti12")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer" unique_id=368661399]
+layout_mode = 2
+text = "You have completed the first level.
+The game is still under development,
+and more levels will be added soon.
+Stay tuned!"
+label_settings = SubResource("LabelSettings_276kq")
+horizontal_alignment = 1
+vertical_alignment = 1

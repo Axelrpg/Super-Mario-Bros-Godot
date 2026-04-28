@@ -1,0 +1,144 @@
+[gd_scene format=3 uid="uid://c7x5p7rda1itf"]
+
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="1_48c2t"]
+[ext_resource type="Script" uid="uid://db0gqhwmdbbks" path="res://scenes/hud/hud.gd" id="1_cgeww"]
+[ext_resource type="Texture2D" uid="uid://35a6epigc7jb" path="res://sprites/items/Coin OW.png" id="2_c45xl"]
+
+[sub_resource type="Animation" id="Animation_c45xl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/HBoxContainer/Coins/HBoxContainer/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_0bx4p"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/HBoxContainer/Coins/HBoxContainer/Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mgtrf"]
+_data = {
+&"RESET": SubResource("Animation_c45xl"),
+&"idle": SubResource("Animation_0bx4p")
+}
+
+[node name="HUD" type="CanvasLayer" unique_id=779286299 groups=["hud"]]
+script = ExtResource("1_cgeww")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1296091212]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 36.0
+grow_horizontal = 2
+theme_override_constants/margin_top = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer" unique_id=530945150]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Score" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=762783875]
+layout_mode = 2
+
+[node name="Name" type="Label" parent="MarginContainer/HBoxContainer/Score" unique_id=1907003608]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_48c2t")
+theme_override_font_sizes/font_size = 10
+text = "Mario"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/Score" unique_id=1119579213]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_48c2t")
+theme_override_font_sizes/font_size = 10
+text = "000000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Coins" type="HBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=881089550]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Coins" unique_id=239556158]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/HBoxContainer/Coins/HBoxContainer" unique_id=429003868]
+position = Vector2(11, 6)
+texture = ExtResource("2_c45xl")
+hframes = 3
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/Coins" unique_id=1967109766]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_48c2t")
+theme_override_font_sizes/font_size = 10
+text = "x03"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="World" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1314157478]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="MarginContainer/HBoxContainer/World" unique_id=2029149030]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_48c2t")
+theme_override_font_sizes/font_size = 10
+text = "World"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/World" unique_id=167548123]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_48c2t")
+theme_override_font_sizes/font_size = 10
+text = "1-1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Time" type="VBoxContainer" parent="MarginContainer/HBoxContainer" unique_id=1311152466]
+layout_mode = 2
+
+[node name="Text" type="Label" parent="MarginContainer/HBoxContainer/Time" unique_id=32353012]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_48c2t")
+theme_override_font_sizes/font_size = 10
+text = "Time"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Value" type="Label" parent="MarginContainer/HBoxContainer/Time" unique_id=1702089641]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_48c2t")
+theme_override_font_sizes/font_size = 10
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=852338746]
+libraries/ = SubResource("AnimationLibrary_mgtrf")

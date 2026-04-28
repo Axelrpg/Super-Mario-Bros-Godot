@@ -26,6 +26,7 @@ var is_empty = false
 var timer_started = false
 var is_hidden_block = false
 var is_revealed = true
+var is_hitting = false
 
 func _ready() -> void:
 	animation_player.play("idle")
@@ -100,8 +101,8 @@ func spawn_animation_tween(item: CharacterBody2D):
 		
 		var tween = create_tween().set_parallel(true)
 		tween.tween_property(item, "global_position:y",
-		item.global_position.y - 8, 0.5)\
-		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			item.global_position.y - 8, 1)\
+			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		
 		if item.has_method("disable_collection"):
 			item.disable_collection(0.5)
@@ -113,16 +114,24 @@ func spawn_animation_tween(item: CharacterBody2D):
 
 func give_coin():
 	if is_empty: return
+	if is_hitting: return
+	is_hitting = true
 	
-	spawn_coin_visual()
 	move_sprite()
+	spawn_coin_visual()
+	GameControl.spawn_score(200, global_position)
+	GameControl.add_coin()
 	
 	if is_multi_coin:
 		if not timer_started:
 			timer_started = true
 			timer.start()
+		
+		await get_tree().create_timer(0.1).timeout
+		is_hitting = false
 	else:
 		is_empty = true
+		is_hitting = false
 		animation_player.play("empty")
 	
 func spawn_coin_visual():

@@ -1,12 +1,12 @@
 [gd_scene format=4 uid="uid://84mguvft4bas"]
 
 [ext_resource type="PackedScene" uid="uid://cfffm5t0x82x1" path="res://scenes/players/mario_events.tscn" id="1_fi6w0"]
-[ext_resource type="PackedScene" uid="uid://b5d7ygxpjh0wi" path="res://scenes/players/mario.tscn" id="1_kparu"]
 [ext_resource type="Script" uid="uid://c6hygttfryf7g" path="res://scenes/test/mario_test.gd" id="1_qxgy6"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="2_ife33"]
 [ext_resource type="PackedScene" uid="uid://b1l6qu1vcpcc2" path="res://scenes/items/goal_pole_ow.tscn" id="5_ahwuo"]
 [ext_resource type="PackedScene" uid="uid://hx0xw1flquje" path="res://scenes/tilemaplayer/tile_map_scenes.tscn" id="5_qct3o"]
 [ext_resource type="PackedScene" uid="uid://cfmmr52m80n5y" path="res://scenes/items/castle_door_ow.tscn" id="6_43hsr"]
+[ext_resource type="PackedScene" uid="uid://1l5lfealu6h1" path="res://scenes/players/fire_mario.tscn" id="7_43hsr"]
 
 [node name="MarioTest" type="Node2D" unique_id=633655566]
 script = ExtResource("1_qxgy6")
@@ -26,5 +26,5 @@ position = Vector2(72, 136)
 [node name="CastleDoorOW" parent="Items" unique_id=1333320819 instance=ExtResource("6_43hsr")]
 position = Vector2(296, 208)
 
-[node name="Mario" parent="." unique_id=1679571318 instance=ExtResource("1_kparu")]
-position = Vector2(32, 216)
+[node name="FireMario" parent="." unique_id=804950284 instance=ExtResource("7_43hsr")]
+position = Vector2(32, 112)

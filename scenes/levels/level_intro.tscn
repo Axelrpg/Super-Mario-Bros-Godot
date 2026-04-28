@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://djoik2vox78yo"]
+
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="1_1lxv7"]
+[ext_resource type="Script" uid="uid://7rpaxnxfd4an" path="res://scenes/levels/level_intro.gd" id="1_vuh7p"]
+[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="2_vuh7p"]
+
+[node name="LevelIntro" type="ColorRect" unique_id=2141484306]
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_vuh7p")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=876396353]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1000505652]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="WorldLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1051372069]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1lxv7")
+theme_override_font_sizes/font_size = 12
+text = "World 1-1"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1319205418]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=667334576]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=990584836]
+position = Vector2(8, 7)
+texture = ExtResource("2_vuh7p")
+hframes = 14
+
+[node name="XLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=776388882]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1lxv7")
+theme_override_font_sizes/font_size = 12
+text = "X"
+
+[node name="LivesLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=65832545]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_1lxv7")
+theme_override_font_sizes/font_size = 12
+text = "3"

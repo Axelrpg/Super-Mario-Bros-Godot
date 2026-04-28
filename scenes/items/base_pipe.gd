@@ -5,6 +5,7 @@ class_name BasePipe
 
 @export var target_pipe_tag: String = ""
 @export var camera_limits_sprite: Sprite2D
+@export var is_only_exit: bool = false
 
 var is_entrance: bool = false
 
@@ -21,7 +22,7 @@ func _physics_process(_delta: float) -> void:
 	if facing_dir == Vector2.LEFT: required_action = "right"
 	if facing_dir == Vector2.RIGHT: required_action = "left"
 	
-	if Input.is_action_pressed(required_action):
+	if Input.is_action_pressed(required_action) and not is_only_exit:
 		var bodies = entry_area.get_overlapping_bodies()
 		for body in bodies:
 			if body.is_in_group("players"):
@@ -38,16 +39,19 @@ func check_collision_by_direction(player: CharacterBody2D, dir: Vector2) -> bool
 
 func enter_pipe(player: CharacterBody2D):
 	player.set_physics_process(false)
-	player.animation_player.play("idle")
 	player.z_index = 2
+	GameControl.stop_timer()
 	
 	var direction = Vector2.DOWN.rotated(rotation)
 	
 	var align_pos = player.global_position
 	if abs(direction.x) > 0.5:
 		align_pos.y = global_position.y
+		player.animation_player.play("walk")
+		player.sprite.flip_h = direction.x < 0
 	else:
 		align_pos.x = global_position.x
+		player.animation_player.play("idle")
 		
 	var align_tween = create_tween()
 	align_tween.tween_property(player, "global_position", align_pos, 0.1)
@@ -82,8 +86,11 @@ func transport_player(player: CharacterBody2D):
 func exit_sequence(player: CharacterBody2D):
 	var out_direction = Vector2.UP.rotated(rotation)
 	
-	if abs(out_direction.x) > 0.1:
+	if abs(out_direction.x) > 0.5:
+		player.animation_player.play("walk")
 		player.sprite.flip_h = out_direction.x < 0
+	else:
+		player.animation_player.play("idle")
 	
 	var distance_inside = 16 if player.current_state == player.PlayerState.SMALL else 32
 	player.global_position = global_position - (out_direction * distance_inside)
@@ -98,6 +105,7 @@ func exit_sequence(player: CharacterBody2D):
 		player.z_index = 4
 		player.set_physics_process(true)
 		is_entrance = false
+		GameControl.start_timer()
 		)
 		
 func get_camera_limits() -> Dictionary:

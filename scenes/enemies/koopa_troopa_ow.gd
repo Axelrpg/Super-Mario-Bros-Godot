@@ -61,6 +61,7 @@ func die():
 
 func die_special(hit_direction: float = 1.0):
 	if is_dying: return
+	GameControl.spawn_score(100, global_position)
 	
 	is_dying = true
 	set_physics_process(false)

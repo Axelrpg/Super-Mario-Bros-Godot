@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bpkq4mony8sjq"]
 
-[ext_resource type="Texture2D" uid="uid://bau5koc8a3gme" path="res://sprites/items/Fire Ball 1.png" id="1_3r0i3"]
+[ext_resource type="Texture2D" uid="uid://b43pnq0lpe1w8" path="res://sprites/items/Fire Ball 1.png" id="1_3r0i3"]
 [ext_resource type="Script" uid="uid://cw6880ietbkkw" path="res://scenes/items/fire_ball.gd" id="1_n65lv"]
-[ext_resource type="Texture2D" uid="uid://c1boqeof326ay" path="res://sprites/items/Fire Ball 2.png" id="2_e1e3s"]
+[ext_resource type="Texture2D" uid="uid://drrq7wvmp3iq8" path="res://sprites/items/Fire Ball 2.png" id="2_e1e3s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3r0i3"]
 size = Vector2(8, 7.5)

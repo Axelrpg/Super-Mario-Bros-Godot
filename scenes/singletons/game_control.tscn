@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://c2tyqk112ssqs"]
+
+[ext_resource type="Script" uid="uid://dhrglgoj4tp3c" path="res://scenes/singletons/game_control.gd" id="1_vs7ly"]
+[ext_resource type="AudioStream" uid="uid://b3t3hqo7kg2bv" path="res://sounds/1up.wav" id="2_ir010"]
+
+[node name="GameControl" type="Node2D" unique_id=1259828669]
+script = ExtResource("1_vs7ly")
+
+[node name="SFX1Up" type="AudioStreamPlayer" parent="." unique_id=1859491102]
+stream = ExtResource("2_ir010")

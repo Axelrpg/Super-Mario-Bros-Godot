@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://ddqsbvvr22bsf"]
+
+[ext_resource type="Script" uid="uid://bdklh28oy4x7u" path="res://scenes/levels/game_over.gd" id="1_org1n"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="2_lw2kh"]
+
+[node name="GameOver" type="ColorRect" unique_id=2141484306]
+z_index = 100
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+script = ExtResource("1_org1n")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=876396353]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=1000505652]
+layout_mode = 2
+theme_override_constants/separation = 14
+
+[node name="GameOverLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1051372069]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_lw2kh")
+theme_override_font_sizes/font_size = 12
+text = "¡Game Over!"

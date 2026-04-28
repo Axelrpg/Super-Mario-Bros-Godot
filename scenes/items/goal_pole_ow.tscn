@@ -3,9 +3,13 @@
 [ext_resource type="Script" uid="uid://cs2gx11jvap0j" path="res://scenes/items/goal_pole_ow.gd" id="1_aaqeh"]
 [ext_resource type="Texture2D" uid="uid://c3jk3dluvwamp" path="res://sprites/items/Goal Pole OW.png" id="1_v55qo"]
 [ext_resource type="Texture2D" uid="uid://k4335mrsu0ag" path="res://sprites/items/Flag OW.png" id="2_aaqeh"]
+[ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="4_uhevm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhevm"]
 size = Vector2(2, 152)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7njuu"]
+size = Vector2(16, 16)
 
 [node name="GoalPoleOW" type="Area2D" unique_id=1492566677]
 collision_layer = 0
@@ -23,7 +27,19 @@ texture = ExtResource("2_aaqeh")
 position = Vector2(0, -4)
 shape = SubResource("RectangleShape2D_uhevm")
 
-[node name="ArrivalPoint" type="Marker2D" parent="." unique_id=742893646]
-position = Vector2(0, 72)
+[node name="ArrivalPointSmall" type="Marker2D" parent="." unique_id=742893646]
+position = Vector2(0, 64)
+
+[node name="ArrivalPointSuper" type="Marker2D" parent="." unique_id=1230428482]
+position = Vector2(0, 56)
+
+[node name="Overworld Ground_Stone" parent="." unique_id=687603482 instance=ExtResource("4_uhevm")]
+
+[node name="GoalBase" type="StaticBody2D" parent="." unique_id=135511738]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GoalBase" unique_id=1648931121]
+position = Vector2(0, 80)
+shape = SubResource("RectangleShape2D_7njuu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

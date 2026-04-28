@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="1_ldp1i"]
 [ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="2_3l0b1"]
 [ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="3_ldyiv"]
+[ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://sounds/jump.wav" id="5_ldyiv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcqk5"]
 size = Vector2(16, 22)
@@ -69,6 +70,22 @@ tracks/4/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0, 8)]
+}
+
+[sub_resource type="Animation" id="Animation_ldyiv"]
+resource_name = "climb"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [8]
 }
 
 [sub_resource type="Animation" id="Animation_7yes7"]
@@ -481,6 +498,7 @@ tracks/4/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jxspy"]
 _data = {
 &"RESET": SubResource("Animation_mcqk5"),
+&"climb": SubResource("Animation_ldyiv"),
 &"crouch": SubResource("Animation_7yes7"),
 &"die": SubResource("Animation_pkjdd"),
 &"idle": SubResource("Animation_r53bw"),
@@ -549,6 +567,11 @@ hit_from_inside = true
 [node name="StarmanTimer" type="Timer" parent="." unique_id=771436245]
 wait_time = 10.0
 one_shot = true
+
+[node name="Sounds" type="Node2D" parent="." unique_id=232319225]
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="Sounds" unique_id=463146963]
+stream = ExtResource("5_ldyiv")
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]
