@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://nxecetuk2pmd"]
+
+[ext_resource type="Script" uid="uid://2xisxp8i4gyq" path="res://scenes/menus/lobby.gd" id="1_1gv48"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="2_bt4ks"]
+
+[node name="Lobby" type="Control" unique_id=961762320]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1gv48")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=752324996]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="SetupMenu" type="VBoxContainer" parent="MarginContainer" unique_id=741529463]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NameInput" type="LineEdit" parent="MarginContainer/SetupMenu" unique_id=1507177410]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bt4ks")
+theme_override_font_sizes/font_size = 12
+placeholder_text = "Name"
+
+[node name="IPInput" type="LineEdit" parent="MarginContainer/SetupMenu" unique_id=641233569]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bt4ks")
+theme_override_font_sizes/font_size = 12
+placeholder_text = "IP"
+
+[node name="HostBtn" type="Button" parent="MarginContainer/SetupMenu" unique_id=1103497292]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bt4ks")
+theme_override_font_sizes/font_size = 12
+text = "Host Game"
+
+[node name="JoinBtn" type="Button" parent="MarginContainer/SetupMenu" unique_id=41073996]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bt4ks")
+theme_override_font_sizes/font_size = 12
+text = "Join Game"
+
+[node name="PlayerListMenu" type="VBoxContainer" parent="MarginContainer" unique_id=682707500]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PlayersList" type="ItemList" parent="MarginContainer/PlayerListMenu" unique_id=153123008]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_bt4ks")
+theme_override_font_sizes/font_size = 12
+
+[node name="StartButton" type="Button" parent="MarginContainer/PlayerListMenu" unique_id=1660606940]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bt4ks")
+theme_override_font_sizes/font_size = 12
+text = "Start Game"
+
+[node name="BackButton" type="Button" parent="MarginContainer/PlayerListMenu" unique_id=1949698466]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_bt4ks")
+theme_override_font_sizes/font_size = 12
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/SetupMenu/HostBtn" to="." method="_on_host_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/SetupMenu/JoinBtn" to="." method="_on_join_btn_pressed"]
+[connection signal="pressed" from="MarginContainer/PlayerListMenu/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/PlayerListMenu/BackButton" to="." method="_on_back_button_pressed"]

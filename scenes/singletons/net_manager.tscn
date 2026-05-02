@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://brwl08kpo1srh"]
+
+[ext_resource type="Script" uid="uid://d13esf2s8s4wk" path="res://scenes/singletons/net_manager.gd" id="1_2m55q"]
+
+[node name="NetManager" type="Node2D" unique_id=407826166]
+script = ExtResource("1_2m55q")
