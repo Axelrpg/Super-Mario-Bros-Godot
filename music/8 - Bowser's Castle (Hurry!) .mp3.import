@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cwf1cpgr1o76s"
+path="res://.godot/imported/8 - Bowser's Castle (Hurry!) .mp3-64aa10d397b5d674c13cdea646e6f7b2.mp3str"
+
+[deps]
+
+source_file="res://music/8 - Bowser's Castle (Hurry!) .mp3"
+dest_files=["res://.godot/imported/8 - Bowser's Castle (Hurry!) .mp3-64aa10d397b5d674c13cdea646e6f7b2.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

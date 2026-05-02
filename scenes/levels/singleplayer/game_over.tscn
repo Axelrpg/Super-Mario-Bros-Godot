@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://ddqsbvvr22bsf"]
 
-[ext_resource type="Script" uid="uid://bdklh28oy4x7u" path="res://scenes/levels/game_over.gd" id="1_org1n"]
+[ext_resource type="Script" uid="uid://bdklh28oy4x7u" path="res://scenes/levels/singleplayer/game_over.gd" id="1_org1n"]
 [ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="2_lw2kh"]
+[ext_resource type="AudioStream" uid="uid://bqoewnstmac2o" path="res://sounds/gameover.wav" id="3_qy7gw"]
 
 [node name="GameOver" type="ColorRect" unique_id=2141484306]
 z_index = 100
@@ -32,3 +33,6 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_lw2kh")
 theme_override_font_sizes/font_size = 12
 text = "¡Game Over!"
+
+[node name="SFXGameOver" type="AudioStreamPlayer" parent="." unique_id=975102717]
+stream = ExtResource("3_qy7gw")

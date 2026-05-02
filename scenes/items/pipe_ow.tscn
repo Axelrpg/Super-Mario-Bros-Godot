@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://ddludn4yid6rf"]
 
-[ext_resource type="Script" uid="uid://v7f6480tiv0u" path="res://scenes/items/overworld/pipe_ow.gd" id="1_234el"]
-[ext_resource type="Texture2D" path="res://sprites/items/Pipe OW.png" id="1_tde5t"]
+[ext_resource type="Script" uid="uid://v7f6480tiv0u" path="res://scenes/items/pipe_ow.gd" id="1_234el"]
+[ext_resource type="Texture2D" uid="uid://cpv03n4836fra" path="res://sprites/items/Pipe OW.png" id="1_tde5t"]
 [ext_resource type="Texture2D" uid="uid://c8s2wr4lvh3cb" path="res://sprites/tileset/Overworld - Background.png" id="2_alq2m"]
+[ext_resource type="AudioStream" uid="uid://scbpvbqrho17" path="res://sounds/pipepowerdown.wav" id="4_5k271"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_234el"]
 size = Vector2(32, 32)
@@ -33,3 +34,6 @@ collision_mask = 2
 position = Vector2(0, -17)
 shape = SubResource("RectangleShape2D_alq2m")
 debug_color = Color(0.8128109, 0.24373469, 0.8158338, 0.41960785)
+
+[node name="SFXPipe" type="AudioStreamPlayer" parent="." unique_id=1384869049]
+stream = ExtResource("4_5k271")

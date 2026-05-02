@@ -2,6 +2,7 @@ extends StaticBody2D
 class_name BasePipe
 
 @onready var entry_area: Area2D = $EntryArea
+@onready var sfx_pipe = $SFXPipe
 
 @export var target_pipe_tag: String = ""
 @export var camera_limits_sprite: Sprite2D
@@ -41,6 +42,7 @@ func enter_pipe(player: CharacterBody2D):
 	player.set_physics_process(false)
 	player.z_index = 2
 	GameControl.stop_timer()
+	sfx_pipe.play()
 	
 	var direction = Vector2.DOWN.rotated(rotation)
 	
@@ -85,6 +87,7 @@ func transport_player(player: CharacterBody2D):
 	
 func exit_sequence(player: CharacterBody2D):
 	var out_direction = Vector2.UP.rotated(rotation)
+	sfx_pipe.play()
 	
 	if abs(out_direction.x) > 0.5:
 		player.animation_player.play("walk")

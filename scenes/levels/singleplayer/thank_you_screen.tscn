@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://6h8m7yb06trg"]
 
-[ext_resource type="Script" uid="uid://dpjrm7aetr0p0" path="res://scenes/levels/thank_you_screen.gd" id="1_hti12"]
+[ext_resource type="Script" uid="uid://dpjrm7aetr0p0" path="res://scenes/levels/singleplayer/thank_you_screen.gd" id="1_hti12"]
 [ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="2_276kq"]
+[ext_resource type="AudioStream" uid="uid://dw2wj03xsd1xm" path="res://music/18 - Saved the Princess.mp3" id="3_276kq"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hti12"]
 font = ExtResource("2_276kq")
@@ -51,3 +52,7 @@ Stay tuned!"
 label_settings = SubResource("LabelSettings_276kq")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1529730883]
+stream = ExtResource("3_276kq")
+autoplay = true

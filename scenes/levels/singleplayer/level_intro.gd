@@ -12,4 +12,4 @@ func _ready() -> void:
 	start_level()
 	
 func start_level():
-	get_tree().change_scene_to_file("res://scenes/levels/world_1_1.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/singleplayer/world_1_1.tscn")

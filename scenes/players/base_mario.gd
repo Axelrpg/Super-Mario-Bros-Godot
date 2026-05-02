@@ -15,7 +15,8 @@ var current_state = PlayerState.SMALL
 @onready var starman_timer: Timer = $StarmanTimer
 
 # Sounds
-@onready var sound_jump: AudioStreamPlayer = $Sounds/JumpSound
+@onready var sfx_jump: AudioStreamPlayer = $Sounds/SFXJump
+@onready var sfx_death: AudioStreamPlayer = $Sounds/SFXDeath
 
 var visual_small: Sprite2D
 var visual_super: Sprite2D
@@ -73,7 +74,7 @@ func handle_movement(delta: float):
 		
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		is_manual_jumping = true
-		sound_jump.play()
+		sfx_jump.play()
 		var target_height: float
 		var current_speed = abs(velocity.x)
 		
@@ -170,6 +171,7 @@ func take_damage():
 	
 func die():
 	if is_dying: return
+	sfx_death.play()
 	is_dying = true
 	z_index = 10
 	collision_layer = 0
@@ -179,6 +181,7 @@ func die():
 	velocity.y = JUMP_VELOCITY * 0.8
 	velocity.x = 0
 	GameControl.stop_timer()
+	GameControl.stop_level_song_music()
 	
 	await get_tree().create_timer(3.0).timeout
 	GameControl.reload_level()
@@ -330,6 +333,7 @@ func start_invulnerability_cpu():
 	
 func become_starman(duration: float = 10.0):
 	is_starman = true
+	GameControl.play_starman_music()
 	
 	if not is_inside_tree():
 		await ready
@@ -355,6 +359,7 @@ func start_starman_flicker():
 	
 func end_starman_effect():
 	is_starman = false
+	GameControl.stop_starman_music()
 	if starman_tween:
 		starman_tween.kill()
 	sprite.modulate = Color.WHITE

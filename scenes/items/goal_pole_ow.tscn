@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://c3jk3dluvwamp" path="res://sprites/items/Goal Pole OW.png" id="1_v55qo"]
 [ext_resource type="Texture2D" uid="uid://k4335mrsu0ag" path="res://sprites/items/Flag OW.png" id="2_aaqeh"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="4_uhevm"]
+[ext_resource type="AudioStream" uid="uid://bp5ey8qui4fjk" path="res://sounds/flagpole.wav" id="5_7njuu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhevm"]
 size = Vector2(2, 152)
@@ -41,5 +42,8 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="GoalBase" unique_id=1648931121]
 position = Vector2(0, 80)
 shape = SubResource("RectangleShape2D_7njuu")
+
+[node name="SFXFlagPole" type="AudioStreamPlayer" parent="." unique_id=1964163841]
+stream = ExtResource("5_7njuu")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

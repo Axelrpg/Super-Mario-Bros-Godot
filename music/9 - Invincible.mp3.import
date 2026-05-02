@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://deryspigh4o7s"
+path="res://.godot/imported/9 - Invincible.mp3-494e1f6fcf8f5464be271af89764b62d.mp3str"
+
+[deps]
+
+source_file="res://music/9 - Invincible.mp3"
+dest_files=["res://.godot/imported/9 - Invincible.mp3-494e1f6fcf8f5464be271af89764b62d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

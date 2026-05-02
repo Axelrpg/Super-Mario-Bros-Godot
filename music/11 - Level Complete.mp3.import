@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dnh80n7mnorkp"
+path="res://.godot/imported/11 - Level Complete.mp3-05f0327fe95554e21684b18d057b0489.mp3str"
+
+[deps]
+
+source_file="res://music/11 - Level Complete.mp3"
+dest_files=["res://.godot/imported/11 - Level Complete.mp3-05f0327fe95554e21684b18d057b0489.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

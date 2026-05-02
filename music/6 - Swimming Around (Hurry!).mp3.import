@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://d1la36oo1xtki"
+path="res://.godot/imported/6 - Swimming Around (Hurry!).mp3-b3a2f941fe027d6c346ea7bdf06f16e0.mp3str"
+
+[deps]
+
+source_file="res://music/6 - Swimming Around (Hurry!).mp3"
+dest_files=["res://.godot/imported/6 - Swimming Around (Hurry!).mp3-b3a2f941fe027d6c346ea7bdf06f16e0.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

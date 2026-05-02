@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c55aup82tak5i"
+path="res://.godot/imported/12 - Bowser's Castle Complete.mp3-c1687f208adcdb5d0e9e5d4a58338091.mp3str"
+
+[deps]
+
+source_file="res://music/12 - Bowser's Castle Complete.mp3"
+dest_files=["res://.godot/imported/12 - Bowser's Castle Complete.mp3-c1687f208adcdb5d0e9e5d4a58338091.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

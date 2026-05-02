@@ -1,5 +1,7 @@
 extends BaseSuperMario
 
+@onready var sfx_fireball = $Sounds/SFXFireball
+
 var can_shoot: bool = true
 
 func _ready() -> void:
@@ -19,6 +21,7 @@ func shoot_fireball():
 	var active_fireballs = get_tree().get_nodes_in_group("fireballs")
 	
 	if active_fireballs.size() < 2 and can_shoot:
+		sfx_fireball.play()
 		animation_player.play("shoot")
 		
 		var fireball_scene = preload("res://scenes/items/fire_ball.tscn")

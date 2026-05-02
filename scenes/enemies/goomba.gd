@@ -30,6 +30,7 @@ func _physics_process(delta: float) -> void:
 
 func die():
 	GameControl.spawn_score(100, global_position)
+	GameControl.play_stomp_swim_sound()
 	is_dying = true
 	set_physics_process(false)
 	collision.queue_free()
@@ -43,6 +44,7 @@ func die():
 func die_special(hit_direction: float = 1.0):
 	if is_dying: return
 	GameControl.spawn_score(100, global_position)
+	GameControl.play_kick_kill_sound()
 	
 	is_dying = true
 	set_physics_process(false)

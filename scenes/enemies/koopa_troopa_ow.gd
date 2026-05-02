@@ -40,6 +40,7 @@ func _physics_process(delta: float) -> void:
 			velocity.x = direction * SHELL_SPEED
 			animation_player.play("shell_moving")
 			if is_on_wall():
+				GameControl.play_bump_sound()
 				var wall_normal = get_wall_normal()
 				if sign(wall_normal.x) != sign(direction):
 					direction *= -1
@@ -51,8 +52,10 @@ func _physics_process(delta: float) -> void:
 func die():
 	match current_state:
 		State.WALK:
+			GameControl.play_stomp_swim_sound()
 			current_state = State.SHELL_IDLE
 		State.SHELL_IDLE:
+			GameControl.play_kick_kill_sound()
 			var mario = get_tree().get_first_node_in_group("players")
 			direction = sign(global_position.x - mario.global_position.x)
 			current_state = State.SHELL_MOVING
@@ -62,6 +65,7 @@ func die():
 func die_special(hit_direction: float = 1.0):
 	if is_dying: return
 	GameControl.spawn_score(100, global_position)
+	GameControl.play_kick_kill_sound()
 	
 	is_dying = true
 	set_physics_process(false)
@@ -90,6 +94,7 @@ func die_special(hit_direction: float = 1.0):
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		if current_state == State.SHELL_IDLE:
+			GameControl.play_kick_kill_sound()
 			direction = sign(global_position.x - body.global_position.x)
 			if direction == 0: direction = 1
 			current_state =  State.SHELL_MOVING

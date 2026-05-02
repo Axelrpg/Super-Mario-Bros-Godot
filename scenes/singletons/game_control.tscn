@@ -2,9 +2,58 @@
 
 [ext_resource type="Script" uid="uid://dhrglgoj4tp3c" path="res://scenes/singletons/game_control.gd" id="1_vs7ly"]
 [ext_resource type="AudioStream" uid="uid://b3t3hqo7kg2bv" path="res://sounds/1up.wav" id="2_ir010"]
+[ext_resource type="AudioStream" uid="uid://bjej66jspgc23" path="res://sounds/brick.wav" id="3_y0bar"]
+[ext_resource type="AudioStream" uid="uid://t8j2llehu12q" path="res://sounds/bump.wav" id="4_lmbt0"]
+[ext_resource type="AudioStream" uid="uid://cyoq18dj0ypwo" path="res://sounds/coin.wav" id="5_q6n22"]
+[ext_resource type="AudioStream" uid="uid://cibl37kuvdvrk" path="res://sounds/hurryup.wav" id="6_pkn3j"]
+[ext_resource type="AudioStream" uid="uid://dvp8vwtl46b4b" path="res://sounds/item.wav" id="7_v16ie"]
+[ext_resource type="AudioStream" uid="uid://d03jhoe0ochdh" path="res://sounds/kickkill.wav" id="8_2k270"]
+[ext_resource type="AudioStream" uid="uid://dxmwpeta8k77s" path="res://sounds/powerup.wav" id="8_j4lpe"]
+[ext_resource type="AudioStream" uid="uid://bm0845m6o073u" path="res://sounds/stompswim.wav" id="10_n1uxa"]
+[ext_resource type="AudioStream" uid="uid://cb5vp0dsrf17o" path="res://music/1 - Running About.mp3" id="11_64mal"]
+[ext_resource type="AudioStream" uid="uid://dnh80n7mnorkp" path="res://music/11 - Level Complete.mp3" id="12_bhpnx"]
+[ext_resource type="AudioStream" uid="uid://deryspigh4o7s" path="res://music/9 - Invincible.mp3" id="13_30gnc"]
 
 [node name="GameControl" type="Node2D" unique_id=1259828669]
 script = ExtResource("1_vs7ly")
 
-[node name="SFX1Up" type="AudioStreamPlayer" parent="." unique_id=1859491102]
+[node name="SFX" type="Node2D" parent="." unique_id=1493132002]
+
+[node name="SFX1Up" type="AudioStreamPlayer" parent="SFX" unique_id=1859491102]
 stream = ExtResource("2_ir010")
+
+[node name="SFXBrick" type="AudioStreamPlayer" parent="SFX" unique_id=196149241]
+stream = ExtResource("3_y0bar")
+
+[node name="SFXBump" type="AudioStreamPlayer" parent="SFX" unique_id=1541118687]
+stream = ExtResource("4_lmbt0")
+
+[node name="SFXCoin" type="AudioStreamPlayer" parent="SFX" unique_id=796632752]
+stream = ExtResource("5_q6n22")
+
+[node name="SFXHurryUp" type="AudioStreamPlayer" parent="SFX" unique_id=1802363320]
+stream = ExtResource("6_pkn3j")
+
+[node name="SFXItem" type="AudioStreamPlayer" parent="SFX" unique_id=11252786]
+stream = ExtResource("7_v16ie")
+
+[node name="SFXKickKill" type="AudioStreamPlayer" parent="SFX" unique_id=17432456]
+stream = ExtResource("8_2k270")
+
+[node name="SFXPowerUp" type="AudioStreamPlayer" parent="SFX" unique_id=812743789]
+stream = ExtResource("8_j4lpe")
+
+[node name="SFXStompSwim" type="AudioStreamPlayer" parent="SFX" unique_id=1620121102]
+stream = ExtResource("10_n1uxa")
+
+[node name="BGM" type="Node2D" parent="." unique_id=1735201365]
+
+[node name="BGMLevelSong" type="AudioStreamPlayer" parent="BGM" unique_id=279363542]
+stream = ExtResource("11_64mal")
+parameters/looping = true
+
+[node name="BGMLevelComplete" type="AudioStreamPlayer" parent="BGM" unique_id=351587891]
+stream = ExtResource("12_bhpnx")
+
+[node name="BGMStarman" type="AudioStreamPlayer" parent="BGM" unique_id=1572229439]
+stream = ExtResource("13_30gnc")

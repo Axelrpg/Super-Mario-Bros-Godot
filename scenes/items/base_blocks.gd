@@ -70,6 +70,7 @@ func give_power_up(player):
 	animation_player.play("empty")
 	
 	move_sprite()
+	GameControl.play_item_sound()
 	var item_to_spawn
 
 	if content == ItemType.STAR:
@@ -120,7 +121,8 @@ func give_coin():
 	move_sprite()
 	spawn_coin_visual()
 	GameControl.spawn_score(200, global_position)
-	GameControl.add_coin()
+	GameControl.add_coin(false)
+	GameControl.play_coin_sound()
 	
 	if is_multi_coin:
 		if not timer_started:

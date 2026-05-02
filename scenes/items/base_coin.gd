@@ -13,4 +13,5 @@ func _on_body_entered(body: Node2D) -> void:
 func collect():
 	set_deferred("monitoring", false)
 	GameControl.add_coin()
+	GameControl.play_coin_sound()
 	queue_free()

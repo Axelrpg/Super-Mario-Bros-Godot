@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Super Mario Bros"
-run/main_scene="uid://b7tfuonx8ne4k"
+run/main_scene="uid://nxecetuk2pmd"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 run/layer_5="Hidden Blocks"
@@ -21,6 +21,7 @@ run/layer_5="Hidden Blocks"
 GameEvents="*uid://c8itb7eh31lex"
 CustomTransition="*uid://dkuf4xg0fqiit"
 GameControl="*uid://c2tyqk112ssqs"
+NetManager="*uid://brwl08kpo1srh"
 
 [display]
 

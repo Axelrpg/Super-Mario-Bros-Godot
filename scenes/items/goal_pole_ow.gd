@@ -3,6 +3,7 @@ extends Area2D
 @onready var flag_sprite: Sprite2D = $FlagSprite
 @onready var arrival_point_small: Marker2D = $ArrivalPointSmall
 @onready var arrival_point_super: Marker2D = $ArrivalPointSuper
+@onready var sfx_flag_pole = $SFXFlagPole
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
@@ -12,6 +13,7 @@ func _on_body_entered(body: Node2D) -> void:
 func start_victory_sequence(player: CharacterBody2D):
 	player.set_physics_process(false)
 	GameControl.stop_timer()
+	GameControl.stop_level_song_music()
 	
 	var height_diff = arrival_point_small.global_position.y - player.global_position.y
 	var height_score = 0
@@ -33,9 +35,18 @@ func start_victory_sequence(player: CharacterBody2D):
 	else:
 		arrival_position = arrival_point_super.global_position.y
 	
+	var descent_speed = 75
+	
+	var mario_distance = abs(arrival_position - player.global_position.y)
+	var mario_duration = mario_distance / descent_speed
+	
+	var flag_distance = abs(64 - flag_sprite.position.y)
+	var flag_duration = flag_distance / descent_speed
+	
 	var tween = create_tween()
-	tween.tween_property(flag_sprite, "position:y", 64, 1.5).set_trans(Tween.TRANS_LINEAR)
-	tween.tween_property(player, "global_position:y", arrival_position, 1.5).set_trans(Tween.TRANS_LINEAR)
+	sfx_flag_pole.play()
+	tween.tween_property(flag_sprite, "position:y", 64, flag_duration).set_trans(Tween.TRANS_LINEAR)
+	tween.parallel().tween_property(player, "global_position:y", arrival_position, mario_duration).set_trans(Tween.TRANS_LINEAR)
 	
 	tween.set_parallel(false)
 	tween.finished.connect(func():
@@ -47,6 +58,7 @@ func start_victory_sequence(player: CharacterBody2D):
 		)
 
 func walk_to_the_castle(player: CharacterBody2D):
+	GameControl.play_level_complete_music()
 	player.sprite.flip_h = false
 	player.animation_player.play("jump")
 	
@@ -83,4 +95,4 @@ func drain_time_bonus():
 		
 func show_victory_ui():
 	await get_tree().create_timer(5).timeout
-	get_tree().change_scene_to_file("res://scenes/levels/thank_you_screen.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/singleplayer/thank_you_screen.tscn")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://djoik2vox78yo"]
 
 [ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="1_1lxv7"]
-[ext_resource type="Script" uid="uid://7rpaxnxfd4an" path="res://scenes/levels/level_intro.gd" id="1_vuh7p"]
+[ext_resource type="Script" uid="uid://7rpaxnxfd4an" path="res://scenes/levels/singleplayer/level_intro.gd" id="1_vuh7p"]
 [ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="2_vuh7p"]
 
 [node name="LevelIntro" type="ColorRect" unique_id=2141484306]

@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="3_r53bw"]
 [ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="4_mlqch"]
 [ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://sounds/jump.wav" id="5_jxspy"]
+[ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://sounds/death.wav" id="6_l4rif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcqk5"]
 size = Vector2(16, 22)
@@ -503,10 +504,13 @@ hit_from_inside = true
 wait_time = 10.0
 one_shot = true
 
-[node name="Sounds" type="Node2D" parent="." unique_id=2127820783]
+[node name="Sounds" type="Node2D" parent="." unique_id=1260290948]
 
-[node name="JumpSound" type="AudioStreamPlayer" parent="Sounds" unique_id=144547219]
+[node name="SFXJump" type="AudioStreamPlayer" parent="Sounds" unique_id=684040500]
 stream = ExtResource("5_jxspy")
+
+[node name="SFXDeath" type="AudioStreamPlayer" parent="Sounds" unique_id=1844446564]
+stream = ExtResource("6_l4rif")
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]

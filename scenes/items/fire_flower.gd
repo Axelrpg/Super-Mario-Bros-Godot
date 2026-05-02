@@ -18,4 +18,5 @@ func _on_detection_area_body_entered(body: Node2D) -> void:
 		if body.has_method("upgrade_to_super"):
 			body.upgrade_to_fire()
 			GameControl.spawn_score(1000, global_position)
+			GameControl.play_power_up_sound()
 		queue_free()

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://kgwrmudftfba"
+path="res://.godot/imported/13 - You Have Died.mp3-e088a1c7019c918ec94770da2a8dc560.mp3str"
+
+[deps]
+
+source_file="res://music/13 - You Have Died.mp3"
+dest_files=["res://.godot/imported/13 - You Have Died.mp3-e088a1c7019c918ec94770da2a8dc560.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

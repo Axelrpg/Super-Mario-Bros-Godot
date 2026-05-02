@@ -5,8 +5,10 @@ const DEBRIS_SCENE = preload("res://scenes/items/brick_debris.tscn")
 func break_or_bump(player: CharacterBody2D):
 	if player.current_state == player.PlayerState.SMALL:
 		move_sprite()
+		GameControl.play_bump_sound()
 	else:
 		check_objects_above()
+		GameControl.play_brick_sound()
 		break_block()
 		
 func break_block():
