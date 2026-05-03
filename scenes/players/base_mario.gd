@@ -13,6 +13,7 @@ var current_state = PlayerState.SMALL
 @onready var stomp_detector: Area2D = $StompDetector
 @onready var enemy_detector: Area2D = $EnemyDetector
 @onready var starman_timer: Timer = $StarmanTimer
+@onready var name_label: Label = $CenterContainer/NameLabel
 
 # Sounds
 @onready var sfx_jump: AudioStreamPlayer = $Sounds/SFXJump
@@ -46,10 +47,25 @@ var is_invulnerable = false
 var is_starman = false
 var is_manual_jumping = false
 
+func _enter_tree() -> void:
+	var player_id = name.to_int()
+	set_multiplayer_authority(player_id)
+
 func _ready() -> void:
 	visual_small = get_node_or_null("VisualSmall")
 	visual_super = get_node_or_null("VisualSuper")
 	visual_fire = get_node_or_null("VisualFire")
+	
+	if is_multiplayer_authority():
+		name_label.visible = false
+	else:
+		var player_id = name.to_int()
+		var player_name = NetManager.players.get(player_id, "Player")
+		name_label.text = player_name
+		name_label.visible = true
+		
+		set_physics_process(false)
+		set_process_input(false)
 
 func _physics_process(delta: float) -> void:
 	if is_dying:

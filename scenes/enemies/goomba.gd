@@ -14,6 +14,9 @@ func _ready() -> void:
 	set_physics_process(false)
 
 func _physics_process(delta: float) -> void:
+	if not multiplayer.is_server():
+		return
+	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 		
@@ -29,17 +32,37 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func die():
+	if multiplayer.is_server():
+		die_rpc.rpc()
+	else:
+		die_rpc.rpc_id(1)
+	
+@rpc("authority", "call_local", "reliable")
+func die_rpc():
+	if not multiplayer.is_server():
+		return
+	
 	GameControl.spawn_score(100, global_position)
 	GameControl.play_stomp_swim_sound()
 	is_dying = true
 	set_physics_process(false)
 	collision.queue_free()
 	
+	die_visual.rpc()
+	await get_tree().create_timer(0.3).timeout
+	queue_free()
+		
+@rpc("authority", "call_local", "reliable")
+func die_visual():
+	if multiplayer.is_server():
+		return
+		
+	is_dying = true
+	set_physics_process(false)
+	if collision:
+		collision.queue_free()
 	if animation_player.has_animation("die"):
 		animation_player.play("die")
-		await animation_player.animation_finished
-		
-	queue_free()
 	
 func die_special(hit_direction: float = 1.0):
 	if is_dying: return

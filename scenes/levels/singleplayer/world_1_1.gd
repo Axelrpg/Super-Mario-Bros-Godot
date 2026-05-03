@@ -5,6 +5,7 @@ func _ready() -> void:
 	GameControl.start_timer()
 	GameControl.reset_level_song_pitch_scale()
 	GameControl.play_level_song_music()
+	GameControl.is_timer_active = true
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("reset"):

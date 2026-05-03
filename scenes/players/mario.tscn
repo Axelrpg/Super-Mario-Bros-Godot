@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="4_8aya7"]
 [ext_resource type="AudioStream" uid="uid://05cf2d76i6du" path="res://sounds/jumpsmall.wav" id="5_llf1g"]
 [ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://sounds/death.wav" id="6_j1r8t"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="7_e6qb2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0cxq"]
 size = Vector2(11.5, 15.5)
@@ -139,6 +140,17 @@ size = Vector2(12, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8aya7"]
 size = Vector2(14, 18)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_j1r8t"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite2D:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Sprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+
 [node name="Mario" type="CharacterBody2D" unique_id=1679571318 groups=["players"]]
 z_index = 4
 collision_layer = 2
@@ -195,6 +207,29 @@ stream = ExtResource("5_llf1g")
 
 [node name="SFXDeath" type="AudioStreamPlayer" parent="Sounds" unique_id=2863540]
 stream = ExtResource("6_j1r8t")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=204637771]
+replication_config = SubResource("SceneReplicationConfig_j1r8t")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=2111796542]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -9.0
+offset_top = -27.0
+offset_right = 9.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NameLabel" type="Label" parent="CenterContainer" unique_id=1201164767]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_e6qb2")
+theme_override_font_sizes/font_size = 5
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]

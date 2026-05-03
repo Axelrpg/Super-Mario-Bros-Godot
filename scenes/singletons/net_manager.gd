@@ -6,22 +6,59 @@ const MAX_CLIENTS = 4
 
 var players = {}
 var my_local_name = ""
+var _peers_ready_to_reload := []
 
 signal player_list_changed
-#signal connection_failed
+signal server_shut_down
+
+func _ready() -> void:
+	multiplayer.connected_to_server.connect(_on_connection_success)
+	multiplayer.connection_failed.connect(_on_connection_failed)
+	multiplayer.server_disconnected.connect(_on_server_disconnected)
+	multiplayer.peer_connected.connect(_on_player_connected)
+	multiplayer.peer_disconnected.connect(_on_player_disconnected)
+		
+func server_request_reload():
+	if not multiplayer.is_server():
+		return
+	_peers_ready_to_reload.clear()
+	notify_reload.rpc()
+	
+@rpc("authority", "reliable")
+func notify_reload():
+	confirm_ready_to_reload.rpc_id(1)
+	
+@rpc("any_peer", "reliable")
+func confirm_ready_to_reload():
+	if not multiplayer.is_server():
+		return
+		
+	var sender = multiplayer.get_remote_sender_id()
+	if sender not in _peers_ready_to_reload:
+		_peers_ready_to_reload.append(sender)
+		
+	if _peers_ready_to_reload.size() >= multiplayer.get_peers().size():
+		reload_clients.rpc()
+		await get_tree().create_timer(0.2).timeout
+		get_tree().reload_current_scene()
+		
+@rpc("authority", "reliable")
+func reload_clients():
+	if not multiplayer.is_server():
+		get_tree().reload_current_scene()
 
 func create_game(player_name):
 	peer.create_server(PORT, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
 	
 	players[1] = player_name
-	
-	multiplayer.peer_connected.connect(_on_player_connected)
-	multiplayer.peer_disconnected.connect(_on_player_disconnected)
 	player_list_changed.emit()
 	
 func join_game(ip, player_name):
 	if ip == "": ip = "127.0.0.1"
+	
+	peer = ENetMultiplayerPeer.new()
+	
 	var error = peer.create_client(ip, PORT)
 	if error != OK:
 		print("Error al crear el cliente: ", error)
@@ -29,9 +66,6 @@ func join_game(ip, player_name):
 	
 	my_local_name = player_name
 	multiplayer.multiplayer_peer = peer
-	
-	multiplayer.connected_to_server.connect(_on_connection_success)
-	multiplayer.connection_failed.connect(_on_connection_failed)
 	
 @rpc("any_peer", "reliable")
 func register_player(new_name):
@@ -65,10 +99,6 @@ func disconnect_game():
 		multiplayer.multiplayer_peer = null
 		
 	players.clear()
-	
-	if multiplayer.peer_connected.connect(_on_player_connected):
-		multiplayer.peer_connected.disconnect(_on_player_connected)
-	
 	print("Desconectado con exito")
 	
 func _on_player_connected(id):
@@ -84,3 +114,7 @@ func _on_connection_success():
 
 func _on_connection_failed():
 	print("No se pudo conectar")
+	
+func _on_server_disconnected():
+	disconnect_game()
+	server_shut_down.emit()

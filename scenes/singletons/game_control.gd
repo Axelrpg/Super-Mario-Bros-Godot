@@ -23,7 +23,7 @@ var coins: int = 0
 var current_world: String = "1"
 var current_level: String = "1"
 var time_left: float = 300
-var is_timer_active: bool = true
+var is_timer_active: bool = false
 
 var last_second: int = 0
 var hurry_up_played: bool = false

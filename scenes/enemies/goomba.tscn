@@ -65,6 +65,14 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ulfyc"]
 size = Vector2(16, 12)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_emeqt"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite2D:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="Goomba" type="CharacterBody2D" unique_id=337620731 groups=["enemies"]]
 z_index = 4
 collision_layer = 4
@@ -90,6 +98,9 @@ shape = SubResource("RectangleShape2D_ulfyc")
 debug_color = Color(0.8306116, 0.2707031, 0.71810114, 0.41960785)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=620165563]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=643514117]
+replication_config = SubResource("SceneReplicationConfig_emeqt")
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
