@@ -1,5 +1,7 @@
 extends Node2D
 
+var is_online := false
+
 var peer = ENetMultiplayerPeer.new()
 const PORT = 7000
 const MAX_CLIENTS = 4
@@ -48,6 +50,7 @@ func reload_clients():
 		get_tree().reload_current_scene()
 
 func create_game(player_name):
+	is_online = true
 	peer.create_server(PORT, MAX_CLIENTS)
 	multiplayer.multiplayer_peer = peer
 	
@@ -55,6 +58,7 @@ func create_game(player_name):
 	player_list_changed.emit()
 	
 func join_game(ip, player_name):
+	is_online = true
 	if ip == "": ip = "127.0.0.1"
 	
 	peer = ENetMultiplayerPeer.new()
@@ -94,6 +98,7 @@ func receive_existing_players(existing_players):
 	player_list_changed.emit()
 	
 func disconnect_game():
+	is_online = false
 	if multiplayer.multiplayer_peer:
 		multiplayer.multiplayer_peer.close()
 		multiplayer.multiplayer_peer = null

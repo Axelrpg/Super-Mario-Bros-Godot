@@ -154,6 +154,7 @@ properties/2/replication_mode = 1
 [node name="Mario" type="CharacterBody2D" unique_id=1679571318 groups=["players"]]
 z_index = 4
 collision_layer = 2
+collision_mask = 3
 script = ExtResource("1_5fuva")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=411534508]

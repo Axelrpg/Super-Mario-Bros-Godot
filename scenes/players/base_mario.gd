@@ -48,13 +48,20 @@ var is_starman = false
 var is_manual_jumping = false
 
 func _enter_tree() -> void:
-	var player_id = name.to_int()
-	set_multiplayer_authority(player_id)
+	if multiplayer.has_multiplayer_peer():
+		var player_id = name.to_int()
+		set_multiplayer_authority(player_id)
 
 func _ready() -> void:
 	visual_small = get_node_or_null("VisualSmall")
 	visual_super = get_node_or_null("VisualSuper")
 	visual_fire = get_node_or_null("VisualFire")
+	
+	var is_online = NetManager.is_online
+	
+	if not is_online:
+		name_label.visible = false
+		return
 	
 	if is_multiplayer_authority():
 		name_label.visible = false
@@ -199,8 +206,8 @@ func die():
 	GameControl.stop_timer()
 	GameControl.stop_level_song_music()
 	
-	await get_tree().create_timer(3.0).timeout
-	GameControl.reload_level()
+	#await get_tree().create_timer(3.0).timeout
+	#GameControl.reload_level()
 	
 func upgrade_to_super():
 	if current_state == PlayerState.SUPER:
