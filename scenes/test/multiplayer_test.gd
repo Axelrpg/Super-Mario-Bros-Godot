@@ -8,6 +8,12 @@ extends Node2D
 @onready var enemy_markers: Node2D = $Enemies
 @onready var enemy_container: Node2D = $SpawnedEnemies
 @onready var ms_players: MultiplayerSpawner = $MSPlayers
+@onready var spawn_timer: Timer = $SpawnTimer
+
+var available_markers: Array = []
+var spawn_interval := 3.0
+const MIN_INTERVAL := 0.5
+const SPEEDUP_RATE := 0.95
 
 func _ready() -> void:
 	ms_players.spawn_function = _spawn_mario
@@ -27,6 +33,7 @@ func _spawn_mario(data: Dictionary) -> Node:
 		
 func spawn_players():
 	var markers = players_markers.get_children()
+	markers.shuffle()
 	var index = 0
 	
 	for id in NetManager.players:
@@ -40,8 +47,16 @@ func spawn_players():
 		index += 1
 		
 func spawn_goombas():
-	for marker in enemy_markers.get_children():
-		if marker is Marker2D:
-			var new_goomba = goomba_scene.instantiate()
-			new_goomba.position = marker.global_position
-			enemy_container.add_child(new_goomba, true)
+	available_markers = enemy_markers.get_children().filter(func(m): return m is Marker2D)
+	spawn_timer.start(spawn_interval)
+
+func _on_spawn_timer_timeout() -> void:
+	if available_markers.is_empty(): return
+	
+	var marker = available_markers[randi() % available_markers.size()]
+	var new_goomba = goomba_scene.instantiate()
+	new_goomba.position = marker.global_position
+	enemy_container.add_child(new_goomba, true)
+	
+	spawn_interval = max(MIN_INTERVAL, spawn_interval * SPEEDUP_RATE)
+	spawn_timer.start(spawn_interval)

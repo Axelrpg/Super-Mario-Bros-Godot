@@ -31,22 +31,25 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func die():
-	if multiplayer.is_server():
-		die_rpc.rpc()
+func die(attacker_id: int = 0):
+	if NetManager.is_online:
+		if multiplayer.is_server():
+			die_rpc.rpc(attacker_id)
+		else:
+			die_rpc.rpc_id(1, attacker_id)
 	else:
-		die_rpc.rpc_id(1)
+		die_execute(attacker_id)
 		
 @rpc("any_peer", "call_local", "reliable")
-func die_rpc():
+func die_rpc(attacker_id: int):
 	if not multiplayer.is_server():
 		return
 		
-	die_execute.rpc()
+	die_execute.rpc(attacker_id)
 	
 @rpc("authority", "call_local", "reliable")
-func die_execute():
-	GameControl.spawn_score(100, global_position)
+func die_execute(attacker_id: int = 0):
+	GameControl.spawn_score(100, global_position, attacker_id)
 	GameControl.play_stomp_swim_sound()
 	is_dying = true
 	set_physics_process(false)
@@ -56,7 +59,7 @@ func die_execute():
 		animation_player.play("die")
 		await animation_player.animation_finished
 	
-	if multiplayer.is_server():
+	if not NetManager.is_online or multiplayer.is_server():
 		queue_free()
 	
 func die_special(hit_direction: float = 1.0):

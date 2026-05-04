@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://3wr73wgt8cod"]
+
+[ext_resource type="Script" uid="uid://bidgtla65hmwl" path="res://scenes/hud/multiplayer_hud.gd" id="1_5on3f"]
+
+[node name="MultiplayerHUD" type="CanvasLayer" unique_id=353922423 groups=["multiplayer_hud"]]
+script = ExtResource("1_5on3f")
+
+[node name="ScoresContainer" type="VBoxContainer" parent="." unique_id=1882956976]
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 2

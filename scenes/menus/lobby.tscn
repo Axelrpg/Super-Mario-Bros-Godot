@@ -33,6 +33,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("2_bt4ks")
 theme_override_font_sizes/font_size = 12
 placeholder_text = "Name"
+max_length = 10
 
 [node name="IPInput" type="LineEdit" parent="MarginContainer/SetupMenu" unique_id=641233569]
 layout_mode = 2

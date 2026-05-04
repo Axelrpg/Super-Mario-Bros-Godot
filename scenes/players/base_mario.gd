@@ -38,6 +38,7 @@ var height_run = 80
 var invulnerability_duration = 3
 var starman_tween: Tween
 var just_hit_ceiling: bool = false
+var death_count: int = 0
 
 var is_skidding = false
 var is_dying = false
@@ -206,8 +207,32 @@ func die():
 	GameControl.stop_timer()
 	GameControl.stop_level_song_music()
 	
-	#await get_tree().create_timer(3.0).timeout
-	#GameControl.reload_level()
+	if NetManager.is_online:
+		death_count += 1
+		var respawn_time = 3 + (death_count - 1) * 2
+		await get_tree().create_timer(respawn_time).timeout
+		respawn()
+	else:
+		await get_tree().create_timer(3.0).timeout
+		GameControl.reload_level()
+		
+func respawn():
+	is_dying = false
+	z_index = 4
+	collision_layer = 2
+	collision_mask = 1
+	stomp_detector.monitoring = true
+	velocity = Vector2.ZERO
+	
+	var players_node = get_tree().get_root().find_child("Players", true, false)
+	if players_node:
+		var markers = players_node.get_children()
+		if markers.size() > 0:
+			var random_marker = markers[randi() % markers.size()]
+			global_position = random_marker.global_position
+		
+	animation_player.play("idle")
+	start_invulnerability_cpu()
 	
 func upgrade_to_super():
 	if current_state == PlayerState.SUPER:

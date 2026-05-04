@@ -13,7 +13,8 @@ func take_damage():
 func _on_stomp_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and velocity.y > 0:
 		if body.has_method("die"):
-			body.die()
+			var attacker_id = multiplayer.get_unique_id() if NetManager.is_online else 0
+			body.die(attacker_id)
 			
 		if Input.is_action_pressed("jump"):
 			velocity.y = JUMP_VELOCITY * 0.9

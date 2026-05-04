@@ -42,6 +42,7 @@ camera=""
 power_ups=""
 castle_door=""
 hud=""
+multiplayer_hud=""
 
 [input]
 

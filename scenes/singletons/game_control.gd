@@ -24,9 +24,10 @@ var current_world: String = "1"
 var current_level: String = "1"
 var time_left: float = 300
 var is_timer_active: bool = false
-
 var last_second: int = 0
 var hurry_up_played: bool = false
+
+var player_scores: Dictionary = {}
 
 func _process(delta: float) -> void:
 	if is_timer_active and time_left > 0:
@@ -47,15 +48,24 @@ func _process(delta: float) -> void:
 			if current_second <= 100 and not hurry_up_played:
 				play_hurry_up_sound()
 
-func spawn_score(value: int, pos: Vector2):
-	add_score(value)
+func spawn_score(value: int, pos: Vector2, attacker_id: int = 0):
+	add_score(value, attacker_id)
 	var score_popup = score_scene.instantiate()
 	score_popup.global_position = pos
 	get_tree().current_scene.add_child(score_popup)
 	score_popup.setup(value)
 	
-func add_score(amount: int):
-	total_score += amount
+func add_score(amount: int, attacker_id: int = 0):
+	if NetManager.is_online:
+		if not player_scores.has(attacker_id):
+			player_scores[attacker_id] = 0
+		player_scores[attacker_id] += amount
+		
+		var hud = get_tree().get_first_node_in_group("multiplayer_hud")
+		if hud:
+			hud.update_score(attacker_id, player_scores[attacker_id])
+	else:
+		total_score += amount
 	
 func add_coin(with_score: bool = true):
 	coins += 1
