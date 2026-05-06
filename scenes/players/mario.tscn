@@ -150,6 +150,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("Sprite2D:flip_h")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("Sprite2D:modulate")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [node name="Mario" type="CharacterBody2D" unique_id=1679571318 groups=["players"]]
 z_index = 4
@@ -217,9 +220,9 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -9.0
+offset_left = -15.0
 offset_top = -27.0
-offset_right = 9.0
+offset_right = 15.0
 grow_horizontal = 2
 grow_vertical = 0
 

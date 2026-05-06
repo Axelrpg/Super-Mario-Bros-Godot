@@ -22,5 +22,7 @@ func set_direction(new_dir: int = 1):
 	
 func disable_collection(duration: float):
 	can_be_collected = false
+	if not is_inside_tree():
+		await tree_entered
 	await get_tree().create_timer(duration).timeout
 	can_be_collected = true

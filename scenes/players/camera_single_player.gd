@@ -2,13 +2,26 @@ extends Camera2D
 
 @onready var background_sprite: Sprite2D = $"../Area1/Background"
 
+var target: Node2D = null
+
 func _ready() -> void:
 	setup_camera_limits()
+	
+	await get_tree().process_frame
+	
+	var players = get_tree().get_nodes_in_group("players")
+	
+	if NetManager.is_online:
+		for player in players:
+			if player.is_multiplayer_authority():
+				target = player
+				break
+	else:
+		if players.size() > 0:
+			target = players[0]
 
 func _process(_delta: float) -> void:
-	var players = get_tree().get_nodes_in_group("players")
-	if players.size() > 0:
-		var target = players[0]
+	if target and is_instance_valid(target):
 		global_position = target.global_position
 
 func setup_camera_limits():

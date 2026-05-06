@@ -5,7 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://c8s2wr4lvh3cb" path="res://sprites/tileset/Overworld - Background.png" id="2_mu0tm"]
 [ext_resource type="PackedScene" uid="uid://dinj5ed1cnqf0" path="res://scenes/tilemaplayer/overworld_pipes_scenery.tscn" id="2_snkvd"]
 [ext_resource type="PackedScene" uid="uid://c1tvwiumsm8uh" path="res://scenes/players/camera_single_player.tscn" id="3_t82ws"]
-[ext_resource type="PackedScene" uid="uid://b5d7ygxpjh0wi" path="res://scenes/players/mario.tscn" id="4_v1yw5"]
 [ext_resource type="PackedScene" uid="uid://b0rimnocowmou" path="res://scenes/tilemaplayer/overworld_water_sky.tscn" id="5_m7mxi"]
 [ext_resource type="PackedScene" uid="uid://hx0xw1flquje" path="res://scenes/tilemaplayer/tile_map_scenes.tscn" id="7_mu0tm"]
 [ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/items/question_block.tscn" id="8_7rsdm"]
@@ -24,6 +23,7 @@
 script = ExtResource("1_3vdqc")
 
 [node name="HUD" parent="." unique_id=779286299 instance=ExtResource("17_2bcjf")]
+visible = false
 
 [node name="Area1" type="Node2D" parent="." unique_id=696545572]
 
@@ -124,6 +124,10 @@ position = Vector2(3176, 120)
 [node name="CastleDoorOW" parent="Area1/Items" unique_id=1333320819 instance=ExtResource("12_i1shy")]
 position = Vector2(3272, 192)
 
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="Area1/Items" unique_id=616511808]
+_spawnable_scenes = PackedStringArray("uid://yjsjblcd4kgp")
+spawn_path = NodePath("..")
+
 [node name="Area2" type="Node2D" parent="." unique_id=757771754]
 
 [node name="SecondaryBackground" type="Sprite2D" parent="Area2" unique_id=1038520086]
@@ -162,33 +166,23 @@ position_smoothing_enabled = false
 drag_left_margin = 0.3
 drag_right_margin = 0.3
 
-[node name="Mario" parent="." unique_id=1679571318 instance=ExtResource("4_v1yw5")]
-position = Vector2(88, 200)
-
 [node name="TileMapScenes" parent="." unique_id=1398984093 instance=ExtResource("7_mu0tm")]
 tile_map_data = PackedByteArray("AAAWAAwAAAAAAAAAAQAoAAwAAAAAAAAAAQAzAAwAAAAAAAAAAQA1AAwAAAAAAAAAAQBQAAQAAAAAAAAAAQBSAAQAAAAAAAAAAQBhAAwAAAAAAAAAAQBjAAwAAAAAAAAAAQBrAAwAAAAAAAAAAgByAAwAAAAAAAAAAQB0AAwAAAAAAAAAAQB9AAwAAAAAAAAAAQCBAAwAAAAAAAAAAQCDAAwAAAAAAAAAAQB/AAwAAAAAAAAAAQCwAAwAAAAAAAAAAQCuAAwAAAAAAAAAAQAWAAkAAgAAAAAAAgAYAAkAAgAAAAAAAgAUAAkAAgAAAAAAAgBQAAUAAgAAAAAAAgBNAAkAAgAAAAAAAgBPAAkAAgAAAAAAAgBXAAUAAgAAAAAAAgBWAAUAAgAAAAAAAgBVAAUAAgAAAAAAAgBUAAUAAgAAAAAAAgBTAAUAAgAAAAAAAgBSAAUAAgAAAAAAAgBRAAUAAgAAAAAAAgBbAAUAAgAAAAAAAgBcAAUAAgAAAAAAAgBdAAUAAgAAAAAAAgBkAAkAAgAAAAAAAgB2AAkAAgAAAAAAAgB5AAUAAgAAAAAAAgB6AAUAAgAAAAAAAgB7AAUAAgAAAAAAAgCCAAkAAgAAAAAAAgCBAAkAAgAAAAAAAgCAAAUAAgAAAAAAAgCDAAUAAgAAAAAAAgCoAAkAAgAAAAAAAgCpAAkAAgAAAAAAAgCrAAkAAgAAAAAAAgBFAA8AAAAAAAAABABGAA8AAAAAAAAABABWAA8AAAAAAAAABABXAA8AAAAAAAAABABYAA8AAAAAAAAABACYACoAAgAAAAAACACZACoAAgAAAAAACACaACoAAgAAAAAACACbACoAAgAAAAAACACcACoAAgAAAAAACACdACoAAgAAAAAACACeACoAAgAAAAAACACYACgAAgAAAAAACACZACgAAgAAAAAACACaACgAAgAAAAAACACbACgAAgAAAAAACACcACgAAgAAAAAACACdACgAAgAAAAAACACeACgAAgAAAAAACACZACYAAgAAAAAACACaACYAAgAAAAAACACbACYAAgAAAAAACACcACYAAgAAAAAACACdACYAAgAAAAAACACYACMAAgAAAAAACQCZACMAAgAAAAAACQCaACMAAgAAAAAACQCbACMAAgAAAAAACQCcACMAAgAAAAAACQCdACMAAgAAAAAACQCeACMAAgAAAAAACQCYACAAAgAAAAAACQCYACEAAgAAAAAACQCYACIAAgAAAAAACQCZACAAAgAAAAAACQCZACEAAgAAAAAACQCZACIAAgAAAAAACQCaACAAAgAAAAAACQCaACEAAgAAAAAACQCaACIAAgAAAAAACQCbACAAAgAAAAAACQCbACEAAgAAAAAACQCbACIAAgAAAAAACQCcACAAAgAAAAAACQCcACEAAgAAAAAACQCcACIAAgAAAAAACQCdACAAAgAAAAAACQCdACEAAgAAAAAACQCdACIAAgAAAAAACQCeACAAAgAAAAAACQCeACEAAgAAAAAACQCeACIAAgAAAAAACQA=")
 
-[connection signal="body_entered" from="TileMapScenes/DeathZone" to="TileMapScenes/DeathZone" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50450" to="TileMapScenes/@Area2D@50450" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50451" to="TileMapScenes/@Area2D@50451" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50452" to="TileMapScenes/@Area2D@50452" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50453" to="TileMapScenes/@Area2D@50453" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/CoinUG" to="TileMapScenes/CoinUG" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50454" to="TileMapScenes/@Area2D@50454" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50455" to="TileMapScenes/@Area2D@50455" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50456" to="TileMapScenes/@Area2D@50456" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50457" to="TileMapScenes/@Area2D@50457" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50458" to="TileMapScenes/@Area2D@50458" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50459" to="TileMapScenes/@Area2D@50459" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50460" to="TileMapScenes/@Area2D@50460" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50461" to="TileMapScenes/@Area2D@50461" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50462" to="TileMapScenes/@Area2D@50462" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50463" to="TileMapScenes/@Area2D@50463" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50464" to="TileMapScenes/@Area2D@50464" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50465" to="TileMapScenes/@Area2D@50465" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50466" to="TileMapScenes/@Area2D@50466" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50467" to="TileMapScenes/@Area2D@50467" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50468" to="TileMapScenes/@Area2D@50468" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50469" to="TileMapScenes/@Area2D@50469" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50470" to="TileMapScenes/@Area2D@50470" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@50471" to="TileMapScenes/@Area2D@50471" method="_on_body_entered"]
+[node name="Players" type="Node2D" parent="." unique_id=139690163]
+
+[node name="Marker2D" type="Marker2D" parent="Players" unique_id=1628124739]
+position = Vector2(72, 200)
+
+[node name="Marker2D2" type="Marker2D" parent="Players" unique_id=1919547782]
+position = Vector2(88, 200)
+
+[node name="Marker2D3" type="Marker2D" parent="Players" unique_id=296586204]
+position = Vector2(104, 200)
+
+[node name="Marker2D4" type="Marker2D" parent="Players" unique_id=4883298]
+position = Vector2(120, 200)
+
+[node name="MSPlayers" type="MultiplayerSpawner" parent="." unique_id=528820665]
+_spawnable_scenes = PackedStringArray("uid://b5d7ygxpjh0wi", "uid://dtjgaj01xdky6")
+spawn_path = NodePath("../Players")

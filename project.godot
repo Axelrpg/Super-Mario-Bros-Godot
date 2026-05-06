@@ -18,6 +18,7 @@ run/layer_5="Hidden Blocks"
 
 [autoload]
 
+Screens="*uid://c0asm5rpgdcqv"
 GameEvents="*uid://c8itb7eh31lex"
 CustomTransition="*uid://dkuf4xg0fqiit"
 GameControl="*uid://c2tyqk112ssqs"
@@ -27,7 +28,6 @@ NetManager="*uid://brwl08kpo1srh"
 
 window/size/viewport_width=426
 window/size/viewport_height=240
-window/size/resizable=false
 window/size/window_width_override=852
 window/size/window_height_override=480
 window/stretch/mode="canvas_items"

@@ -17,6 +17,13 @@ enum ItemType {
 @export var content: ItemType = ItemType.NONE
 @export var is_multi_coin: bool = false
 
+enum ItemSpawn {
+	MUSHROOM,
+	FIRE_FLOWER,
+	STAR,
+	EXTRA_LIFE
+}
+
 const MUSHROOM_SCENE = preload("res://scenes/items/super_mushroom.tscn")
 const FIRE_FLOWER_SCENE = preload("res://scenes/items/fire_flower.tscn")
 const START_SCENE = preload("res://scenes/items/super_star.tscn")
@@ -32,66 +39,97 @@ func _ready() -> void:
 	animation_player.play("idle")
 	
 func _physics_process(_delta: float) -> void:
-	var bodies = bump_detector.get_overlapping_bodies()
+	if is_empty or is_hitting: return
 	
+	var bodies = bump_detector.get_overlapping_bodies()
 	for body in bodies:
 		if body.is_in_group("players"):
 			var is_below = body.global_position.y > global_position.y
 			
 			if is_hidden_block:
-				if is_below and body.velocity.y < -10 and not is_empty:
+				if is_below and body.velocity.y < -10:
 					handle_hit(body)
 			else:
-				if is_below and body.velocity.y > 10 and not is_empty:
+				if is_below and body.velocity.y > 10:
 					handle_hit(body)
-				
-func handle_hit(body: CharacterBody2D):
+
+func handle_hit(player: CharacterBody2D):
+	if is_empty or is_hitting: return
+	
+	var is_small = player.current_state == player.PlayerState.SMALL
+	var player_position = player.global_position
+	
+	if NetManager.is_online:
+		if multiplayer.is_server():
+			handle_hit_execute.rpc(is_small, player_position)
+		else:
+			handle_hit_rpc.rpc_id(1, is_small, player_position)
+	else:
+		handle_hit_execute(is_small, player_position)
+
+@rpc("any_peer", "reliable")
+func handle_hit_rpc(is_small: bool, player_position: Vector2):
+	if not multiplayer.is_server():
+		return
+	handle_hit_execute.rpc(is_small, player_position)
+
+@rpc("call_local", "reliable")
+func handle_hit_execute(is_small: bool, player_position: Vector2):
+	if is_empty or is_hitting: return
+	
 	if is_hidden_block:
 		set_collision_layer_value(1, true)
 		set_collision_layer_value(5, false)
 		sprite.modulate.a = 1
-		if body.velocity.y < 0:
-			body.velocity.y = 0
 		
-	match content:
-		ItemType.COIN:
-			give_coin()
-		ItemType.POWER_UP:
-			give_power_up(body)
-		ItemType.STAR:
-			give_power_up(body)
-		ItemType.EXTRA_LIFE:
-			give_power_up(body)
-		ItemType.NONE:
-			break_or_bump(body)
+	if content == ItemType.COIN:
+		give_coin()
+	elif content == ItemType.NONE:
+		break_or_bump(is_small)
+	else:
+		give_power_up(is_small, player_position)
 
-func give_power_up(player):
+func give_power_up(is_small: bool, player_position: Vector2):
+	if is_empty or is_hidden_block: return
+	
+	var item_type: int
+	if content == ItemType.STAR:
+		item_type = ItemSpawn.STAR
+	elif content == ItemType.EXTRA_LIFE:
+		item_type = ItemType.EXTRA_LIFE
+	elif is_small:
+		item_type = ItemSpawn.MUSHROOM
+	else:
+		item_type = ItemSpawn.FIRE_FLOWER
+		
+	var hit_dir = 1.0 if player_position.x < global_position.x else -1.0
+	give_power_up_execute(item_type, hit_dir)
+		
+func give_power_up_execute(item_type: int, hit_dir: float):
 	is_empty = true
 	animation_player.play("empty")
-	
 	move_sprite()
 	GameControl.play_item_sound()
-	var item_to_spawn
-
-	if content == ItemType.STAR:
-		item_to_spawn = START_SCENE.instantiate()
-	elif content == ItemType.EXTRA_LIFE:
-		item_to_spawn = EXTRA_LIFE_SCENE.instantiate()
-	else:
-		if player.current_state == player.PlayerState.SMALL:
-			item_to_spawn = MUSHROOM_SCENE.instantiate()
-		else:
-			item_to_spawn = FIRE_FLOWER_SCENE.instantiate()
-		
-	if item_to_spawn.has_method("set_direction"):
-		var hit_dir = 1.0 if player.global_position.x < global_position.x else -1.0
-		item_to_spawn.direction = hit_dir
-		
-	item_to_spawn.global_position = global_position + Vector2(0, -16)
-	get_parent().add_child.call_deferred(item_to_spawn)
 	
-	spawn_animation_tween(item_to_spawn)
-
+	if not NetManager.is_online or multiplayer.is_server():
+		var item_to_spawn
+		match item_type:
+			ItemSpawn.STAR:
+				item_to_spawn = START_SCENE.instantiate()
+			ItemSpawn.EXTRA_LIFE:
+				item_to_spawn = EXTRA_LIFE_SCENE.instantiate()
+			ItemSpawn.MUSHROOM:
+				item_to_spawn = MUSHROOM_SCENE.instantiate()
+			ItemSpawn.FIRE_FLOWER:
+				item_to_spawn = FIRE_FLOWER_SCENE.instantiate()
+				
+		if item_to_spawn.has_method("set_direction"):
+			item_to_spawn.direction = hit_dir
+			
+		item_to_spawn.global_position = global_position + Vector2(0, -16)
+		get_parent().add_child.call_deferred(item_to_spawn)
+		spawn_animation_tween(item_to_spawn)
+	
 func spawn_animation_tween(item: CharacterBody2D):
 	await get_tree().process_frame
 	if is_instance_valid(item):
@@ -113,14 +151,15 @@ func spawn_animation_tween(item: CharacterBody2D):
 		if is_instance_valid(item):
 			item.set_physics_process(true)
 
+@rpc("call_local", "reliable")
 func give_coin():
-	if is_empty: return
-	if is_hitting: return
+	if is_empty or is_hitting: return
 	is_hitting = true
 	
 	move_sprite()
 	spawn_coin_visual()
-	GameControl.spawn_score(200, global_position)
+	var attacker_id = multiplayer.get_unique_id() if NetManager.is_online else 0
+	GameControl.spawn_score(200, global_position, attacker_id)
 	GameControl.add_coin(false)
 	GameControl.play_coin_sound()
 	
@@ -153,12 +192,13 @@ func check_objects_above():
 	
 	for body in bodies:
 		if body.is_in_group("enemies"):
+			var attacker_id = multiplayer.get_unique_id() if NetManager.is_online else 0
 			if body.global_position.x > global_position.x:
 				if body.has_method("die_special"):
-					body.die_special(1)
+					body.die_special(1, attacker_id)
 			else:
 				if body.has_method("die_special"):
-					body.die_special(-1)
+					body.die_special(-1, attacker_id)
 				
 		if body.is_in_group("power_ups"):
 			if body is CharacterBody2D:
@@ -171,5 +211,5 @@ func check_objects_above():
 					if body.has_method("set_direction"):
 						body.set_direction(-1)
 
-func break_or_bump(_player: CharacterBody2D):
+func break_or_bump(_is_small: bool):
 	pass

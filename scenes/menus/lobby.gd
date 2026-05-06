@@ -14,7 +14,7 @@ func _ready() -> void:
 	
 @rpc("call_local", "reliable")
 func start_game():
-	get_tree().change_scene_to_file("res://scenes/test/multiplayer_test.tscn")
+	get_tree().change_scene_to_file("res://scenes/levels/singleplayer/world_1_1.tscn")
 	
 func _update_player_list():
 	players_list.clear()

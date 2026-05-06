@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="4_mlqch"]
 [ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://sounds/jump.wav" id="5_jxspy"]
 [ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://sounds/death.wav" id="6_l4rif"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="7_7yes7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcqk5"]
 size = Vector2(16, 22)
@@ -450,6 +451,20 @@ size = Vector2(16, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mlqch"]
 size = Vector2(18, 18)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_7yes7"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprite2D:frame")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Sprite2D:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Sprite2D:modulate")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+
 [node name="SuperMario" type="CharacterBody2D" unique_id=804950284 groups=["players"]]
 z_index = 4
 collision_layer = 2
@@ -511,6 +526,30 @@ stream = ExtResource("5_jxspy")
 
 [node name="SFXDeath" type="AudioStreamPlayer" parent="Sounds" unique_id=1844446564]
 stream = ExtResource("6_l4rif")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1346327952]
+replication_config = SubResource("SceneReplicationConfig_7yes7")
+
+[node name="CenterContainer" type="CenterContainer" parent="." unique_id=654245568]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -35.0
+offset_right = 15.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="NameLabel" type="Label" parent="CenterContainer" unique_id=174464585]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_7yes7")
+theme_override_font_sizes/font_size = 5
+text = "Player"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]

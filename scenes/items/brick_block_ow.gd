@@ -2,8 +2,8 @@ extends BaseBlocks
 
 const DEBRIS_SCENE = preload("res://scenes/items/brick_debris.tscn")
 
-func break_or_bump(player: CharacterBody2D):
-	if player.current_state == player.PlayerState.SMALL:
+func break_or_bump(is_small: bool):
+	if is_small:
 		move_sprite()
 		GameControl.play_bump_sound()
 	else:

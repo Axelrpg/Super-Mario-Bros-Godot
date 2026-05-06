@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dahh4apno8qab" path="res://sprites/enemies/Goomba.png" id="1_lpmmd"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emeqt"]
-size = Vector2(15.5, 15.5)
+size = Vector2(15, 15)
 
 [sub_resource type="Animation" id="Animation_ulfyc"]
 length = 0.001
@@ -93,14 +93,12 @@ collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=201453715]
+visible = false
 position = Vector2(0, 2)
 shape = SubResource("RectangleShape2D_ulfyc")
 debug_color = Color(0.8306116, 0.2707031, 0.71810114, 0.41960785)
-
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="." unique_id=620165563]
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=643514117]
 replication_config = SubResource("SceneReplicationConfig_emeqt")
 
 [connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
