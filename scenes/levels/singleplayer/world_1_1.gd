@@ -27,10 +27,23 @@ func _process(_delta: float) -> void:
 			get_tree().reload_current_scene()
 
 func _spawn_players(data: Dictionary) -> Node:
-	var new_player = player_scene.instantiate()
-	new_player.name = str(data.id)
-	new_player.position = data.position
-	return new_player
+	var scene_path = data.get("scene", "")
+	var node: Node
+	
+	if scene_path != "":
+		node = load(scene_path).instantiate()
+	else:
+		node = player_scene.instantiate()
+		
+	node.name = str(data.id)
+	node.position = data.get("position", Vector2.ZERO)
+	
+	var sprite = node.get_node_or_null("Sprite2D")
+	if sprite:
+		sprite.flip_h = data.get("flip_h", false)
+		sprite.frame = data.get("frame", 0)
+	
+	return node
 		
 func spawn_players():
 	var markers = players_markers.get_children()

@@ -14,6 +14,7 @@ var current_state = PlayerState.SMALL
 @onready var enemy_detector: Area2D = $EnemyDetector
 @onready var starman_timer: Timer = $StarmanTimer
 @onready var name_label: Label = $CenterContainer/NameLabel
+@onready var synchronizer: MultiplayerSynchronizer = $MultiplayerSynchronizer
 
 # Sounds
 @onready var sfx_jump: AudioStreamPlayer = $Sounds/SFXJump
@@ -235,40 +236,79 @@ func respawn():
 	start_invulnerability_cpu()
 	
 func upgrade_to_super():
-	if current_state == PlayerState.SUPER:
+	if current_state == PlayerState.SUPER or current_state == PlayerState.FIRE:
 		return
 	
+	if NetManager.is_online:
+		if is_multiplayer_authority():
+			upgrade_to_super_rpc.rpc_id(1)
+		else:
+			_do_upgrade_to_super(name)
+	else:
+		_do_upgrade_to_super(name)
+		
+@rpc("any_peer", "reliable")
+func upgrade_to_super_rpc():
+	if not multiplayer.is_server():
+		return
+	var sender_name = str(multiplayer.get_remote_sender_id())
+	_do_upgrade_to_super(sender_name)
+		
+func _do_upgrade_to_super(_player_name: String):
 	set_physics_process(false)
 	is_dying = true
 	collision_layer = 0
 	collision_mask = 0
 	stomp_detector.monitoring = false
 	
-	var super_mario_scene = load("res://scenes/players/super_mario.tscn")
-	var super_mario = super_mario_scene.instantiate()
+	var spawn_pos = global_position
 	
+	if NetManager.is_online:
+		play_upgrade_animation.rpc(spawn_pos)
+	else:
+		play_upgrade_animation(spawn_pos)
+		
+@rpc("any_peer", "call_local", "reliable")
+func play_upgrade_animation(spawn_pos: Vector2):
 	animation_player.stop()
 	visual_super.flip_h = sprite.flip_h
 	visual_super.frame = sprite.frame
+	
 	for i in range(8):
 		sprite.visible = !sprite.visible
 		visual_super.visible = !visual_super.visible
 		await get_tree().create_timer(0.1).timeout
 		
-	super_mario.global_position = visual_super.global_position
-	super_mario.velocity = velocity
+		if not is_inside_tree():
+			return
+		
+	if not NetManager.is_online or multiplayer.is_server():
+		_spawn_super_mario(name, spawn_pos)
+		
+func _spawn_super_mario(player_name: String, spawn_pos: Vector2):
+	var spawner = get_tree().get_root().find_child("ms_players", true, false)
 	
-	if is_starman:
-		var time_left = starman_timer.time_left
-		super_mario.become_starman(time_left)
+	if synchronizer:
+		remove_child(synchronizer)
 	
-	var super_sprite = super_mario.get_node("Sprite2D")
-	if super_sprite:
-		super_sprite.flip_h = sprite.flip_h
-		super_sprite.frame = sprite.frame
+	var data = {
+		"id": int(player_name),
+		"scene": "res://scenes/players/super_mario.tscn",
+		"position": spawn_pos,
+		"flip_h": sprite.flip_h,
+		"frame": sprite.frame
+	}
 	
-	get_parent().add_child(super_mario)
-	queue_free()
+	if spawner:
+		var new_mario = spawner.spawn(data)
+		if new_mario and is_starman:
+			new_mario.become_starman(starman_timer.time_left)
+		if new_mario:
+			new_mario.velocity = velocity
+			
+	await get_tree().create_timer(0.3).timeout
+	if is_inside_tree():
+		queue_free()
 	
 func upgrade_to_fire():
 	if current_state == PlayerState.FIRE:

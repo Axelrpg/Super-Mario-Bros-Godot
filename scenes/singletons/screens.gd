@@ -16,5 +16,3 @@ func _setup_window_position():
 		DisplayServer.window_set_position(Vector2i(0, 0))
 	elif "right" in args:
 		DisplayServer.window_set_position(Vector2i(window_width, 0))
-	else:
-		DisplayServer.window_set_position(Vector2i(0, 0))
