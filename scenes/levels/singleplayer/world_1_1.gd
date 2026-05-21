@@ -1,7 +1,7 @@
 extends Node2D
 
 func _ready() -> void:
-	GameControl.reset_time(110)
+	GameControl.reset_time(300)
 	GameControl.start_timer()
 	GameControl.reset_level_song_pitch_scale()
 	GameControl.play_level_song_music()
