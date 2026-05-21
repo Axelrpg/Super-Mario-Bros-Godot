@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c2amt26unoytd"]
 
-[ext_resource type="Texture2D" uid="uid://ccsiqu5lys7gs" path="res://sprites/items/overworld/Fire Flower.png" id="1_1ucse"]
-[ext_resource type="Script" uid="uid://c8c7m8bj3n5ao" path="res://scenes/items/overworld/fire_flower.gd" id="1_ewn1v"]
+[ext_resource type="Texture2D" uid="uid://ccsiqu5lys7gs" path="res://sprites/items/Fire Flower.png" id="1_1ucse"]
+[ext_resource type="Script" uid="uid://c8c7m8bj3n5ao" path="res://scenes/items/fire_flower.gd" id="1_ewn1v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ewn1v"]
 size = Vector2(16, 15.5)

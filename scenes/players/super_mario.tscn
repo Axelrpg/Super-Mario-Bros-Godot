@@ -512,6 +512,7 @@ texture = ExtResource("4_mlqch")
 hframes = 17
 
 [node name="CeilingCheck" type="RayCast2D" parent="." unique_id=704164371]
+enabled = false
 target_position = Vector2(0, -6)
 hit_from_inside = true
 
