@@ -148,6 +148,11 @@ _data = {
 &"idle": SubResource("Animation_d5blo")
 }
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_n65lv"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
 [node name="FireBall" type="CharacterBody2D" unique_id=1695020777 groups=["fireballs"]]
 z_index = 4
 collision_layer = 0
@@ -170,5 +175,8 @@ shape = SubResource("RectangleShape2D_3r0i3")
 libraries/ = SubResource("AnimationLibrary_knwyf")
 
 [node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=113646241]
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=463693320]
+replication_config = SubResource("SceneReplicationConfig_n65lv")
 
 [connection signal="screen_exited" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_exited"]

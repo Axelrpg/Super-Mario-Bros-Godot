@@ -56,7 +56,7 @@ func _physics_process(_delta: float) -> void:
 func handle_hit(player: CharacterBody2D):
 	if is_empty or is_hitting: return
 	
-	var is_small = player.current_state == player.PlayerState.SMALL
+	var is_small = player.current_state == player.MarioState.SMALL
 	var player_position = player.global_position
 	
 	if NetManager.is_online:
@@ -126,30 +126,8 @@ func give_power_up_execute(item_type: int, hit_dir: float):
 		if item_to_spawn.has_method("set_direction"):
 			item_to_spawn.direction = hit_dir
 			
-		item_to_spawn.global_position = global_position + Vector2(0, -16)
+		item_to_spawn.global_position = global_position + Vector2(0, -8)
 		get_parent().add_child.call_deferred(item_to_spawn)
-		spawn_animation_tween(item_to_spawn)
-	
-func spawn_animation_tween(item: CharacterBody2D):
-	await get_tree().process_frame
-	if is_instance_valid(item):
-		item.modulate.a = 0.0
-		item.global_position.y += 8
-		
-		item.set_physics_process(false)
-		
-		var tween = create_tween().set_parallel(true)
-		tween.tween_property(item, "global_position:y",
-			item.global_position.y - 8, 1)\
-			.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		
-		if item.has_method("disable_collection"):
-			item.disable_collection(0.5)
-		
-		tween.tween_property(item, "modulate:a", 1.0, 0.3)
-		await tween.finished
-		if is_instance_valid(item):
-			item.set_physics_process(true)
 
 @rpc("call_local", "reliable")
 func give_coin():

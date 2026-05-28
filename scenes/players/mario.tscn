@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://sounds/jump.wav" id="6_p4r84"]
 [ext_resource type="AudioStream" uid="uid://scbpvbqrho17" path="res://sounds/pipepowerdown.wav" id="7_77dxu"]
 [ext_resource type="AudioStream" uid="uid://dw5p4uaf8sidr" path="res://sounds/fireball.wav" id="7_e6qb2"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="10_77dxu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0cxq"]
 size = Vector2(12, 15.5)
@@ -2588,6 +2589,7 @@ tracks/12/keys = {
 [sub_resource type="Animation" id="Animation_kjf50"]
 resource_name = "idle"
 length = 0.3
+loop_mode = 1
 step = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -3902,6 +3904,23 @@ size = Vector2(14, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8aya7"]
 size = Vector2(14, 17)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_77dxu"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:current_state")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath(".:move_state")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:facing_right")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimationPlayer:speed_scale")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+
 [node name="Mario" type="CharacterBody2D" unique_id=1679571318 groups=["players"]]
 z_index = 4
 collision_layer = 2
@@ -3985,6 +4004,29 @@ stream = ExtResource("6_j1r8t")
 
 [node name="SFXFireball" type="AudioStreamPlayer" parent="Sounds" unique_id=1047612387]
 stream = ExtResource("7_e6qb2")
+
+[node name="NameLabel" type="Node2D" parent="." unique_id=1455105852]
+
+[node name="PlayerNameLabel" type="Label" parent="NameLabel" unique_id=2109548493]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("10_77dxu")
+theme_override_font_sizes/font_size = 6
+text = "Mario"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=498810066]
+replication_config = SubResource("SceneReplicationConfig_77dxu")
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]

@@ -1,11 +1,26 @@
 extends CharacterBody2D
 
-enum PlayerState {
+enum MarioState {
 	SMALL,
 	SUPER,
 	FIRE
 }
-var current_state = PlayerState.SMALL
+
+enum MoveState {
+	CLIMB,
+	CROUCH,
+	DIE,
+	IDLE,
+	JUMP,
+	SHOOT,
+	SKID,
+	WALK
+}
+
+@export var current_state: MarioState = MarioState.SMALL
+@export var move_state: MoveState = MoveState.IDLE
+@export var facing_right: bool = true
+@export var player_index: int = 0
 
 @onready var small_sprite: Sprite2D = $Sprites/SmallMario
 @onready var super_sprite: Sprite2D = $Sprites/SuperMario
@@ -16,6 +31,8 @@ var current_state = PlayerState.SMALL
 @onready var enemy_detector: Area2D = $EnemyDetector
 @onready var starman_timer: Timer = $StarmanTimer
 @onready var ceiling_check: RayCast2D = $CeilingCheck
+@onready var name_label: Node2D = $NameLabel
+@onready var player_name_label: Label = $NameLabel/PlayerNameLabel
 
 # Sounds
 @onready var sfx_jump_small: AudioStreamPlayer = $Sounds/SFXJumpSmall
@@ -27,16 +44,63 @@ var current_state = PlayerState.SMALL
 var current_sprite: Sprite2D:
 	get:
 		match current_state:
-			PlayerState.SMALL: return small_sprite
-			PlayerState.SUPER: return super_sprite
-			PlayerState.FIRE: return fire_sprite
+			MarioState.SMALL: return small_sprite
+			MarioState.SUPER: return super_sprite
+			MarioState.FIRE: return fire_sprite
 			_: return small_sprite
 
 const STATE_LIBRARY = {
-	PlayerState.SMALL: "small",
-	PlayerState.SUPER: "super",
-	PlayerState.FIRE: "fire"
+	MarioState.SMALL: "small",
+	MarioState.SUPER: "super",
+	MarioState.FIRE: "fire"
 }
+
+const ANIM_TABLE = {
+	MarioState.SMALL: {
+		MoveState.CLIMB: "climb",
+		MoveState.CROUCH: "idle",
+		MoveState.DIE: "die",
+		MoveState.IDLE: "idle",
+		MoveState.JUMP: "jump",
+		MoveState.SKID: "skid",
+		MoveState.WALK: "walk"
+	},
+	MarioState.SUPER: {
+		MoveState.CLIMB: "climb",
+		MoveState.CROUCH: "crouch",
+		MoveState.DIE: "die",
+		MoveState.IDLE: "idle",
+		MoveState.JUMP: "jump",
+		MoveState.SKID: "skid",
+		MoveState.WALK: "walk"
+	},
+	MarioState.FIRE: {
+		MoveState.CLIMB: "climb",
+		MoveState.CROUCH: "crouch",
+		MoveState.DIE: "die",
+		MoveState.IDLE: "idle",
+		MoveState.JUMP: "jump",
+		MoveState.SHOOT: "shoot",
+		MoveState.SKID: "skid",
+		MoveState.WALK: "walk"
+	}
+}
+
+const PALETTE_MARIO = {
+	"new_shirt": Color("6b6d00"),
+	"new_hair":  Color("b53120"),
+	"new_skin":  Color("ea9e22"),
+}
+
+const PALETTE_LUIGI = {
+	"new_shirt": Color("388700"),
+	"new_hair":  Color("fffeff"),  
+	"new_skin":  Color("ea9e22"),
+}
+
+var _last_move_state = -1
+var _last_mario_state = -1
+var _last_facing: bool = true
 
 var original_layer: int
 var original_mask: int
@@ -67,19 +131,50 @@ var is_manual_jumping = false
 
 var can_shoot = true
 
+var is_online = false
+
+func _enter_tree() -> void:
+	if multiplayer.has_multiplayer_peer():
+		var player_id = name.to_int()
+		set_multiplayer_authority(player_id)
+
 func _ready() -> void:
 	original_layer = collision_layer
 	original_mask = collision_mask
-
-func _physics_process(delta: float) -> void:
-	if is_dying:
-		velocity += get_gravity() * delta
-		move_and_collide(velocity * delta)
+	
+	is_online = NetManager.is_online
+	
+	if not is_online:
+		name_label.visible = false
+		_apply_palette(PALETTE_MARIO)
 		return
 		
-	set_global_variables()
-	handle_movement(delta)
-	move_and_slide()
+	var player_id = name.to_int()
+	if is_multiplayer_authority():
+		name_label.visible = false
+	else:
+		var player_name = NetManager.players.get(player_id, "Player")
+		player_name_label.text = player_name
+		name_label.visible = true
+		name_label.position = Vector2(0, -16)
+		
+	if player_id == 1:
+		_apply_palette(PALETTE_MARIO)
+	else:
+		_apply_palette(PALETTE_LUIGI)
+
+func _physics_process(delta: float) -> void:
+	if is_multiplayer_authority() or is_online == false:
+		if is_dying:
+			velocity += get_gravity() * delta
+			move_and_collide(velocity * delta)
+			return
+		
+		set_global_variables()
+		handle_movement(delta)
+		move_and_slide()
+		
+	_update_visuals()
 	
 func set_global_variables():
 	GameEvents.SPEED_X = velocity.x
@@ -87,6 +182,16 @@ func set_global_variables():
 	GameEvents.ANIM_SPEED_SCALE = animation_player.speed_scale
 	GameEvents.CURRENT_ANIMATION = animation_player.current_animation
 	GameEvents.MANUAL_JUMPING = is_manual_jumping
+	
+func _apply_palette(palette: Dictionary) -> void:
+	var mat = ShaderMaterial.new()
+	mat.shader = preload("res://shaders/palette_swap.gdshader")
+	for param in palette:
+		mat.set_shader_parameter(param, palette[param])
+	
+	for sprite in $Sprites.get_children():
+		if sprite is Sprite2D:
+			sprite.material = mat
 	
 func handle_movement(delta: float) -> void:
 	handle_gravity(delta)
@@ -103,7 +208,7 @@ func handle_jump() -> void:
 		is_manual_jumping = true
 		velocity.y = get_jump_velocity(get_target_jump_height())
 		
-		if current_state == PlayerState.SMALL:
+		if current_state == MarioState.SMALL:
 			sfx_jump_small.play()
 		else:
 			sfx_jump.play()
@@ -128,7 +233,7 @@ func get_target_jump_height() -> float:
 func handle_crouch_or_move() -> void:
 	is_ceiling_blocked = ceiling_check.is_colliding()
 	
-	var is_crouching = current_state != PlayerState.SMALL \
+	var is_crouching = current_state != MarioState.SMALL \
 		and is_on_floor() \
 		and (Input.is_action_pressed("crouch") or is_ceiling_blocked)
 
@@ -140,15 +245,14 @@ func handle_crouch_or_move() -> void:
 			current_sprite.flip_h = direction < 0
 		else:
 			velocity.x = move_toward(velocity.x, 0, FRICTION * 0.35)
-		update_animations_crouch()
+		update_move_state_crouch()
 		return
 
 	handle_horizontal_movement()
-
 	if not is_on_floor() and is_ceiling_blocked:
-		update_animations_crouch()
+		update_move_state_crouch()
 	else:
-		update_animations(Input.get_axis("left", "right"))
+		update_move_state(Input.get_axis("left", "right"))
 
 func handle_horizontal_movement() -> void:
 	var is_crouching = Input.is_action_pressed("crouch")
@@ -160,60 +264,84 @@ func handle_horizontal_movement() -> void:
 		if sign(direction) != sign(velocity.x) and abs(velocity.x) > WALK_SPEED * 0.5:
 			is_skidding = true
 			velocity.x = move_toward(velocity.x, direction * current_max_speed, FRICTION * 0.35)
-			current_sprite.flip_h = velocity.x > 0
+			facing_right = velocity.x < 0
 		else:
 			is_skidding = false
 			velocity.x = move_toward(velocity.x, direction * current_max_speed, ACCELERATION)
-			current_sprite.flip_h = direction < 0
+			facing_right = direction > 0
 	else:
 		is_skidding = false
 		velocity.x = move_toward(velocity.x, 0, FRICTION)
 
 func handle_fireball() -> void:
-	if Input.is_action_just_pressed("run") and current_state == PlayerState.FIRE:
+	if Input.is_action_just_pressed("run") and current_state == MarioState.FIRE:
 		if animation_player.current_animation != "crouch":
 			shoot_fireball()
-			
+		
 func play_anim(anim_name: String):
 	var library = STATE_LIBRARY[current_state]
 	animation_player.play(library + "/" + anim_name)
 
-func update_animations(direction: float) -> void:
-	if animation_player.current_animation == "fire/shoot":
+func update_move_state(direction: float) -> void:
+	if not is_on_floor():
+		if current_state != MarioState.SMALL and (is_ceiling_blocked or Input.is_action_pressed("crouch")):
+			move_state = MoveState.CROUCH
+		else:
+			move_state = MoveState.JUMP
 		return
 
-	if not is_on_floor():
-		if current_state != PlayerState.SMALL and (is_ceiling_blocked or Input.is_action_pressed("crouch")):
-			play_anim("crouch")
-		else:
-			play_anim("jump")
+	if is_skidding:
+		move_state = MoveState.SKID
 		return
 
 	if Input.is_action_pressed("crouch") or is_ceiling_blocked:
-		if current_state == PlayerState.SMALL:
-			if direction != 0:
-				play_anim("walk")
-			else:
-				play_anim("idle")
+		if current_state == MarioState.SMALL:
+			move_state = MoveState.WALK if direction != 0 else MoveState.IDLE
 		else:
-			play_anim("crouch")
-	elif is_skidding:
-		play_anim("skid")
-	elif direction != 0:
-		play_anim("walk")
-		var current_velocity = abs(velocity.x)
-		anim_speed_scale = remap(current_velocity, 0, WALK_SPEED, 0.8, 1.0) \
-			if current_velocity <= WALK_SPEED \
-			else remap(current_velocity, WALK_SPEED, RUN_SPEED, 1.0, 2.0)
-		animation_player.speed_scale = min(2.0, anim_speed_scale)
+			move_state = MoveState.CROUCH
+		return
+
+	if direction != 0:
+		move_state = MoveState.WALK
 	else:
-		play_anim("idle")
+		move_state = MoveState.IDLE
+
+func update_move_state_crouch() -> void:
+	if current_state == MarioState.SMALL:
+		move_state = MoveState.IDLE
+	else:
+		move_state = MoveState.CROUCH
 		
-func update_animations_crouch() -> void:
-	if current_state == PlayerState.SMALL:
-		play_anim("idle")
-	else:
-		play_anim("crouch")
+func _update_visuals() -> void:
+	if move_state != _last_move_state or current_state != _last_mario_state:
+		if animation_player.current_animation != "fire/shoot":
+			
+			if not ANIM_TABLE.has(current_state):
+				push_error("ANIM_TABLE no tiene entrada para current_state: %d" % current_state)
+				return
+				
+			if not ANIM_TABLE[current_state].has(move_state):
+				push_error("ANIM_TABLE[%d] no tiene entrada para move_state: %d" % [current_state, move_state])
+				return
+			
+			var anim_name = ANIM_TABLE[current_state][move_state]
+			play_anim(anim_name)
+			
+			if move_state != MoveState.WALK:
+				animation_player.speed_scale = 1.0
+				
+		_last_mario_state = move_state
+		_last_mario_state = current_state
+			
+	if move_state == MoveState.WALK:
+		var spd = abs(velocity.x)
+		animation_player.speed_scale = min(2.0,
+			remap(spd, 0, WALK_SPEED, 0.8, 1.0) if spd <= WALK_SPEED
+			else remap(spd, WALK_SPEED, RUN_SPEED, 1.0, 2.0))
+
+	if facing_right != _last_facing:
+		current_sprite.flip_h = not facing_right
+		_last_facing = facing_right
 
 func get_jump_velocity(h: float) -> float:
 	return -sqrt(2 * get_gravity().y * h)
@@ -237,25 +365,27 @@ func shoot_fireball():
 		if is_instance_valid(self):
 			can_shoot = true
 	
-func take_power_up(new_state: PlayerState):
+func take_power_up(new_state: MarioState):
+	name_label.position = Vector2(0, -32)
 	match new_state:
-		PlayerState.SUPER:
-			if current_state == PlayerState.FIRE:
+		MarioState.SUPER:
+			if current_state == MarioState.FIRE:
 				return
-			call_deferred("change_state", PlayerState.SUPER)
-		PlayerState.FIRE:
-			call_deferred("change_state", PlayerState.FIRE)
+			call_deferred("change_state", MarioState.SUPER)
+		MarioState.FIRE:
+			call_deferred("change_state", MarioState.FIRE)
 
 func take_damage():
 	match current_state:
-		PlayerState.SMALL:
+		MarioState.SMALL:
 			die()
-		PlayerState.SUPER:
+		MarioState.SUPER:
 			sfx_power_down.play()
-			call_deferred("change_state", PlayerState.SMALL, true)
-		PlayerState.FIRE:
+			name_label.position = Vector2(0, -16)
+			call_deferred("change_state", MarioState.SMALL, true)
+		MarioState.FIRE:
 			sfx_power_down.play()
-			call_deferred("change_state", PlayerState.SUPER, true)
+			call_deferred("change_state", MarioState.SUPER, true)
 	
 func die():
 	if is_dying: return
@@ -274,7 +404,7 @@ func die():
 	await get_tree().create_timer(3.0).timeout
 	GameControl.reload_level()
 	
-func change_state(new_state: PlayerState, invulnerable: bool = false) -> void:
+func change_state(new_state: MarioState, invulnerable: bool = false) -> void:
 	if current_state == new_state:
 		return
 	
@@ -286,11 +416,11 @@ func change_state(new_state: PlayerState, invulnerable: bool = false) -> void:
 	
 	var next_sprite
 	match new_state:
-		PlayerState.SMALL:
+		MarioState.SMALL:
 			next_sprite = small_sprite
-		PlayerState.SUPER:
+		MarioState.SUPER:
 			next_sprite = super_sprite
-		PlayerState.FIRE:
+		MarioState.FIRE:
 			next_sprite = fire_sprite
 
 	next_sprite.flip_h = current_sprite.flip_h

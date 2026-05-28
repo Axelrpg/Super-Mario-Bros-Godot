@@ -1,12 +1,77 @@
 [gd_scene format=3 uid="uid://1l5lfealu6h1"]
 
-[ext_resource type="Script" uid="uid://coy0j5p3v41yy" path="res://scenes/players/fire_mario.gd" id="1_c4o8a"]
 [ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="1_ldp1i"]
 [ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="2_3l0b1"]
 [ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="3_ldyiv"]
 [ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://sounds/jump.wav" id="5_ldyiv"]
 [ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://sounds/death.wav" id="6_tql5l"]
 [ext_resource type="AudioStream" uid="uid://dw5p4uaf8sidr" path="res://sounds/fireball.wav" id="7_boufu"]
+
+[sub_resource type="GDScript" id="GDScript_mxs2f"]
+script/source = "extends BaseSuperMario
+
+@onready var sfx_fireball = $Sounds/SFXFireball
+
+var can_shoot: bool = true
+
+func _ready() -> void:
+	super()
+	current_state = PlayerState.FIRE
+
+func _physics_process(delta: float) -> void:
+	if Input.is_action_just_pressed(\"run\"):
+		if animation_player.current_animation == \"crouch\":
+			return
+		
+		shoot_fireball()
+		
+	super._physics_process(delta)
+
+func shoot_fireball():
+	var active_fireballs = get_tree().get_nodes_in_group(\"fireballs\")
+	
+	if active_fireballs.size() < 2 and can_shoot:
+		sfx_fireball.play()
+		animation_player.play(\"shoot\")
+		
+		var fireball_scene = preload(\"res://scenes/items/fire_ball.tscn\")
+		var fireball = fireball_scene.instantiate()
+	
+		fireball.direction = -1 if sprite.flip_h else 1
+		fireball.global_position = global_position + Vector2(fireball.direction * 12, -8)
+		get_parent().add_child(fireball)
+		
+		can_shoot = false
+		await get_tree().create_timer(0.15).timeout
+		if is_instance_valid(self):
+			can_shoot = true
+			
+func take_damage():
+	if is_invulnerable or is_dying or is_starman:
+		return
+		
+	downgrade_to_super()
+
+func _on_stomp_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"enemies\") and velocity.y > 0:
+		if body.has_method(\"die\"):
+			body.die()
+			
+		if Input.is_action_pressed(\"jump\"):
+			velocity.y = JUMP_VELOCITY * 0.9
+		else:
+			velocity.y = JUMP_VELOCITY * 0.6
+
+func _on_enemy_detector_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"enemies\"):
+		if is_starman:
+			var hit_dir = 1.0 if global_position.x < body.global_position.x else -1.0
+			if body.has_method(\"die_special\"):
+				body.die_special(hit_dir)
+
+func _on_starman_timer_timeout() -> void:
+	end_starman_effect()
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcqk5"]
 size = Vector2(16, 22)
@@ -519,7 +584,7 @@ size = Vector2(18, 18)
 [node name="FireMario" type="CharacterBody2D" unique_id=804950284 groups=["players"]]
 z_index = 4
 collision_layer = 2
-script = ExtResource("1_c4o8a")
+script = SubResource("GDScript_mxs2f")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1803149864]
 texture = ExtResource("1_ldp1i")
