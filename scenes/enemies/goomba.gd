@@ -28,8 +28,8 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func die():
-	GameControl.spawn_score(100, global_position)
+func die(player: Node2D = null):
+	GameControl.spawn_score(100, global_position, player)
 	GameControl.play_stomp_swim_sound()
 	is_dying = true
 	set_physics_process(false)

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://qhtf8woqisbl"]
+
+[ext_resource type="Script" uid="uid://ceflushh3hr8x" path="res://scenes/transitions/multiplayer_transition.gd" id="1_ybgxf"]
+
+[node name="MultiplayerTransition" type="CanvasLayer" unique_id=2021971567]
+script = ExtResource("1_ybgxf")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=500063666]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Left" type="ColorRect" parent="HBoxContainer" unique_id=1290150321]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)
+
+[node name="Right" type="ColorRect" parent="HBoxContainer" unique_id=154087961]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0, 0, 1)

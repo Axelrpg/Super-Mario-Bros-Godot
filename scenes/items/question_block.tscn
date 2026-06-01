@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://ik88a4xy7jy7"]
 
-[ext_resource type="Script" uid="uid://dwfoaiequwu24" path="res://scenes/items/overworld/question_block.gd" id="1_ytprx"]
-[ext_resource type="Texture2D" uid="uid://b7wqqw02srchq" path="res://sprites/items/overworld/Coin Block.png" id="2_xilsa"]
+[ext_resource type="Script" uid="uid://dwfoaiequwu24" path="res://scenes/items/question_block.gd" id="1_ytprx"]
+[ext_resource type="Texture2D" uid="uid://b7wqqw02srchq" path="res://sprites/items/Coin Block.png" id="2_xilsa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sshfo"]
 size = Vector2(15, 16)

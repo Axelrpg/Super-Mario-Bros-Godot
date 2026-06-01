@@ -1,5 +1,7 @@
 extends Node
 
+@export var is_multiplayer: bool = true
+
 @onready var sfx_1up = $SFX/SFX1Up
 @onready var sfx_brick = $SFX/SFXBrick
 @onready var sfx_bump = $SFX/SFXBump
@@ -19,11 +21,17 @@ var level_intro_scene = preload("res://scenes/levels/singleplayer/level_intro.ts
 
 var lives: int = 2
 var total_score: int = 0
-var coins: int = 0
+var total_coins: int = 0
 var current_world: String = "1"
 var current_level: String = "1"
 var time_left: float = 300
 var is_timer_active: bool = true
+
+var player_scores: Dictionary = {}
+var player_coins: Dictionary = {}
+var dead_players: Array = []
+var total_players: int = 2
+var death_count: int = 0
 
 var last_second: int = 0
 var hurry_up_played: bool = false
@@ -46,51 +54,95 @@ func _process(delta: float) -> void:
 			
 			if current_second <= 100 and not hurry_up_played:
 				play_hurry_up_sound()
+				
+func get_player_score(player_id: int):
+	return player_scores.get(player_id, 0)
+	
+func get_player_coins(player_id: int):
+	return player_coins.get(player_id, 0)
+	
+func get_respawn_time() -> float:
+	death_count += 1
+	return death_count * 3.0
 
-func spawn_score(value: int, pos: Vector2):
-	add_score(value)
+func spawn_score(value: int, pos: Vector2, player: Node2D = null):
+	var player_id = player.player_id if player else 0
+	add_score(value, player_id)
+	
 	var score_popup = score_scene.instantiate()
 	score_popup.global_position = pos
-	get_tree().current_scene.add_child(score_popup)
+	
+	player.get_viewport().add_child(score_popup)
 	score_popup.setup(value)
 	
-func add_score(amount: int):
-	total_score += amount
+func add_score(amount: int, player_id: int):
+	if is_multiplayer:
+		player_scores[player_id] = get_player_score(player_id) + amount
+	else:
+		total_score += amount
 	
-func add_coin(with_score: bool = true):
-	coins += 1
-	if coins >= 100:
-		coins = 0
-	
+func add_coin(player_id: int, with_score: bool = true):
+	if is_multiplayer:
+		var coins = get_player_coins(player_id) + 1
+		if coins >= 100:
+			coins = 0
+			add_score(200, player_id)
+		player_coins[player_id] = coins
+	else:
+		total_coins += 1
+		if total_coins >= 100:
+			total_coins = 0
+			
 	if with_score:
-		add_score(200)
-	
+		add_score(200, player_id)
+		
 	update_ui()
 	
 func update_ui():
-	var hud = get_tree().get_first_node_in_group("hud")
-	if hud:
-		hud.update_hud()
+	var huds = get_tree().get_nodes_in_group("hud")
+	for hud in huds:
+		if hud:
+			hud.update_hud()
 
-func stop_timer():
-	is_timer_active = false
-	
 func start_timer():
 	is_timer_active = true
+
+func stop_timer():
+	is_timer_active = false	
 	
 func reset_time(custom_time: int = 300):
 	time_left = custom_time
 	
+func reset_death_count():
+	death_count = 0
+	
 func reset_values(custom_time: int = 300):
-	total_score = 0
-	coins = 0
+	if is_multiplayer:
+		player_scores.clear()
+		player_coins.clear()
+	else:
+		total_score = 0
+		total_coins = 0
+	
 	time_left = custom_time
+	death_count = 0
 	
 func killer_player_by_timeout():
-	var player = get_tree().get_first_node_in_group("players")
+	var players = get_tree().get_nodes_in_group("players")
 	
-	if player and player.has_method("die"):
-		player.die()
+	for player in players:
+		if player.has_method("die"):
+			player.die()
+		
+func register_death(player_id: int):
+	if player_id not in dead_players:
+		dead_players.append(player_id)
+		
+func unregister_death(player_id: int):
+	dead_players.erase(player_id)
+	
+func all_players_dead() -> bool:
+	return dead_players.size() >= total_players
 		
 func play_1up_sound():
 	sfx_1up.play()
@@ -146,6 +198,10 @@ func stop_starman_music():
 		
 func reload_level():
 	lives -= 1
+	
+	if is_multiplayer:
+		dead_players.clear()
+		death_count = 0
 	
 	if lives >= 0:
 		get_tree().change_scene_to_file("res://scenes/levels/singleplayer/level_intro.tscn")

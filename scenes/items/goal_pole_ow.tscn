@@ -12,7 +12,7 @@ size = Vector2(2, 152)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7njuu"]
 size = Vector2(16, 16)
 
-[node name="GoalPoleOW" type="Area2D" unique_id=1492566677]
+[node name="GoalPoleOW" type="Area2D" unique_id=1492566677 groups=["flag_pole"]]
 collision_layer = 0
 collision_mask = 2
 script = ExtResource("1_aaqeh")
@@ -30,9 +30,6 @@ shape = SubResource("RectangleShape2D_uhevm")
 
 [node name="ArrivalPointSmall" type="Marker2D" parent="." unique_id=742893646]
 position = Vector2(0, 64)
-
-[node name="ArrivalPointSuper" type="Marker2D" parent="." unique_id=1230428482]
-position = Vector2(0, 56)
 
 [node name="Overworld Ground_Stone" parent="." unique_id=687603482 instance=ExtResource("4_uhevm")]
 

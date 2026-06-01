@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cgnt4cofqckud"]
+
+[ext_resource type="Script" uid="uid://dimvxuieg562l" path="res://scenes/transitions/respawn_countdown.gd" id="1_0bxy2"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="1_aoqar"]
+
+[node name="RespawnCountdown" type="CanvasLayer" unique_id=73424403]
+script = ExtResource("1_0bxy2")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=631335435]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Left" type="VBoxContainer" parent="HBoxContainer" unique_id=1099930875]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="P1" type="Label" parent="HBoxContainer/Left" unique_id=631957193]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_aoqar")
+theme_override_font_sizes/font_size = 12
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Right" type="VBoxContainer" parent="HBoxContainer" unique_id=115848599]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="P2" type="Label" parent="HBoxContainer/Right" unique_id=98649105]
+visible = false
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_aoqar")
+theme_override_font_sizes/font_size = 12
+text = "10"
+horizontal_alignment = 1
+vertical_alignment = 1

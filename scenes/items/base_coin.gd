@@ -8,10 +8,10 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		collect()
+		collect(body.player_id)
 
-func collect():
+func collect(player_id: int):
 	set_deferred("monitoring", false)
-	GameControl.add_coin()
+	GameControl.add_coin(player_id)
 	GameControl.play_coin_sound()
 	queue_free()

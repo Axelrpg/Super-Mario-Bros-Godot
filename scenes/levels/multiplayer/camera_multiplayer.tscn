@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://cq3v58j34de6p"]
+
+[ext_resource type="Script" uid="uid://duibfc1cb2q2d" path="res://scenes/levels/multiplayer/camera_multiplayer.gd" id="1_rsa07"]
+
+[node name="CameraMultiplayer" type="Camera2D" unique_id=437967432 groups=["camera"]]
+script = ExtResource("1_rsa07")

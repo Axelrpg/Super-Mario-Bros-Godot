@@ -15,7 +15,6 @@ func _physics_process(_delta: float) -> void:
 		return
 		
 	var facing_dir = Vector2.UP.rotated(rotation).round()
-	
 	var required_action = ""
 	
 	if facing_dir == Vector2.UP: required_action = "down"
@@ -23,13 +22,15 @@ func _physics_process(_delta: float) -> void:
 	if facing_dir == Vector2.LEFT: required_action = "right"
 	if facing_dir == Vector2.RIGHT: required_action = "left"
 	
-	if Input.is_action_pressed(required_action) and not is_only_exit:
+	if not is_only_exit:
 		var bodies = entry_area.get_overlapping_bodies()
 		for body in bodies:
 			if body.is_in_group("players"):
 				if check_collision_by_direction(body, facing_dir):
-					is_entrance = true
-					enter_pipe(body)
+					var action = "p%d_%s" % [body.player_id, required_action]
+					if Input.is_action_pressed(action):
+						is_entrance = true
+						enter_pipe(body)
 
 func check_collision_by_direction(player: CharacterBody2D, dir: Vector2) -> bool:
 	if dir == Vector2.UP: return player.is_on_floor()
@@ -41,25 +42,29 @@ func check_collision_by_direction(player: CharacterBody2D, dir: Vector2) -> bool
 func enter_pipe(player: CharacterBody2D):
 	player.set_physics_process(false)
 	player.z_index = 2
-	GameControl.stop_timer()
 	sfx_pipe.play()
 	
+	if not GameControl.is_multiplayer:
+		GameControl.stop_timer()
+	
 	var direction = Vector2.DOWN.rotated(rotation)
+	var is_small = player.current_state == player.PlayerState.SMALL
 	
 	var align_pos = player.global_position
 	if abs(direction.x) > 0.5:
 		align_pos.y = global_position.y
-		player.animation_player.play("walk")
-		player.sprite.flip_h = direction.x < 0
+		player.play_anim("walk")
+		player.current_sprite.flip_h = direction.x < 0
 	else:
 		align_pos.x = global_position.x
-		player.animation_player.play("idle")
+		player.play_anim("idle")
 		
-	var align_tween = create_tween()
-	align_tween.tween_property(player, "global_position", align_pos, 0.1)
-	await align_tween.finished
+	if is_small:
+		var align_tween = create_tween()
+		align_tween.tween_property(player, "global_position", align_pos, 0.1)
+		await align_tween.finished
 	
-	var distance = 16 if player.current_state == player.PlayerState.SMALL else 32
+	var distance = 16 if is_small else 32
 	var target_pos = player.global_position + (direction * distance)
 	
 	var tween = create_tween()
@@ -68,7 +73,10 @@ func enter_pipe(player: CharacterBody2D):
 	tween.finished.connect(func(): transport_player(player))
 	
 func transport_player(player: CharacterBody2D):
-	await CustomTransition.fade_out(0.5).finished
+	if GameControl.is_multiplayer:
+		await MultiplayerTransition.fade_out(player.player_id, 0.5).finished
+	else:
+		await CustomTransition.fade_out(0.5).finished
 	
 	var exit_pipe = get_tree().get_nodes_in_group("pipes").filter(
 		func(p): return p.target_pipe_tag == self.target_pipe_tag and p != self
@@ -79,26 +87,37 @@ func transport_player(player: CharacterBody2D):
 	var camera = get_tree().get_first_node_in_group("camera")
 	camera.teleport_to_zone(exit_pipe.global_position, new_limits)
 	
-	player.global_position = exit_pipe.global_position
+	player.global_position = exit_pipe.global_position - Vector2(0, -8)
 	
 	await get_tree().create_timer(1.5).timeout
-	await CustomTransition.fade_in(1).finished
+	
+	if GameControl.is_multiplayer:
+		await MultiplayerTransition.fade_in(player.player_id, 1).finished
+	else:
+		await CustomTransition.fade_in(1).finished
+	
 	exit_pipe.exit_sequence(player)
 	
 func exit_sequence(player: CharacterBody2D):
 	var out_direction = Vector2.UP.rotated(rotation)
+	var is_small = player.current_state == player.PlayerState.SMALL
 	sfx_pipe.play()
 	
+	var align_pos = player.global_position
 	if abs(out_direction.x) > 0.5:
-		player.animation_player.play("walk")
-		player.sprite.flip_h = out_direction.x < 0
+		align_pos.y = global_position.y
+		player.play_anim("walk")
+		player.current_sprite.flip_h = out_direction.x < 0
 	else:
-		player.animation_player.play("idle")
+		align_pos.x = global_position.x
+		player.play_anim("idle")
 	
-	var distance_inside = 16 if player.current_state == player.PlayerState.SMALL else 32
-	player.global_position = global_position - (out_direction * distance_inside)
+	if is_small:
+		var align_tween = create_tween()
+		align_tween.tween_property(player, "global_position", align_pos, 0.1)
+		await align_tween.finished
 	
-	var exit_distance = 24 if player.current_state == player.PlayerState.SMALL else 32
+	var exit_distance = 24
 	var target_pos = global_position + (out_direction * exit_distance)
 	
 	var tween = create_tween()

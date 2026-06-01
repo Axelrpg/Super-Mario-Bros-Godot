@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://bdhmtqggnggen"]
+
+[ext_resource type="PackedScene" uid="uid://b7tfuonx8ne4k" path="res://scenes/levels/singleplayer/world_1_1.tscn" id="1_g0flt"]
+[ext_resource type="Script" uid="uid://cp50wm1jdvuu" path="res://scenes/levels/multiplayer/split_screen.gd" id="1_nsn3j"]
+[ext_resource type="PackedScene" uid="uid://3wr73wgt8cod" path="res://scenes/hud/multiplayer_hud.tscn" id="2_0bbor"]
+[ext_resource type="PackedScene" uid="uid://c7x5p7rda1itf" path="res://scenes/hud/hud.tscn" id="2_13ld5"]
+[ext_resource type="PackedScene" uid="uid://cq3v58j34de6p" path="res://scenes/levels/multiplayer/camera_multiplayer.tscn" id="3_fh2oo"]
+
+[node name="SplitScreen" type="Control" unique_id=601972456]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nsn3j")
+
+[node name="HUD" parent="." unique_id=779286299 instance=ExtResource("2_13ld5")]
+visible = false
+
+[node name="MultiplayerHUD" parent="." unique_id=1413311551 instance=ExtResource("2_0bbor")]
+visible = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1272174013]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="Left" type="SubViewportContainer" parent="HBoxContainer" unique_id=1202410360]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/Left" unique_id=447989834]
+handle_input_locally = false
+size = Vector2i(212, 240)
+render_target_update_mode = 4
+
+[node name="World 1-1" parent="HBoxContainer/Left/SubViewport" unique_id=1002318618 instance=ExtResource("1_g0flt")]
+
+[node name="CameraMultiplayer" parent="HBoxContainer/Left/SubViewport" unique_id=437967432 node_paths=PackedStringArray("world_root") instance=ExtResource("3_fh2oo")]
+world_root = NodePath("../World 1-1")
+
+[node name="Divider" type="ColorRect" parent="HBoxContainer" unique_id=510963816]
+custom_minimum_size = Vector2(2, 0)
+layout_mode = 2
+
+[node name="Right" type="SubViewportContainer" parent="HBoxContainer" unique_id=721698986]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/Right" unique_id=266664235]
+handle_input_locally = false
+size = Vector2i(212, 240)
+render_target_update_mode = 4
+
+[node name="CameraMultiplayer" parent="HBoxContainer/Right/SubViewport" unique_id=49160251 node_paths=PackedStringArray("world_root") instance=ExtResource("3_fh2oo")]
+position = Vector2(218, 0)
+world_root = NodePath("../../../Left/SubViewport/World 1-1")

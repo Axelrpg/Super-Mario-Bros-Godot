@@ -1,6 +1,11 @@
 extends Node2D
 
+@onready var luigi = $Luigi
+
 func _ready() -> void:
+	if not GameControl.is_multiplayer:
+		luigi.disable()
+	
 	GameControl.reset_time(300)
 	GameControl.start_timer()
 	GameControl.reset_level_song_pitch_scale()

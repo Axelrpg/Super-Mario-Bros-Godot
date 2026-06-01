@@ -2,7 +2,8 @@
 
 [ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="1_1lxv7"]
 [ext_resource type="Script" uid="uid://7rpaxnxfd4an" path="res://scenes/levels/singleplayer/level_intro.gd" id="1_vuh7p"]
-[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="2_vuh7p"]
+[ext_resource type="Texture2D" uid="uid://brfsi2mfof4hc" path="res://sprites/players/mario/Mario Idle.png" id="3_a0pgi"]
+[ext_resource type="Texture2D" uid="uid://cns1kjss5gms6" path="res://sprites/players/luigi/Luigi.png" id="4_tfchd"]
 
 [node name="LevelIntro" type="ColorRect" unique_id=2141484306]
 z_index = 100
@@ -13,6 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_vuh7p")
+next_level_path = "res://scenes/levels/multiplayer/split_screen.tscn"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=876396353]
 layout_mode = 1
@@ -45,10 +47,13 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Sprite2D" type="Sprite2D" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=990584836]
-position = Vector2(8, 7)
-texture = ExtResource("2_vuh7p")
-hframes = 14
+[node name="Mario" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=1943951230]
+layout_mode = 2
+texture = ExtResource("3_a0pgi")
+
+[node name="Luigi" type="TextureRect" parent="MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer" unique_id=999735333]
+layout_mode = 2
+texture = ExtResource("4_tfchd")
 
 [node name="XLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=776388882]
 layout_mode = 2

@@ -55,7 +55,7 @@ func handle_hit(body: CharacterBody2D):
 		
 	match content:
 		ItemType.COIN:
-			give_coin()
+			give_coin(body)
 		ItemType.POWER_UP:
 			give_power_up(body)
 		ItemType.STAR:
@@ -113,15 +113,15 @@ func spawn_animation_tween(item: CharacterBody2D):
 		if is_instance_valid(item):
 			item.set_physics_process(true)
 
-func give_coin():
+func give_coin(player: Node2D = null):
 	if is_empty: return
 	if is_hitting: return
 	is_hitting = true
 	
 	move_sprite()
 	spawn_coin_visual()
-	GameControl.spawn_score(200, global_position)
-	GameControl.add_coin(false)
+	GameControl.spawn_score(200, global_position, player)
+	GameControl.add_coin(player.player_id, false)
 	GameControl.play_coin_sound()
 	
 	if is_multi_coin:

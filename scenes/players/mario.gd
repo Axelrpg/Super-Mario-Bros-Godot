@@ -7,6 +7,20 @@ enum PlayerState {
 }
 var current_state = PlayerState.SMALL
 
+const PALETTE_MARIO = {
+	"new_shirt": Color("6b6d00"),
+	"new_hair":  Color("b53120"),
+	"new_skin":  Color("ea9e22"),
+}
+
+const PALETTE_LUIGI = {
+	"new_shirt": Color("388700"),
+	"new_hair":  Color("fffeff"),  
+	"new_skin":  Color("ea9e22"),
+}
+
+@export var player_id: int = 1
+
 @onready var small_sprite: Sprite2D = $Sprites/SmallMario
 @onready var super_sprite: Sprite2D = $Sprites/SuperMario
 @onready var fire_sprite: Sprite2D = $Sprites/FireMario
@@ -70,6 +84,9 @@ var can_shoot = true
 func _ready() -> void:
 	original_layer = collision_layer
 	original_mask = collision_mask
+	
+	if player_id == 2:
+		apply_palette(PALETTE_LUIGI)
 
 func _physics_process(delta: float) -> void:
 	if is_dying:
@@ -88,6 +105,15 @@ func set_global_variables():
 	GameEvents.CURRENT_ANIMATION = animation_player.current_animation
 	GameEvents.MANUAL_JUMPING = is_manual_jumping
 	
+func apply_palette(palette: Dictionary):
+	var mat = ShaderMaterial.new()
+	mat.shader = preload("res://shaders/palette_swap.gdshader")
+	for param in palette:
+		mat.set_shader_parameter(param, palette[param])
+		
+	small_sprite.material = mat
+	super_sprite.material = mat
+	
 func handle_movement(delta: float) -> void:
 	handle_gravity(delta)
 	handle_jump()
@@ -99,7 +125,7 @@ func handle_gravity(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 func handle_jump() -> void:
-	if Input.is_action_just_pressed("jump") and is_on_floor():
+	if Input.is_action_just_pressed("p%d_jump" % player_id) and is_on_floor():
 		is_manual_jumping = true
 		velocity.y = get_jump_velocity(get_target_jump_height())
 		
@@ -111,7 +137,7 @@ func handle_jump() -> void:
 	if velocity.y >= 0:
 		is_manual_jumping = false
 
-	if Input.is_action_just_released("jump") and velocity.y < 0:
+	if Input.is_action_just_released("p%d_jump" % player_id) and velocity.y < 0:
 		velocity.y *= JUMP_RELEASE_FORCE
 
 	if is_on_ceiling() and velocity.y < 0:
@@ -130,10 +156,10 @@ func handle_crouch_or_move() -> void:
 	
 	var is_crouching = current_state != PlayerState.SMALL \
 		and is_on_floor() \
-		and (Input.is_action_pressed("crouch") or is_ceiling_blocked)
+		and (Input.is_action_pressed("p%d_down" % player_id) or is_ceiling_blocked)
 
 	if is_crouching:
-		var direction := Input.get_axis("left", "right")
+		var direction := Input.get_axis("p%d_left" % player_id, "p%d_right" % player_id)
 		if is_ceiling_blocked and direction != 0 and velocity.y < 0:
 			var escape_speed = (WALK_SPEED / 4.0) * direction
 			velocity.x = escape_speed
@@ -148,13 +174,13 @@ func handle_crouch_or_move() -> void:
 	if not is_on_floor() and is_ceiling_blocked:
 		update_animations_crouch()
 	else:
-		update_animations(Input.get_axis("left", "right"))
+		update_animations(Input.get_axis("p%d_left" % player_id, "p%d_right" % player_id))
 
 func handle_horizontal_movement() -> void:
-	var is_crouching = Input.is_action_pressed("crouch")
-	var can_run = Input.is_action_pressed("run") and not is_crouching
+	var is_crouching = Input.is_action_pressed("p%d_down" % player_id)
+	var can_run = Input.is_action_pressed("p%d_run" % player_id) and not is_crouching
 	var current_max_speed = RUN_SPEED if can_run else WALK_SPEED
-	var direction := Input.get_axis("left", "right")
+	var direction := Input.get_axis("p%d_left" % player_id, "p%d_right" % player_id)
 
 	if direction:
 		if sign(direction) != sign(velocity.x) and abs(velocity.x) > WALK_SPEED * 0.5:
@@ -170,7 +196,7 @@ func handle_horizontal_movement() -> void:
 		velocity.x = move_toward(velocity.x, 0, FRICTION)
 
 func handle_fireball() -> void:
-	if Input.is_action_just_pressed("run") and current_state == PlayerState.FIRE:
+	if Input.is_action_just_pressed("p%d_run" % player_id) and current_state == PlayerState.FIRE:
 		if animation_player.current_animation != "crouch":
 			shoot_fireball()
 			
@@ -183,13 +209,13 @@ func update_animations(direction: float) -> void:
 		return
 
 	if not is_on_floor():
-		if current_state != PlayerState.SMALL and (is_ceiling_blocked or Input.is_action_pressed("crouch")):
+		if current_state != PlayerState.SMALL and (is_ceiling_blocked or Input.is_action_pressed("p%d_down" % player_id)):
 			play_anim("crouch")
 		else:
 			play_anim("jump")
 		return
 
-	if Input.is_action_pressed("crouch") or is_ceiling_blocked:
+	if Input.is_action_pressed("p%d_down" % player_id) or is_ceiling_blocked:
 		if current_state == PlayerState.SMALL:
 			if direction != 0:
 				play_anim("walk")
@@ -247,6 +273,9 @@ func take_power_up(new_state: PlayerState):
 			call_deferred("change_state", PlayerState.FIRE)
 
 func take_damage():
+	if is_invulnerable:
+		return
+		
 	match current_state:
 		PlayerState.SMALL:
 			die()
@@ -268,11 +297,55 @@ func die():
 	play_anim("die")
 	velocity.y = JUMP_VELOCITY * 0.8
 	velocity.x = 0
-	GameControl.stop_timer()
-	GameControl.stop_level_song_music()
 	
-	await get_tree().create_timer(3.0).timeout
-	GameControl.reload_level()
+	var flag = get_tree().get_first_node_in_group("flag_pole")
+	if flag and not flag.victory_started and flag.waiting_players.size() > 0:
+		flag.victory_started = true
+		
+	if flag.victory_started:
+		return
+	
+	if GameControl.is_multiplayer:
+		GameControl.register_death(player_id)
+		
+		if GameControl.all_players_dead():
+			RespawnCountdown.cancel_all()
+			GameControl.stop_timer()
+			GameControl.stop_level_song_music()
+			await get_tree().create_timer(3.0).timeout
+			GameControl.reload_level()
+		else:
+			var respawn_time = GameControl.get_respawn_time()
+			await RespawnCountdown.start(respawn_time, player_id)
+			if not GameControl.all_players_dead():
+				GameControl.unregister_death(player_id)
+				respawn()
+	else:
+		GameControl.stop_timer()
+		GameControl.stop_level_song_music()
+		await get_tree().create_timer(3.0).timeout
+		GameControl.reload_level()
+		
+func respawn():
+	var spawn = get_tree().get_first_node_in_group("spawn_points")
+	global_position = spawn.global_position if spawn else global_position
+	velocity = Vector2.ZERO
+	is_dying = false
+	z_index = 4
+	collision_layer = 2
+	collision_mask = 1
+	stomp_detector.monitoring = true
+	play_anim("idle")
+	start_invulnerability_cpu()
+	
+func disable():
+	set_physics_process(false)
+	set_process_input(false)
+	collision_layer = 0
+	collision_mask = 0
+	stomp_detector.monitoring = false
+	velocity = Vector2.ZERO
+	visible = false
 	
 func change_state(new_state: PlayerState, invulnerable: bool = false) -> void:
 	if current_state == new_state:
@@ -356,9 +429,9 @@ func end_starman_effect():
 func _on_stomp_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and velocity.y > 0:
 		if body.has_method("die"):
-			body.die()
+			body.die(self)
 			
-		if Input.is_action_pressed("jump"):
+		if Input.is_action_pressed("p%d_jump" % player_id):
 			velocity.y = JUMP_VELOCITY * 0.9
 		else:
 			velocity.y = JUMP_VELOCITY * 0.6
