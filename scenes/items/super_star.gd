@@ -29,6 +29,6 @@ func set_direction():
 func _on_detection_area_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		if body.has_method("become_starman"):
-			GameControl.spawn_score(1000, global_position)
+			GameControl.spawn_score(1000, global_position, body)
 			body.become_starman()
 		queue_free()

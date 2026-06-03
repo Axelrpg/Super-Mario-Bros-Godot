@@ -16,6 +16,7 @@
 
 [node name="GameControl" type="Node2D" unique_id=1259828669]
 script = ExtResource("1_vs7ly")
+is_multiplayer = false
 
 [node name="SFX" type="Node2D" parent="." unique_id=1493132002]
 

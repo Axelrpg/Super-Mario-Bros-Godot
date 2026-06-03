@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://3rt6telvt1sx" path="res://scenes/players/camera_single_player.gd" id="1_m344a"]
 
 [node name="CameraSinglePlayer" type="Camera2D" unique_id=1563179426 groups=["camera"]]
-position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
 editor_draw_limits = true
