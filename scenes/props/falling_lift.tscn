@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c0inp5f02pj21"]
+
+[ext_resource type="Texture2D" uid="uid://dodakhikpydw8" path="res://sprites/props/Lift.png" id="1_n1qar"]
+[ext_resource type="Script" uid="uid://d28h7r74u8qq5" path="res://scenes/props/falling_lift.gd" id="1_v2u16"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_34frd"]
+size = Vector2(48, 8)
+
+[node name="FallingLift" type="AnimatableBody2D" unique_id=1448029779]
+sync_to_physics = false
+script = ExtResource("1_v2u16")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2091279188]
+texture = ExtResource("1_n1qar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=637170302]
+shape = SubResource("RectangleShape2D_34frd")

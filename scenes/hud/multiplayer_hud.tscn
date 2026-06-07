@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bidgtla65hmwl" path="res://scenes/hud/multiplayer_hud.gd" id="1_jjcfu"]
 [ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="2_1inx4"]
-[ext_resource type="Texture2D" uid="uid://35a6epigc7jb" path="res://sprites/items/Coin OW.png" id="3_ycopi"]
+[ext_resource type="Texture2D" uid="uid://35a6epigc7jb" path="res://sprites/props/Coin OW.png" id="3_ycopi"]
 
 [sub_resource type="Animation" id="Animation_c45xl"]
 length = 0.001

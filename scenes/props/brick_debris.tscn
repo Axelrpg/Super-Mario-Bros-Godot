@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://d3p43gdmcs5fm"]
+
+[ext_resource type="Script" uid="uid://ju5orl6ajfxu" path="res://scenes/props/brick_debris.gd" id="1_2qfrg"]
+[ext_resource type="Texture2D" uid="uid://3kipahpm8sj2" path="res://sprites/props/Brick Debris OW.png" id="2_fd64s"]
+[ext_resource type="Texture2D" uid="uid://h41gy81l532v" path="res://sprites/props/Brick Debris UG.png" id="3_fd64s"]
+
+[node name="BrickDebris" type="Node2D" unique_id=2097874020]
+z_index = 4
+script = ExtResource("1_2qfrg")
+texture_overworld = ExtResource("2_fd64s")
+texture_underworld = ExtResource("3_fd64s")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=258292262]
+texture = ExtResource("2_fd64s")

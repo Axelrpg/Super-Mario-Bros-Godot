@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cfmmr52m80n5y"]
-
-[ext_resource type="Texture2D" uid="uid://das0wkwslwvuo" path="res://sprites/items/Castle Door OW.png" id="1_x4nht"]
-
-[node name="CastleDoorOW" type="Sprite2D" unique_id=1333320819 groups=["castle_door"]]
-texture = ExtResource("1_x4nht")

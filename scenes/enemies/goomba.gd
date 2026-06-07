@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+@export var current_env = GameControl.LevelEnvironment.OVERWORLD
+@export var texture_overworld: Texture2D
+@export var texture_underworld: Texture2D
+
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -20,13 +24,32 @@ func _physics_process(delta: float) -> void:
 	if not is_dying:
 		animation_player.play("walk")
 		
-	if is_on_wall():
-		direction *= -1
-		sprite.flip_h = not sprite.flip_h
-		
 	velocity.x = direction * SPEED
-	
 	move_and_slide()
+	
+	if is_on_wall():
+		var wall_collision = get_last_slide_collision()
+		if wall_collision:
+			var collider = wall_collision.get_collider()
+			if collider.is_in_group("enemies"):
+				var other_dir = sign(collider.global_position.x - global_position.x)
+				if other_dir == sign(direction):
+					direction *= -1
+					sprite.flip_h = not sprite.flip_h
+			else:
+				direction *= -1
+				sprite.flip_h = not sprite.flip_h
+	
+func set_environment(env) -> void:
+	current_env = env
+	update_texture()
+
+func update_texture() -> void:
+	match current_env:
+		GameControl.LevelEnvironment.OVERWORLD:
+			sprite.texture = texture_overworld
+		GameControl.LevelEnvironment.UNDERWORLD:
+			sprite.texture = texture_underworld
 
 func die(player: Node2D = null):
 	GameControl.spawn_score(100, global_position, player)
@@ -41,9 +64,9 @@ func die(player: Node2D = null):
 		
 	queue_free()
 	
-func die_special(hit_direction: float = 1.0):
+func die_special(body: Node2D, hit_direction: float = 1.0):
 	if is_dying: return
-	GameControl.spawn_score(100, global_position)
+	GameControl.spawn_score(100, global_position, body)
 	GameControl.play_kick_kill_sound()
 	
 	is_dying = true

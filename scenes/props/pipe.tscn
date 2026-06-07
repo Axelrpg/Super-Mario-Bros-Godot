@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://ddludn4yid6rf"]
+
+[ext_resource type="Script" uid="uid://v7f6480tiv0u" path="res://scenes/props/pipe.gd" id="1_y1ehn"]
+[ext_resource type="Texture2D" uid="uid://cpv03n4836fra" path="res://sprites/props/Pipe OW.png" id="2_n83ka"]
+[ext_resource type="AudioStream" uid="uid://scbpvbqrho17" path="res://sounds/pipepowerdown.wav" id="3_0r48x"]
+[ext_resource type="Texture2D" uid="uid://bwo1gvmpt6r2i" path="res://sprites/props/Pipe UG.png" id="3_n83ka"]
+[ext_resource type="PackedScene" uid="uid://i84k6ew42a0d" path="res://scenes/enemies/piranha_plant.tscn" id="4_0r48x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_234el"]
+size = Vector2(32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_alq2m"]
+size = Vector2(30, 2)
+
+[node name="Pipe" type="StaticBody2D" unique_id=635542180 groups=["pipes"]]
+z_index = 4
+script = ExtResource("1_y1ehn")
+texture_overworld = ExtResource("2_n83ka")
+texture_underworld = ExtResource("3_n83ka")
+
+[node name="PiranhaPlant" parent="." unique_id=1559504496 instance=ExtResource("4_0r48x")]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1299009993]
+texture = ExtResource("2_n83ka")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=36823507]
+shape = SubResource("RectangleShape2D_234el")
+
+[node name="EntryArea" type="Area2D" parent="." unique_id=1715042064]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EntryArea" unique_id=935373336]
+position = Vector2(0, -17)
+shape = SubResource("RectangleShape2D_alq2m")
+debug_color = Color(0.8128109, 0.24373469, 0.8158338, 0.41960785)
+
+[node name="SFXPipe" type="AudioStreamPlayer" parent="." unique_id=1384869049]
+stream = ExtResource("3_0r48x")

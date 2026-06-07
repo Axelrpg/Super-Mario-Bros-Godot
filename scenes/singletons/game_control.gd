@@ -1,5 +1,11 @@
 extends Node
 
+enum LevelEnvironment {
+	OVERWORLD,
+	UNDERWORLD
+}
+var current_env = LevelEnvironment.OVERWORLD
+
 @export var is_multiplayer: bool = true
 
 @onready var sfx_1up = $SFX/SFX1Up
@@ -16,7 +22,7 @@ extends Node
 @onready var bgm_level_complete = $BGM/BGMLevelComplete
 @onready var bgm_starman = $BGM/BGMStarman
 
-var score_scene = preload("res://scenes/items/floating_score.tscn")
+var score_scene = preload("res://scenes/hud/floating_score.tscn")
 var level_intro_scene = preload("res://scenes/levels/singleplayer/level_intro.tscn")
 
 var lives: int = 2
@@ -65,14 +71,30 @@ func get_respawn_time() -> float:
 	death_count += 1
 	return death_count * 3.0
 
-func spawn_score(value: int, pos: Vector2, player: Node2D = null):
-	var player_id = player.player_id if player else 0
+func spawn_score(value: int, pos: Vector2, body: Node2D = null):
+	var player_id = 0
+	
+	if body == null:
+		player_id = 0
+	elif body.is_in_group("players"):
+		player_id = body.player_id
+	elif body.get("owner_player_id") != null:
+		player_id = body.owner_player_id
+	
 	add_score(value, player_id)
 	
 	var score_popup = score_scene.instantiate()
 	score_popup.global_position = pos
 	
-	player.get_viewport().add_child(score_popup)
+	if GameControl.is_multiplayer and player_id > 0:
+		var players = get_tree().get_nodes_in_group("players")
+		for p in players:
+			if p.player_id == player_id:
+				p.get_viewport().add_child(score_popup)
+				score_popup.setup(value)
+				return
+				
+	get_tree().current_scene.add_child(score_popup)
 	score_popup.setup(value)
 	
 func add_score(amount: int, player_id: int):

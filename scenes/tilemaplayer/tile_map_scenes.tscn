@@ -1,41 +1,47 @@
 [gd_scene format=3 uid="uid://hx0xw1flquje"]
 
 [ext_resource type="PackedScene" uid="uid://tksj0vxatqlx" path="res://scenes/enemies/goomba.tscn" id="1_o5y8b"]
-[ext_resource type="PackedScene" uid="uid://hwaxlnyo3cfb" path="res://scenes/enemies/koopa_troopa_ow.tscn" id="2_if16p"]
+[ext_resource type="PackedScene" uid="uid://hwaxlnyo3cfb" path="res://scenes/enemies/koopa_troopa.tscn" id="2_if16p"]
 [ext_resource type="PackedScene" uid="uid://crki23t4m8xfc" path="res://scenes/enemies/death_zone.tscn" id="3_3afb2"]
-[ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/items/question_block.tscn" id="3_mreei"]
-[ext_resource type="PackedScene" uid="uid://dypcnqe28iwt2" path="res://scenes/items/brick_block_ug_dark.tscn" id="5_scehu"]
-[ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/items/brick_block_ow.tscn" id="6_qnob3"]
-[ext_resource type="PackedScene" uid="uid://bidi5mm7j12x3" path="res://scenes/items/extra_life.tscn" id="6_s63i5"]
-[ext_resource type="PackedScene" uid="uid://c2amt26unoytd" path="res://scenes/items/fire_flower.tscn" id="7_58yj0"]
-[ext_resource type="PackedScene" uid="uid://yjsjblcd4kgp" path="res://scenes/items/super_mushroom.tscn" id="8_hhi0c"]
-[ext_resource type="PackedScene" uid="uid://dxk13k0lwgep8" path="res://scenes/items/super_star.tscn" id="9_mx2xn"]
-[ext_resource type="PackedScene" uid="uid://caxbep8wavio" path="res://scenes/items/coin_ow.tscn" id="10_58yj0"]
-[ext_resource type="PackedScene" uid="uid://demcttsyocvwh" path="res://scenes/items/coin_ug.tscn" id="11_hhi0c"]
-[ext_resource type="PackedScene" uid="uid://33dmkha441ty" path="res://scenes/items/brick_block_ug_light.tscn" id="12_mx2xn"]
+[ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/props/question_block.tscn" id="3_mreei"]
+[ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/props/brick_block_dark.tscn" id="6_qnob3"]
+[ext_resource type="PackedScene" uid="uid://bidi5mm7j12x3" path="res://scenes/power_ups/extra_life.tscn" id="6_s63i5"]
+[ext_resource type="PackedScene" uid="uid://c2amt26unoytd" path="res://scenes/power_ups/fire_flower.tscn" id="7_58yj0"]
+[ext_resource type="PackedScene" uid="uid://yjsjblcd4kgp" path="res://scenes/power_ups/super_mushroom.tscn" id="8_hhi0c"]
+[ext_resource type="PackedScene" uid="uid://dxk13k0lwgep8" path="res://scenes/power_ups/super_star.tscn" id="9_mx2xn"]
+[ext_resource type="PackedScene" uid="uid://chei5cco5ew8e" path="res://scenes/props/brick_block_light.tscn" id="9_u74wm"]
+[ext_resource type="PackedScene" uid="uid://caxbep8wavio" path="res://scenes/props/coin.tscn" id="10_58yj0"]
+[ext_resource type="PackedScene" uid="uid://cfmmr52m80n5y" path="res://scenes/props/castle_door_ow.tscn" id="10_ru81v"]
+[ext_resource type="PackedScene" uid="uid://b1l6qu1vcpcc2" path="res://scenes/props/goal_pole.tscn" id="12_mqae6"]
+[ext_resource type="PackedScene" uid="uid://bqe4gq0kep8h8" path="res://scenes/props/hidden_block.tscn" id="13_wmte4"]
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_3jy5q"]
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_eny8s"]
 resource_name = "Enemies"
-scenes/1/scene = ExtResource("1_o5y8b")
-scenes/2/scene = ExtResource("2_if16p")
-scenes/4/scene = ExtResource("3_3afb2")
+scenes/1/scene = ExtResource("3_3afb2")
+scenes/2/scene = ExtResource("1_o5y8b")
+scenes/3/scene = ExtResource("2_if16p")
 
-[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_3afb2"]
-resource_name = "Items"
-scenes/1/scene = ExtResource("3_mreei")
-scenes/2/scene = ExtResource("6_qnob3")
-scenes/3/scene = ExtResource("6_s63i5")
-scenes/4/scene = ExtResource("7_58yj0")
-scenes/5/scene = ExtResource("8_hhi0c")
-scenes/6/scene = ExtResource("9_mx2xn")
-scenes/7/scene = ExtResource("10_58yj0")
-scenes/8/scene = ExtResource("11_hhi0c")
-scenes/9/scene = ExtResource("12_mx2xn")
-scenes/10/scene = ExtResource("5_scehu")
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6qqry"]
+resource_name = "Power Ups"
+scenes/1/scene = ExtResource("6_s63i5")
+scenes/2/scene = ExtResource("7_58yj0")
+scenes/3/scene = ExtResource("8_hhi0c")
+scenes/4/scene = ExtResource("9_mx2xn")
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_l6cyf"]
+resource_name = "Props"
+scenes/1/scene = ExtResource("6_qnob3")
+scenes/2/scene = ExtResource("9_u74wm")
+scenes/4/scene = ExtResource("10_ru81v")
+scenes/5/scene = ExtResource("10_58yj0")
+scenes/6/scene = ExtResource("12_mqae6")
+scenes/7/scene = ExtResource("13_wmte4")
+scenes/9/scene = ExtResource("3_mreei")
 
 [sub_resource type="TileSet" id="TileSet_8m3t5"]
-sources/0 = SubResource("TileSetScenesCollectionSource_3jy5q")
-sources/2 = SubResource("TileSetScenesCollectionSource_3afb2")
+sources/1 = SubResource("TileSetScenesCollectionSource_eny8s")
+sources/2 = SubResource("TileSetScenesCollectionSource_6qqry")
+sources/3 = SubResource("TileSetScenesCollectionSource_l6cyf")
 
 [node name="TileMapScenes" type="TileMapLayer" unique_id=1398984093]
 z_index = 4

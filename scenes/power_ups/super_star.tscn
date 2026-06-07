@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dxk13k0lwgep8"]
+
+[ext_resource type="Texture2D" uid="uid://biqhj4d2tg8d0" path="res://sprites/power_ups/Super Star OW.png" id="1_06s5d"]
+[ext_resource type="Script" uid="uid://djfogl52ug4nm" path="res://scenes/power_ups/super_star.gd" id="1_i0ypg"]
+[ext_resource type="Texture2D" uid="uid://di0rdoaxxh7wx" path="res://sprites/power_ups/Super Star UG.png" id="3_c8kjs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0ypg"]
+size = Vector2(13.5, 15.5)
+
+[sub_resource type="Animation" id="Animation_l5naw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_k6dv5"]
+resource_name = "idle"
+length = 0.4
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mdq11"]
+_data = {
+&"RESET": SubResource("Animation_l5naw"),
+&"idle": SubResource("Animation_k6dv5")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_06s5d"]
+size = Vector2(16, 18)
+
+[node name="SuperStar" type="CharacterBody2D" unique_id=456136295]
+z_index = 3
+collision_layer = 8
+script = ExtResource("1_i0ypg")
+texture_overworld = ExtResource("1_06s5d")
+texture_underworld = ExtResource("3_c8kjs")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1759230785]
+texture = ExtResource("1_06s5d")
+hframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1407293276]
+shape = SubResource("RectangleShape2D_i0ypg")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=326794935]
+libraries/ = SubResource("AnimationLibrary_mdq11")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=2024100995]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=359300814]
+shape = SubResource("RectangleShape2D_06s5d")
+debug_color = Color(0.7905347, 0.29456174, 0.78420585, 0.41960785)
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
