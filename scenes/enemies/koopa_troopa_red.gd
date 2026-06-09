@@ -1,5 +1,22 @@
 extends BaseKoopa
 
+@onready var edge_detector: RayCast2D = $EdgeDetector
+
+func _physics_process(delta: float) -> void:
+	if edge_detector:
+		edge_detector.position.x = abs(edge_detector.position.x) * direction
+		edge_detector.force_raycast_update()
+		
+	super(delta)
+
+func check_walk_direction():
+	if is_on_wall():
+		var wall_normal = get_wall_normal()
+		if sign(wall_normal.x) != sign(direction):
+			direction *= -1
+	elif is_on_floor() and edge_detector and not edge_detector.is_colliding():
+		direction *= -1
+
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
 		owner_player_id = body.player_id

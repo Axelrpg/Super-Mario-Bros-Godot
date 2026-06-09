@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bdhmtqggnggen"]
 
-[ext_resource type="PackedScene" uid="uid://b7tfuonx8ne4k" path="res://scenes/levels/singleplayer/world_1_1.tscn" id="1_g0flt"]
 [ext_resource type="Script" uid="uid://cp50wm1jdvuu" path="res://scenes/levels/multiplayer/split_screen.gd" id="1_nsn3j"]
 [ext_resource type="PackedScene" uid="uid://3wr73wgt8cod" path="res://scenes/hud/multiplayer_hud.tscn" id="2_0bbor"]
 [ext_resource type="PackedScene" uid="uid://c7x5p7rda1itf" path="res://scenes/hud/hud.tscn" id="2_13ld5"]
 [ext_resource type="PackedScene" uid="uid://cq3v58j34de6p" path="res://scenes/levels/multiplayer/camera_multiplayer.tscn" id="3_fh2oo"]
+[ext_resource type="PackedScene" uid="uid://ci643p1mqg8g2" path="res://scenes/levels/singleplayer/world_1_2.tscn" id="5_13ld5"]
 
 [node name="SplitScreen" type="Control" unique_id=601972456]
 layout_mode = 3
@@ -40,10 +40,10 @@ handle_input_locally = false
 size = Vector2i(212, 240)
 render_target_update_mode = 4
 
-[node name="World 1-1" parent="HBoxContainer/Left/SubViewport" unique_id=1002318618 instance=ExtResource("1_g0flt")]
+[node name="World 1-2" parent="HBoxContainer/Left/SubViewport" unique_id=1532126873 instance=ExtResource("5_13ld5")]
 
 [node name="CameraMultiplayer" parent="HBoxContainer/Left/SubViewport" unique_id=437967432 node_paths=PackedStringArray("world_root") instance=ExtResource("3_fh2oo")]
-world_root = NodePath("../World 1-1")
+world_root = NodePath("../World 1-2")
 
 [node name="Divider" type="ColorRect" parent="HBoxContainer" unique_id=510963816]
 custom_minimum_size = Vector2(2, 0)
@@ -61,4 +61,4 @@ render_target_update_mode = 4
 
 [node name="CameraMultiplayer" parent="HBoxContainer/Right/SubViewport" unique_id=49160251 node_paths=PackedStringArray("world_root") instance=ExtResource("3_fh2oo")]
 position = Vector2(218, 0)
-world_root = NodePath("../../../Left/SubViewport/World 1-1")
+world_root = NodePath("../../../Left/SubViewport/World 1-2")

@@ -1,8 +1,7 @@
 [gd_scene format=3 uid="uid://caxbep8wavio"]
 
 [ext_resource type="Script" uid="uid://b0tvin7865jls" path="res://scenes/props/coin.gd" id="1_7734d"]
-[ext_resource type="Texture2D" uid="uid://b7wqqw02srchq" path="res://sprites/props/Coin Block OW.png" id="2_yr5yf"]
-[ext_resource type="Texture2D" uid="uid://cfgwg5nclhjvi" path="res://sprites/props/Coin Block UG.png" id="3_ptf60"]
+[ext_resource type="Texture2D" uid="uid://b8rmo0a5juuei" path="res://sprites/props/Coin UG.png" id="3_r8n3v"]
 [ext_resource type="Texture2D" uid="uid://35a6epigc7jb" path="res://sprites/props/Coin OW.png" id="4_0n8k7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pmwdt"]
@@ -47,13 +46,13 @@ _data = {
 &"idle": SubResource("Animation_8hqcg")
 }
 
-[node name="Coin" type="Area2D" unique_id=323096162]
+[node name="Coin" type="Area2D" unique_id=323096162 groups=["coins"]]
 z_index = 3
-collision_layer = 0
+collision_layer = 8
 collision_mask = 2
 script = ExtResource("1_7734d")
-texture_overworld = ExtResource("2_yr5yf")
-texture_underworld = ExtResource("3_ptf60")
+texture_overworld = ExtResource("4_0n8k7")
+texture_underworld = ExtResource("3_r8n3v")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1954299200]
 texture = ExtResource("4_0n8k7")

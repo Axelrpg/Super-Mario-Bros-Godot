@@ -46,7 +46,7 @@ _data = {
 &"idle": SubResource("Animation_vmiar")
 }
 
-[node name="PiranhaPlant" type="Area2D" unique_id=1559504496]
+[node name="PiranhaPlant" type="Area2D" unique_id=1559504496 groups=["enemies"]]
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_35mqq")

@@ -19,10 +19,10 @@ func update_texture() -> void:
 
 func break_or_bump(player: CharacterBody2D):
 	if player.current_state == player.PlayerState.SMALL:
-		move_sprite()
+		move_sprite(player)
 		GameControl.play_bump_sound()
 	else:
-		check_objects_above()
+		check_objects_above(player)
 		GameControl.play_brick_sound()
 		break_block()
 		

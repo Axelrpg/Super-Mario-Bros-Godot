@@ -5,7 +5,7 @@ extends Node2D
 @export var go_down: bool = true
 
 var fall_speed: float = 50.0
-var spacing: float = 160
+var spacing: float
 
 var lifts: Array = []
 var bounds_top: float
@@ -16,6 +16,7 @@ func _ready() -> void:
 		var texture_size = bounds_sprite.texture.get_size() * bounds_sprite.global_scale
 		bounds_top = bounds_sprite.global_position.y - texture_size.y / 2.0
 		bounds_bottom = bounds_sprite.global_position.y + texture_size.y / 2.0
+		spacing = texture_size.y / 2.0
 		
 		await get_tree().process_frame
 		for i in 2:

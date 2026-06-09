@@ -441,7 +441,7 @@ func _on_enemy_detector_body_entered(body: Node2D) -> void:
 		if is_starman:
 			var hit_dir = 1.0 if global_position.x < body.global_position.x else -1.0
 			if body.has_method("die_special"):
-				body.die_special(hit_dir)
+				body.die_special(self, hit_dir)
 
 func _on_starman_timer_timeout() -> void:
 	end_starman_effect()

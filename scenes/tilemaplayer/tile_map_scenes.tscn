@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://hwaxlnyo3cfb" path="res://scenes/enemies/koopa_troopa.tscn" id="2_if16p"]
 [ext_resource type="PackedScene" uid="uid://crki23t4m8xfc" path="res://scenes/enemies/death_zone.tscn" id="3_3afb2"]
 [ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/props/question_block.tscn" id="3_mreei"]
+[ext_resource type="PackedScene" uid="uid://bifcl860exeq0" path="res://scenes/enemies/koopa_troopa_red.tscn" id="4_u74wm"]
 [ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/props/brick_block_dark.tscn" id="6_qnob3"]
 [ext_resource type="PackedScene" uid="uid://bidi5mm7j12x3" path="res://scenes/power_ups/extra_life.tscn" id="6_s63i5"]
 [ext_resource type="PackedScene" uid="uid://c2amt26unoytd" path="res://scenes/power_ups/fire_flower.tscn" id="7_58yj0"]
@@ -20,6 +21,8 @@ resource_name = "Enemies"
 scenes/1/scene = ExtResource("3_3afb2")
 scenes/2/scene = ExtResource("1_o5y8b")
 scenes/3/scene = ExtResource("2_if16p")
+scenes/4/scene = ExtResource("4_u74wm")
+scenes/5/scene = ExtResource("3_3afb2")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6qqry"]
 resource_name = "Power Ups"

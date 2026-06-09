@@ -94,7 +94,7 @@ func spawn_score(value: int, pos: Vector2, body: Node2D = null):
 				score_popup.setup(value)
 				return
 				
-	get_tree().current_scene.add_child(score_popup)
+	body.get_viewport().add_child(score_popup)
 	score_popup.setup(value)
 	
 func add_score(amount: int, player_id: int):
@@ -198,7 +198,9 @@ func play_power_up_sound():
 func play_stomp_swim_sound():
 	sfx_stomp_swim.play()
 	
-func play_level_song_music():
+func play_level_song_music(stream: AudioStream = null):
+	if stream:
+		bgm_level_song.stream = stream
 	bgm_level_song.play()
 	
 func stop_level_song_music():

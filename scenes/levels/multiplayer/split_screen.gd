@@ -7,8 +7,8 @@ extends Control
 @onready var viewport_left = $HBoxContainer/Left/SubViewport
 @onready var viewport_right = $HBoxContainer/Right/SubViewport
 
-@onready var mario = $"HBoxContainer/Left/SubViewport/World 1-1/Mario"
-@onready var luigi = $"HBoxContainer/Left/SubViewport/World 1-1/Luigi"
+@onready var mario = $"HBoxContainer/Left/SubViewport/World 1-2/Mario"
+@onready var luigi = $"HBoxContainer/Left/SubViewport/World 1-2/Luigi"
 
 @onready var camera_left = $HBoxContainer/Left/SubViewport/CameraMultiplayer
 @onready var camera_right = $HBoxContainer/Right/SubViewport/CameraMultiplayer

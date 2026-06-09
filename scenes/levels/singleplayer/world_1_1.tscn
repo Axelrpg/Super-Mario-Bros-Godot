@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://b2tv3m6jcjpr8" path="res://scenes/tilemaplayer/underground_ground_stone.tscn" id="11_p3ujk"]
 [ext_resource type="PackedScene" uid="uid://cauo0pbe8ool2" path="res://scenes/tilemaplayer/underground_pipes_scenery.tscn" id="12_2bcjf"]
 [ext_resource type="PackedScene" uid="uid://cfmmr52m80n5y" path="res://scenes/props/castle_door_ow.tscn" id="12_i1shy"]
-[ext_resource type="PackedScene" path="res://scenes/props/pipe_ug.tscn" id="13_p3ujk"]
 [ext_resource type="PackedScene" uid="uid://1lkitbq4sns2" path="res://scenes/players/spawn_point.tscn" id="18_e1tat"]
 
 [node name="World 1-1" type="Node2D" unique_id=1002318618]
@@ -141,19 +140,6 @@ tile_map_data = PackedByteArray("AACjACMAAAAHAAEAAACkACMAAAAIAAEAAACjACQAAAAHAAE
 
 [node name="Items" type="Node2D" parent="Area2" unique_id=1741087636]
 
-[node name="PipeUG" parent="Area2/Items" unique_id=827182983 node_paths=PackedStringArray("camera_limits_sprite") instance=ExtResource("13_p3ujk")]
-position = Vector2(2408, 496)
-rotation = 3.1415927
-target_pipe_tag = "1"
-camera_limits_sprite = NodePath("../../Background")
-is_only_exit = true
-
-[node name="PipeUG2" parent="Area2/Items" unique_id=1100407826 node_paths=PackedStringArray("camera_limits_sprite") instance=ExtResource("13_p3ujk")]
-position = Vector2(2592, 720)
-rotation = 4.712389
-target_pipe_tag = "2"
-camera_limits_sprite = NodePath("../../Background")
-
 [node name="TileMapScenes" parent="." unique_id=1398984093 instance=ExtResource("7_mu0tm")]
 tile_map_data = PackedByteArray("AAAWAAwAAAAAAAAAAQAoAAwAAAAAAAAAAQAzAAwAAAAAAAAAAQA1AAwAAAAAAAAAAQBQAAQAAAAAAAAAAQBSAAQAAAAAAAAAAQBhAAwAAAAAAAAAAQBjAAwAAAAAAAAAAQBrAAwAAAAAAAAAAgByAAwAAAAAAAAAAQB0AAwAAAAAAAAAAQB9AAwAAAAAAAAAAQCBAAwAAAAAAAAAAQCDAAwAAAAAAAAAAQB/AAwAAAAAAAAAAQCwAAwAAAAAAAAAAQCuAAwAAAAAAAAAAQAWAAkAAgAAAAAAAgAYAAkAAgAAAAAAAgAUAAkAAgAAAAAAAgBQAAUAAgAAAAAAAgBNAAkAAgAAAAAAAgBPAAkAAgAAAAAAAgBXAAUAAgAAAAAAAgBWAAUAAgAAAAAAAgBVAAUAAgAAAAAAAgBUAAUAAgAAAAAAAgBTAAUAAgAAAAAAAgBSAAUAAgAAAAAAAgBRAAUAAgAAAAAAAgBbAAUAAgAAAAAAAgBcAAUAAgAAAAAAAgBdAAUAAgAAAAAAAgBkAAkAAgAAAAAAAgB2AAkAAgAAAAAAAgB5AAUAAgAAAAAAAgB6AAUAAgAAAAAAAgB7AAUAAgAAAAAAAgCCAAkAAgAAAAAAAgCBAAkAAgAAAAAAAgCAAAUAAgAAAAAAAgCDAAUAAgAAAAAAAgCoAAkAAgAAAAAAAgCpAAkAAgAAAAAAAgCrAAkAAgAAAAAAAgBFAA8AAAAAAAAABABGAA8AAAAAAAAABABWAA8AAAAAAAAABABXAA8AAAAAAAAABABYAA8AAAAAAAAABACYACoAAgAAAAAACACZACoAAgAAAAAACACaACoAAgAAAAAACACbACoAAgAAAAAACACcACoAAgAAAAAACACdACoAAgAAAAAACACeACoAAgAAAAAACACYACgAAgAAAAAACACZACgAAgAAAAAACACaACgAAgAAAAAACACbACgAAgAAAAAACACcACgAAgAAAAAACACdACgAAgAAAAAACACeACgAAgAAAAAACACZACYAAgAAAAAACACaACYAAgAAAAAACACbACYAAgAAAAAACACcACYAAgAAAAAACACdACYAAgAAAAAACACYACAAAgAAAAAACgCYACEAAgAAAAAACgCYACIAAgAAAAAACgCYACMAAgAAAAAACgCZACAAAgAAAAAACgCZACEAAgAAAAAACgCZACIAAgAAAAAACgCZACMAAgAAAAAACgCaACAAAgAAAAAACgCaACEAAgAAAAAACgCaACIAAgAAAAAACgCaACMAAgAAAAAACgCbACAAAgAAAAAACgCbACEAAgAAAAAACgCbACIAAgAAAAAACgCbACMAAgAAAAAACgCcACAAAgAAAAAACgCcACEAAgAAAAAACgCcACIAAgAAAAAACgCcACMAAgAAAAAACgCdACAAAgAAAAAACgCdACEAAgAAAAAACgCdACIAAgAAAAAACgCdACMAAgAAAAAACgCeACAAAgAAAAAACgCeACEAAgAAAAAACgCeACIAAgAAAAAACgCeACMAAgAAAAAACgCfACAAAgAAAAAACgCfACEAAgAAAAAACgCfACIAAgAAAAAACgCfACMAAgAAAAAACgA=")
 
@@ -164,5 +150,5 @@ position = Vector2(88, 200)
 position = Vector2(88, 200)
 
 [node name="Luigi" parent="." unique_id=1036760404 instance=ExtResource("4_v1yw5")]
-position = Vector2(104, 200)
+position = Vector2(88, 200)
 player_id = 2

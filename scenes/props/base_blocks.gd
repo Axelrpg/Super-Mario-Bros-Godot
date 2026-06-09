@@ -45,31 +45,31 @@ func _physics_process(_delta: float) -> void:
 				if is_below and body.velocity.y > 10 and not is_empty:
 					handle_hit(body)
 				
-func handle_hit(body: CharacterBody2D):
+func handle_hit(player: CharacterBody2D):
 	if is_hidden_block:
 		set_collision_layer_value(1, true)
 		set_collision_layer_value(5, false)
 		sprite.modulate.a = 1
-		if body.velocity.y < 0:
-			body.velocity.y = 0
+		if player.velocity.y < 0:
+			player.velocity.y = 0
 		
 	match content:
 		ItemType.COIN:
-			give_coin(body)
+			give_coin(player)
 		ItemType.POWER_UP:
-			give_power_up(body)
+			give_power_up(player)
 		ItemType.STAR:
-			give_power_up(body)
+			give_power_up(player)
 		ItemType.EXTRA_LIFE:
-			give_power_up(body)
+			give_power_up(player)
 		ItemType.NONE:
-			break_or_bump(body)
+			break_or_bump(player)
 
-func give_power_up(player):
+func give_power_up(player: CharacterBody2D):
 	is_empty = true
 	animation_player.play("empty")
 	
-	move_sprite()
+	move_sprite(player)
 	GameControl.play_item_sound()
 	var item_to_spawn
 
@@ -113,12 +113,12 @@ func spawn_animation_tween(item: CharacterBody2D):
 		if is_instance_valid(item):
 			item.set_physics_process(true)
 
-func give_coin(player: Node2D = null):
+func give_coin(player: CharacterBody2D):
 	if is_empty: return
 	if is_hitting: return
 	is_hitting = true
 	
-	move_sprite()
+	move_sprite(player)
 	spawn_coin_visual()
 	GameControl.spawn_score(200, global_position, player)
 	GameControl.add_coin(player.player_id, false)
@@ -142,25 +142,25 @@ func spawn_coin_visual():
 	get_parent().add_child(coin)
 	coin.global_position = global_position + Vector2(0, -16)
 	
-func move_sprite():
+func move_sprite(player: Node2D = null):
 	var tween = create_tween()
 	tween.tween_property(sprite, "position:y", -8, 0.1).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(sprite, "position:y", 0, 0.1).set_trans(Tween.TRANS_QUAD)
-	check_objects_above()
+	check_objects_above(player)
 	
-func check_objects_above():
+func check_objects_above(player: Node2D = null):
 	var bodies = top_checker.get_overlapping_bodies()
 	
 	for body in bodies:
 		if body.is_in_group("enemies"):
 			if body.global_position.x > global_position.x:
 				if body.has_method("die_special"):
-					body.die_special(1)
+					body.die_special(player, 1)
 			else:
 				if body.has_method("die_special"):
-					body.die_special(-1)
+					body.die_special(player, -1)
 				
-		if body.is_in_group("power_ups"):
+		elif body.is_in_group("power_ups"):
 			if body is CharacterBody2D:
 				body.velocity.y = -200
 				
@@ -170,6 +170,12 @@ func check_objects_above():
 				else:
 					if body.has_method("set_direction"):
 						body.set_direction(-1)
+						
+	var areas = top_checker.get_overlapping_areas()
+	
+	for area in areas:
+		if area.is_in_group("coins"):
+			area.collect(player.player_id)
 
 func break_or_bump(_player: CharacterBody2D):
 	pass
