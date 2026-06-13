@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhrglgoj4tp3c" path="res://scenes/singletons/game_control.gd" id="1_vs7ly"]
 [ext_resource type="AudioStream" uid="uid://b3t3hqo7kg2bv" path="res://sounds/1up.wav" id="2_ir010"]
+[ext_resource type="PackedScene" uid="uid://b7tfuonx8ne4k" path="res://scenes/levels/singleplayer/world_1_1.tscn" id="2_xigqc"]
 [ext_resource type="AudioStream" uid="uid://bjej66jspgc23" path="res://sounds/brick.wav" id="3_y0bar"]
 [ext_resource type="AudioStream" uid="uid://t8j2llehu12q" path="res://sounds/bump.wav" id="4_lmbt0"]
 [ext_resource type="AudioStream" uid="uid://cyoq18dj0ypwo" path="res://sounds/coin.wav" id="5_q6n22"]
@@ -16,7 +17,7 @@
 
 [node name="GameControl" type="Node2D" unique_id=1259828669]
 script = ExtResource("1_vs7ly")
-is_multiplayer = false
+next_level_scene = ExtResource("2_xigqc")
 
 [node name="SFX" type="Node2D" parent="." unique_id=1493132002]
 

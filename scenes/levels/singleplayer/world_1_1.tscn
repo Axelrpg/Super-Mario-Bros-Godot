@@ -9,9 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://hx0xw1flquje" path="res://scenes/tilemaplayer/tile_map_scenes.tscn" id="7_mu0tm"]
 [ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/props/question_block.tscn" id="8_7rsdm"]
 [ext_resource type="PackedScene" uid="uid://ddludn4yid6rf" path="res://scenes/props/pipe.tscn" id="9_1vpwa"]
-[ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/props/brick_block_dark.tscn" id="9_jbdnl"]
+[ext_resource type="PackedScene" uid="uid://ci643p1mqg8g2" path="res://scenes/levels/singleplayer/world_1_2.tscn" id="10_e1tat"]
 [ext_resource type="Texture2D" uid="uid://bkg3hca3bnytb" path="res://sprites/tileset/Underground - Background.png" id="10_x2hwb"]
 [ext_resource type="PackedScene" uid="uid://bqe4gq0kep8h8" path="res://scenes/props/hidden_block.tscn" id="11_75u7g"]
+[ext_resource type="PackedScene" uid="uid://chei5cco5ew8e" path="res://scenes/props/brick_block_light.tscn" id="11_o0kya"]
 [ext_resource type="PackedScene" uid="uid://b1l6qu1vcpcc2" path="res://scenes/props/goal_pole.tscn" id="11_oqo2y"]
 [ext_resource type="PackedScene" uid="uid://b2tv3m6jcjpr8" path="res://scenes/tilemaplayer/underground_ground_stone.tscn" id="11_p3ujk"]
 [ext_resource type="PackedScene" uid="uid://cauo0pbe8ool2" path="res://scenes/tilemaplayer/underground_pipes_scenery.tscn" id="12_2bcjf"]
@@ -91,15 +92,6 @@ content = 0
 position = Vector2(264, 152)
 content = 0
 
-[node name="BrickBlock" parent="Area1/Items" unique_id=953890872 instance=ExtResource("9_jbdnl")]
-position = Vector2(1512, 152)
-content = 0
-is_multi_coin = true
-
-[node name="BrickBlock2" parent="Area1/Items" unique_id=821140662 instance=ExtResource("9_jbdnl")]
-position = Vector2(1624, 152)
-content = 2
-
 [node name="HiddenBlock" parent="Area1/Items" unique_id=1042952962 instance=ExtResource("11_75u7g")]
 position = Vector2(1032, 128)
 content = 3
@@ -116,9 +108,19 @@ camera_limits_sprite = NodePath("../../Background")
 
 [node name="GoalPoleOW" parent="Area1/Items" unique_id=1492566677 instance=ExtResource("11_oqo2y")]
 position = Vector2(3176, 120)
+next_level_scene = ExtResource("10_e1tat")
 
 [node name="CastleDoorOW" parent="Area1/Items" unique_id=1333320819 instance=ExtResource("12_i1shy")]
 position = Vector2(3272, 192)
+
+[node name="BrickBlockLight" parent="Area1/Items" unique_id=953890872 instance=ExtResource("11_o0kya")]
+position = Vector2(1512, 152)
+content = 0
+is_multi_coin = true
+
+[node name="BrickBlockLight2" parent="Area1/Items" unique_id=470867712 instance=ExtResource("11_o0kya")]
+position = Vector2(1624, 152)
+content = 2
 
 [node name="Area2" type="Node2D" parent="." unique_id=757771754]
 
@@ -141,7 +143,7 @@ tile_map_data = PackedByteArray("AACjACMAAAAHAAEAAACkACMAAAAIAAEAAACjACQAAAAHAAE
 [node name="Items" type="Node2D" parent="Area2" unique_id=1741087636]
 
 [node name="TileMapScenes" parent="." unique_id=1398984093 instance=ExtResource("7_mu0tm")]
-tile_map_data = PackedByteArray("AAAWAAwAAAAAAAAAAQAoAAwAAAAAAAAAAQAzAAwAAAAAAAAAAQA1AAwAAAAAAAAAAQBQAAQAAAAAAAAAAQBSAAQAAAAAAAAAAQBhAAwAAAAAAAAAAQBjAAwAAAAAAAAAAQBrAAwAAAAAAAAAAgByAAwAAAAAAAAAAQB0AAwAAAAAAAAAAQB9AAwAAAAAAAAAAQCBAAwAAAAAAAAAAQCDAAwAAAAAAAAAAQB/AAwAAAAAAAAAAQCwAAwAAAAAAAAAAQCuAAwAAAAAAAAAAQAWAAkAAgAAAAAAAgAYAAkAAgAAAAAAAgAUAAkAAgAAAAAAAgBQAAUAAgAAAAAAAgBNAAkAAgAAAAAAAgBPAAkAAgAAAAAAAgBXAAUAAgAAAAAAAgBWAAUAAgAAAAAAAgBVAAUAAgAAAAAAAgBUAAUAAgAAAAAAAgBTAAUAAgAAAAAAAgBSAAUAAgAAAAAAAgBRAAUAAgAAAAAAAgBbAAUAAgAAAAAAAgBcAAUAAgAAAAAAAgBdAAUAAgAAAAAAAgBkAAkAAgAAAAAAAgB2AAkAAgAAAAAAAgB5AAUAAgAAAAAAAgB6AAUAAgAAAAAAAgB7AAUAAgAAAAAAAgCCAAkAAgAAAAAAAgCBAAkAAgAAAAAAAgCAAAUAAgAAAAAAAgCDAAUAAgAAAAAAAgCoAAkAAgAAAAAAAgCpAAkAAgAAAAAAAgCrAAkAAgAAAAAAAgBFAA8AAAAAAAAABABGAA8AAAAAAAAABABWAA8AAAAAAAAABABXAA8AAAAAAAAABABYAA8AAAAAAAAABACYACoAAgAAAAAACACZACoAAgAAAAAACACaACoAAgAAAAAACACbACoAAgAAAAAACACcACoAAgAAAAAACACdACoAAgAAAAAACACeACoAAgAAAAAACACYACgAAgAAAAAACACZACgAAgAAAAAACACaACgAAgAAAAAACACbACgAAgAAAAAACACcACgAAgAAAAAACACdACgAAgAAAAAACACeACgAAgAAAAAACACZACYAAgAAAAAACACaACYAAgAAAAAACACbACYAAgAAAAAACACcACYAAgAAAAAACACdACYAAgAAAAAACACYACAAAgAAAAAACgCYACEAAgAAAAAACgCYACIAAgAAAAAACgCYACMAAgAAAAAACgCZACAAAgAAAAAACgCZACEAAgAAAAAACgCZACIAAgAAAAAACgCZACMAAgAAAAAACgCaACAAAgAAAAAACgCaACEAAgAAAAAACgCaACIAAgAAAAAACgCaACMAAgAAAAAACgCbACAAAgAAAAAACgCbACEAAgAAAAAACgCbACIAAgAAAAAACgCbACMAAgAAAAAACgCcACAAAgAAAAAACgCcACEAAgAAAAAACgCcACIAAgAAAAAACgCcACMAAgAAAAAACgCdACAAAgAAAAAACgCdACEAAgAAAAAACgCdACIAAgAAAAAACgCdACMAAgAAAAAACgCeACAAAgAAAAAACgCeACEAAgAAAAAACgCeACIAAgAAAAAACgCeACMAAgAAAAAACgCfACAAAgAAAAAACgCfACEAAgAAAAAACgCfACIAAgAAAAAACgCfACMAAgAAAAAACgA=")
+tile_map_data = PackedByteArray("AACYACoAAgAAAAAACACZACoAAgAAAAAACACaACoAAgAAAAAACACbACoAAgAAAAAACACcACoAAgAAAAAACACdACoAAgAAAAAACACeACoAAgAAAAAACACYACgAAgAAAAAACACZACgAAgAAAAAACACaACgAAgAAAAAACACbACgAAgAAAAAACACcACgAAgAAAAAACACdACgAAgAAAAAACACeACgAAgAAAAAACACZACYAAgAAAAAACACaACYAAgAAAAAACACbACYAAgAAAAAACACcACYAAgAAAAAACACdACYAAgAAAAAACACYACAAAgAAAAAACgCYACEAAgAAAAAACgCYACIAAgAAAAAACgCYACMAAgAAAAAACgCZACAAAgAAAAAACgCZACEAAgAAAAAACgCZACIAAgAAAAAACgCZACMAAgAAAAAACgCaACAAAgAAAAAACgCaACEAAgAAAAAACgCaACIAAgAAAAAACgCaACMAAgAAAAAACgCbACAAAgAAAAAACgCbACEAAgAAAAAACgCbACIAAgAAAAAACgCbACMAAgAAAAAACgCcACAAAgAAAAAACgCcACEAAgAAAAAACgCcACIAAgAAAAAACgCcACMAAgAAAAAACgCdACAAAgAAAAAACgCdACEAAgAAAAAACgCdACIAAgAAAAAACgCdACMAAgAAAAAACgCeACAAAgAAAAAACgCeACEAAgAAAAAACgCeACIAAgAAAAAACgCeACMAAgAAAAAACgCfACAAAgAAAAAACgCfACEAAgAAAAAACgCfACIAAgAAAAAACgCfACMAAgAAAAAACgAUAAkAAwAAAAAAAgAWAAkAAwAAAAAAAgAYAAkAAwAAAAAAAgAWAAwAAQAAAAAAAgAoAAwAAQAAAAAAAgAzAAwAAQAAAAAAAgA1AAwAAQAAAAAAAgBQAAQAAQAAAAAAAgBSAAQAAQAAAAAAAgBhAAwAAQAAAAAAAgBjAAwAAQAAAAAAAgByAAwAAQAAAAAAAgB0AAwAAQAAAAAAAgB9AAwAAQAAAAAAAgB/AAwAAQAAAAAAAgCBAAwAAQAAAAAAAgCDAAwAAQAAAAAAAgCuAAwAAQAAAAAAAgCwAAwAAQAAAAAAAgBrAAwAAQAAAAAAAwBNAAkAAwAAAAAAAgBPAAkAAwAAAAAAAgBQAAUAAwAAAAAAAgBRAAUAAwAAAAAAAgBSAAUAAwAAAAAAAgBTAAUAAwAAAAAAAgBUAAUAAwAAAAAAAgBVAAUAAwAAAAAAAgBWAAUAAwAAAAAAAgBXAAUAAwAAAAAAAgBbAAUAAwAAAAAAAgBcAAUAAwAAAAAAAgBdAAUAAwAAAAAAAgBkAAkAAwAAAAAAAgB2AAkAAwAAAAAAAgB5AAUAAwAAAAAAAgB6AAUAAwAAAAAAAgB7AAUAAwAAAAAAAgCAAAUAAwAAAAAAAgCDAAUAAwAAAAAAAgCBAAkAAwAAAAAAAgCCAAkAAwAAAAAAAgCoAAkAAwAAAAAAAgCpAAkAAwAAAAAAAgCrAAkAAwAAAAAAAgCZAA8AAQAAAAAAAQCaAA8AAQAAAAAAAQBWAA8AAQAAAAAAAQBXAA8AAQAAAAAAAQBYAA8AAQAAAAAAAQBFAA8AAQAAAAAAAQBGAA8AAQAAAAAAAQA=")
 
 [node name="SpawnPoint" parent="." unique_id=1812112865 instance=ExtResource("18_e1tat")]
 position = Vector2(88, 200)
@@ -152,3 +154,11 @@ position = Vector2(88, 200)
 [node name="Luigi" parent="." unique_id=1036760404 instance=ExtResource("4_v1yw5")]
 position = Vector2(88, 200)
 player_id = 2
+
+[connection signal="body_entered" from="TileMapScenes/DeathZone" to="TileMapScenes/DeathZone" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@163166" to="TileMapScenes/@Area2D@163166" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@163167" to="TileMapScenes/@Area2D@163167" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@163168" to="TileMapScenes/@Area2D@163168" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@163169" to="TileMapScenes/@Area2D@163169" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@163170" to="TileMapScenes/@Area2D@163170" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@163171" to="TileMapScenes/@Area2D@163171" method="_on_body_entered"]

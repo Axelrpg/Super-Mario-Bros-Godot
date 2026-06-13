@@ -4,6 +4,8 @@ extends Area2D
 @export var texture_overworld: Texture2D
 @export var texture_underworld: Texture2D
 
+@export var next_level_scene: PackedScene
+
 @onready var flag_sprite: Sprite2D = $FlagSprite
 @onready var arrival_point_small: Marker2D = $ArrivalPointSmall
 @onready var sfx_flag_pole = $SFXFlagPole
@@ -153,4 +155,10 @@ func drain_time_bonus():
 		
 func show_victory_ui():
 	await get_tree().create_timer(5).timeout
-	get_tree().change_scene_to_file("res://scenes/levels/singleplayer/thank_you_screen.tscn")
+	
+	for p in get_tree().get_nodes_in_group("players"):
+		GameControl.save_player_state(p)
+	
+	GameControl.next_level_scene = next_level_scene
+	GameControl.advance_level()
+	get_tree().change_scene_to_file("res://scenes/levels/singleplayer/level_intro.tscn")

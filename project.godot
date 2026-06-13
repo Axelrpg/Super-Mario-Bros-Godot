@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Super Mario Bros"
-run/main_scene="uid://bdhmtqggnggen"
+run/main_scene="uid://djoik2vox78yo"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 run/layer_5="Hidden Blocks"

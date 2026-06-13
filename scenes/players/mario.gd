@@ -380,6 +380,23 @@ func change_state(new_state: PlayerState, invulnerable: bool = false) -> void:
 	set_physics_process(true)
 	if invulnerable:
 		start_invulnerability_cpu()
+		
+func set_state(state: PlayerState):
+	current_state = state
+	
+	small_sprite.visible = false
+	super_sprite.visible = false
+	fire_sprite.visible = false
+	
+	match state:
+		PlayerState.SMALL:
+			current_sprite = small_sprite
+		PlayerState.SUPER:
+			current_sprite = super_sprite
+		PlayerState.FIRE:
+			current_sprite = fire_sprite
+			
+	current_sprite.visible = true
 
 func start_invulnerability_cpu():
 	is_invulnerable = true

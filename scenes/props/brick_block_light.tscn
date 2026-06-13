@@ -53,7 +53,7 @@ size = Vector2(14, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_l2142"]
 size = Vector2(16, 2)
 
-[node name="BrickBlockDark" type="StaticBody2D" unique_id=953890872]
+[node name="BrickBlockLight" type="StaticBody2D" unique_id=953890872]
 z_index = 4
 script = ExtResource("1_7blp6")
 texture_overworld = ExtResource("2_4bqsy")

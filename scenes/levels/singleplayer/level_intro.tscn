@@ -14,7 +14,6 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 script = ExtResource("1_vuh7p")
-next_level_path = "res://scenes/levels/multiplayer/split_screen.tscn"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=876396353]
 layout_mode = 1

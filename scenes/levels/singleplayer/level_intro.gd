@@ -1,7 +1,5 @@
 extends ColorRect
 
-@export var next_level_path: String = ""
-
 @onready var world_label = $MarginContainer/VBoxContainer/WorldLabel
 @onready var livel_label = $MarginContainer/VBoxContainer/HBoxContainer/LivesLabel
 @onready var luigi_sprite = $MarginContainer/VBoxContainer/HBoxContainer/HBoxContainer/Luigi
@@ -17,5 +15,4 @@ func _ready() -> void:
 	start_level()
 	
 func start_level():
-	if next_level_path != "":
-		get_tree().change_scene_to_file(next_level_path)
+	get_tree().change_scene_to_file("res://scenes/levels/multiplayer/split_screen.tscn")

@@ -7,6 +7,7 @@ enum LevelEnvironment {
 var current_env = LevelEnvironment.OVERWORLD
 
 @export var is_multiplayer: bool = true
+@export var next_level_scene: PackedScene
 
 @onready var sfx_1up = $SFX/SFX1Up
 @onready var sfx_brick = $SFX/SFXBrick
@@ -35,6 +36,7 @@ var is_timer_active: bool = true
 
 var player_scores: Dictionary = {}
 var player_coins: Dictionary = {}
+var player_states: Dictionary = {}
 var dead_players: Array = []
 var total_players: int = 2
 var death_count: int = 0
@@ -125,6 +127,23 @@ func update_ui():
 	for hud in huds:
 		if hud:
 			hud.update_hud()
+			
+func advance_level():
+	var level = int(current_level) + 1
+	var world = int(current_world)
+	
+	if level > 4:
+		level = 1
+		current_world = str(world + 1)
+		
+	current_level = str(level)
+	
+func save_player_state(player: CharacterBody2D):
+	player_states[player.player_id] = player.current_state
+	
+func restore_player(player: CharacterBody2D):
+	if player.player_id in player_states:
+		player.set_state(player_states[player.player_id])
 
 func start_timer():
 	is_timer_active = true
