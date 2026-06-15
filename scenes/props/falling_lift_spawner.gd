@@ -38,7 +38,7 @@ func spawn_lift(y: float):
 	lifts.append(lift)
 	
 func reset_lift(lift: Node, new_y: float) -> void:
-	lift.collision_layer = 0  # desactiva colisión
+	lift.collision_layer = 0
 	lift.global_position.y = new_y
 	await get_tree().process_frame
-	lift.collision_layer = 1  # reactiva colisión
+	lift.collision_layer = 1

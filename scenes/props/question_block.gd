@@ -1,8 +1,9 @@
 extends BaseBlocks
 
-@export var current_env = GameControl.LevelEnvironment.OVERWORLD
 @export var texture_overworld: Texture2D
 @export var texture_underworld: Texture2D
+
+var current_env = GameControl.LevelEnvironment.OVERWORLD
 
 func set_environment(env) -> void:
 	current_env = env

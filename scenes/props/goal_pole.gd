@@ -1,6 +1,6 @@
 extends Area2D
 
-@export var current_env = GameControl.LevelEnvironment.OVERWORLD
+var current_env = GameControl.LevelEnvironment.OVERWORLD
 @export var texture_overworld: Texture2D
 @export var texture_underworld: Texture2D
 

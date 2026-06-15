@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://hwaxlnyo3cfb" path="res://scenes/enemies/koopa_troopa.tscn" id="2_if16p"]
 [ext_resource type="PackedScene" uid="uid://crki23t4m8xfc" path="res://scenes/enemies/death_zone.tscn" id="3_3afb2"]
 [ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/props/question_block.tscn" id="3_mreei"]
-[ext_resource type="PackedScene" uid="uid://bifcl860exeq0" path="res://scenes/enemies/koopa_troopa_red.tscn" id="4_u74wm"]
 [ext_resource type="PackedScene" uid="uid://4d3gq0jwwx56" path="res://scenes/props/brick_block_dark.tscn" id="6_qnob3"]
 [ext_resource type="PackedScene" uid="uid://bidi5mm7j12x3" path="res://scenes/power_ups/extra_life.tscn" id="6_s63i5"]
 [ext_resource type="PackedScene" uid="uid://c2amt26unoytd" path="res://scenes/power_ups/fire_flower.tscn" id="7_58yj0"]
@@ -15,13 +14,13 @@
 [ext_resource type="PackedScene" uid="uid://cfmmr52m80n5y" path="res://scenes/props/castle_door_ow.tscn" id="10_ru81v"]
 [ext_resource type="PackedScene" uid="uid://b1l6qu1vcpcc2" path="res://scenes/props/goal_pole.tscn" id="12_mqae6"]
 [ext_resource type="PackedScene" uid="uid://bqe4gq0kep8h8" path="res://scenes/props/hidden_block.tscn" id="13_wmte4"]
+[ext_resource type="PackedScene" uid="uid://byyrnam85tehq" path="res://scenes/props/moving_platform.tscn" id="14_u74wm"]
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_eny8s"]
 resource_name = "Enemies"
 scenes/1/scene = ExtResource("3_3afb2")
 scenes/2/scene = ExtResource("1_o5y8b")
 scenes/3/scene = ExtResource("2_if16p")
-scenes/4/scene = ExtResource("4_u74wm")
 scenes/5/scene = ExtResource("3_3afb2")
 
 [sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_6qqry"]
@@ -35,11 +34,12 @@ scenes/4/scene = ExtResource("9_mx2xn")
 resource_name = "Props"
 scenes/1/scene = ExtResource("6_qnob3")
 scenes/2/scene = ExtResource("9_u74wm")
-scenes/4/scene = ExtResource("10_ru81v")
 scenes/5/scene = ExtResource("10_58yj0")
 scenes/6/scene = ExtResource("12_mqae6")
 scenes/7/scene = ExtResource("13_wmte4")
+scenes/8/scene = ExtResource("14_u74wm")
 scenes/9/scene = ExtResource("3_mreei")
+scenes/11/scene = ExtResource("10_ru81v")
 
 [sub_resource type="TileSet" id="TileSet_8m3t5"]
 sources/1 = SubResource("TileSetScenesCollectionSource_eny8s")

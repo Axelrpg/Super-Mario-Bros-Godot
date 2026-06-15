@@ -1,18 +1,21 @@
 extends CharacterBody2D
 
-@export var current_env = GameControl.LevelEnvironment.OVERWORLD
 @export var texture_overworld: Texture2D
 @export var texture_underworld: Texture2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var collision: CollisionShape2D = $CollisionShape2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var hitbox: Area2D = $Hitbox
+@onready var hurtbox: Area2D = $Hurtbox
+@onready var screen_notifier = $VisibleOnScreenNotifier2D
 
-var SPEED = 50
-var direction = -1
-
+var current_env = GameControl.LevelEnvironment.OVERWORLD
+var speed = 50
 var is_dying = false
 var has_spawned = false
+var deactivate_timer: SceneTreeTimer = null
+var direction = -1
 
 func _ready() -> void:
 	set_physics_process(false)
@@ -24,19 +27,14 @@ func _physics_process(delta: float) -> void:
 	if not is_dying:
 		animation_player.play("walk")
 		
-	velocity.x = direction * SPEED
+	velocity.x = direction * speed
 	move_and_slide()
 	
 	if is_on_wall():
 		var wall_collision = get_last_slide_collision()
 		if wall_collision:
 			var collider = wall_collision.get_collider()
-			if collider.is_in_group("enemies"):
-				var other_dir = sign(collider.global_position.x - global_position.x)
-				if other_dir == sign(direction):
-					direction *= -1
-					sprite.flip_h = not sprite.flip_h
-			else:
+			if not collider.is_in_group("enemies"):
 				direction *= -1
 				sprite.flip_h = not sprite.flip_h
 	
@@ -52,11 +50,15 @@ func update_texture() -> void:
 			sprite.texture = texture_underworld
 
 func die(player: Node2D = null):
+	if is_dying: return
+	is_dying = true
+	
 	GameControl.spawn_score(100, global_position, player)
 	GameControl.play_stomp_swim_sound()
-	is_dying = true
 	set_physics_process(false)
 	collision.queue_free()
+	hitbox.monitoring = false
+	hurtbox.monitoring = false
 	
 	if animation_player.has_animation("die"):
 		animation_player.play("die")
@@ -91,14 +93,34 @@ func die_special(body: Node2D, hit_direction: float = 1.0):
 	await y_tween.finished
 	queue_free()
 
-func _on_hitbox_body_entered(body: Node2D) -> void:
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("enemy_hitbox"):
+		var enemy = area.get_parent()
+		if enemy != self and enemy != null:
+			direction *= -1
+			sprite.flip_h = not sprite.flip_h
+
+func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if is_dying: return
 	
-	if body.is_in_group("players") and velocity.y <= 0:
+	if body.is_in_group("players") and body.velocity.y <= 0:
 		if body.has_method("take_damage"):
 			body.take_damage()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
+	if deactivate_timer:
+		deactivate_timer = null
+	
 	if not has_spawned:
-		set_physics_process(true)
 		has_spawned = true
+			
+	set_physics_process(true)
+
+func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+	if not has_spawned: return
+	
+	deactivate_timer = get_tree().create_timer(3.0)
+	await deactivate_timer.timeout
+	
+	if not screen_notifier.is_on_screen():
+		set_physics_process(false)

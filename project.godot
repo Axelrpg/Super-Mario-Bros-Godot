@@ -51,6 +51,7 @@ multiplayer_hud=""
 spawn_points=""
 flag_pole=""
 coins=""
+enemy_hitbox=""
 
 [input]
 
@@ -125,6 +126,9 @@ p2_up={
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Items"
 2d_physics/layer_5="Hidden Blocks"
+2d_physics/layer_6="Enemy Hitbox"
+2d_physics/layer_7="Stompbox"
+2d_physics/layer_8="Hurtbox"
 
 [physics]
 

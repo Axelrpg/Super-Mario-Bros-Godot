@@ -3953,7 +3953,6 @@ shape = SubResource("RectangleShape2D_5fuva")
 debug_color = Color(0.578132, 0.10253476, 0.48463356, 0.41960785)
 
 [node name="EnemyDetector" type="Area2D" parent="." unique_id=166454191]
-visible = false
 collision_layer = 0
 collision_mask = 4
 monitoring = false

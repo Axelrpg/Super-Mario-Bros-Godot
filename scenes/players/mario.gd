@@ -302,8 +302,9 @@ func die():
 	if flag and not flag.victory_started and flag.waiting_players.size() > 0:
 		flag.victory_started = true
 		
-	if flag.victory_started:
-		return
+	if not GameControl.is_testing:
+		if flag.victory_started:
+			return
 	
 	if GameControl.is_multiplayer:
 		GameControl.register_death(player_id)

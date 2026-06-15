@@ -156,9 +156,9 @@ position = Vector2(88, 200)
 player_id = 2
 
 [connection signal="body_entered" from="TileMapScenes/DeathZone" to="TileMapScenes/DeathZone" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@163166" to="TileMapScenes/@Area2D@163166" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@163167" to="TileMapScenes/@Area2D@163167" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@163168" to="TileMapScenes/@Area2D@163168" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@163169" to="TileMapScenes/@Area2D@163169" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@163170" to="TileMapScenes/@Area2D@163170" method="_on_body_entered"]
-[connection signal="body_entered" from="TileMapScenes/@Area2D@163171" to="TileMapScenes/@Area2D@163171" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@73418" to="TileMapScenes/@Area2D@73418" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@73419" to="TileMapScenes/@Area2D@73419" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@73420" to="TileMapScenes/@Area2D@73420" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@73421" to="TileMapScenes/@Area2D@73421" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@73422" to="TileMapScenes/@Area2D@73422" method="_on_body_entered"]
+[connection signal="body_entered" from="TileMapScenes/@Area2D@73423" to="TileMapScenes/@Area2D@73423" method="_on_body_entered"]

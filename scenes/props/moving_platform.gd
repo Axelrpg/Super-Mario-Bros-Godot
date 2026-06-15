@@ -1,6 +1,6 @@
 extends AnimatableBody2D
 
-@export var axis: Vector2 = Vector2.DOWN
+@export var axis: Vector2 = Vector2.RIGHT
 
 var move_distance: float = 80.0
 var move_speed: float = 1.5
@@ -14,7 +14,7 @@ func _ready() -> void:
 
 func start_loop():
 	while true:
-		await move_to(origin + Vector2(0, move_distance))
+		await move_to(origin + axis * move_distance)
 		await get_tree().create_timer(pause_time).timeout
 		await move_to(origin)
 		await get_tree().create_timer(pause_time).timeout

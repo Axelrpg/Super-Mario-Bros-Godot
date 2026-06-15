@@ -44,6 +44,8 @@ var death_count: int = 0
 var last_second: int = 0
 var hurry_up_played: bool = false
 
+var is_testing = false
+
 func _process(delta: float) -> void:
 	if is_timer_active and time_left > 0:
 		time_left -= delta
