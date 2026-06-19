@@ -52,6 +52,8 @@ spawn_points=""
 flag_pole=""
 coins=""
 enemy_hitbox=""
+bowser=""
+toad=""
 
 [input]
 

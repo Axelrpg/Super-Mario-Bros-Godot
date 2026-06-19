@@ -113,27 +113,21 @@ func run_flag_descent(player: CharacterBody2D):
 func walk_to_the_castle(player: CharacterBody2D):
 	GameControl.play_level_complete_music()
 	player.current_sprite.flip_h = false
-	player.play_anim("jump")
-	
-	var ground_y = player.global_position.y + 16
-	var landing_x = player.global_position.x + 12
+	player.set_physics_process(true)
 	
 	var castle_door_pos = get_tree().get_first_node_in_group("castle_door").global_position
 	
-	var tween = create_tween()
-	
-	tween.tween_property(player, "global_position", Vector2(landing_x, ground_y), 0.3)\
-		.set_trans(Tween.TRANS_QUAD)\
-		.set_ease(Tween.EASE_IN)
+	while not player.is_on_floor():
+		await get_tree().process_frame
 		
-	tween.tween_callback(func(): player.play_anim("walk"))
+	player.auto_walking_finished.connect(func():
+		player.set_physics_process(false)
+		var tween = create_tween()
+		tween.tween_property(player, "modulate:a", 0.0, 1.5)
+		tween.finished.connect(func(): drain_time_bonus())
+	, CONNECT_ONE_SHOT)
 	
-	tween.tween_property(player, "global_position:x", castle_door_pos.x, 1)
-	tween.parallel().tween_property(player, "modulate:a", 0.0, 1.5).set_delay(1)
-	
-	tween.finished.connect(func():
-		drain_time_bonus()
-		)
+	player.start_auto_walking(castle_door_pos.x)
 		
 func drain_time_bonus():
 	var players_reached = players_at_flag

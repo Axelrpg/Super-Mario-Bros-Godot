@@ -28,6 +28,10 @@ func  _physics_process(delta: float) -> void:
 			if collider.has_method("die_special"):
 				collider.die_special(self, self.direction)
 			explode()
+		elif collider.is_in_group("bowser"):
+			if collider.has_method("take_hit"):
+				collider.take_hit()
+			explode()
 			
 	move_and_slide()
 			

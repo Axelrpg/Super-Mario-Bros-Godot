@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://coevnkb2bht4c"]
+
+[ext_resource type="Texture2D" uid="uid://wpvqh8yjl3vo" path="res://sprites/npc/Toad.png" id="1_4ty2s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bdbxb"]
+size = Vector2(16, 24)
+
+[node name="Toad" type="Area2D" unique_id=1157981426 groups=["toad"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=869010834]
+texture = ExtResource("1_4ty2s")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2057648889]
+shape = SubResource("RectangleShape2D_bdbxb")

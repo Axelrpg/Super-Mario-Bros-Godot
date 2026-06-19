@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://ck3hgaxp2xh81"]
+
+[ext_resource type="Script" uid="uid://c2rdsj0wglnfu" path="res://scenes/props/bridge.gd" id="1_1l5wa"]
+[ext_resource type="Texture2D" uid="uid://dfkngv228etnx" path="res://sprites/props/Axe.png" id="2_3446g"]
+[ext_resource type="PackedScene" uid="uid://dyaldrk2r4cpf" path="res://scenes/props/bridge_tile.tscn" id="3_2cpke"]
+[ext_resource type="Texture2D" uid="uid://dme101qfdalr3" path="res://sprites/props/Chain.png" id="4_yijaw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cpke"]
+size = Vector2(14, 14)
+
+[sub_resource type="Animation" id="Animation_2cpke"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_yijaw"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_py7h1"]
+_data = {
+&"RESET": SubResource("Animation_2cpke"),
+&"idle": SubResource("Animation_yijaw")
+}
+
+[node name="Bridge" type="Node2D" unique_id=641253616]
+script = ExtResource("1_1l5wa")
+
+[node name="Axe" type="Area2D" parent="." unique_id=47963237]
+position = Vector2(208, -32)
+collision_layer = 0
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Axe" unique_id=254786783]
+texture = ExtResource("2_3446g")
+hframes = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Axe" unique_id=1086893538]
+shape = SubResource("RectangleShape2D_2cpke")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Axe" unique_id=1864968801]
+libraries/ = SubResource("AnimationLibrary_py7h1")
+
+[node name="Tiles" type="Node2D" parent="." unique_id=45921577]
+
+[node name="BridgeTile" parent="Tiles" unique_id=807750878 instance=ExtResource("3_2cpke")]
+
+[node name="BridgeTile2" parent="Tiles" unique_id=562769672 instance=ExtResource("3_2cpke")]
+position = Vector2(16, 0)
+
+[node name="BridgeTile3" parent="Tiles" unique_id=270354485 instance=ExtResource("3_2cpke")]
+position = Vector2(32, 0)
+
+[node name="BridgeTile4" parent="Tiles" unique_id=659321189 instance=ExtResource("3_2cpke")]
+position = Vector2(48, 0)
+
+[node name="BridgeTile5" parent="Tiles" unique_id=669753214 instance=ExtResource("3_2cpke")]
+position = Vector2(64, 0)
+
+[node name="BridgeTile6" parent="Tiles" unique_id=381922959 instance=ExtResource("3_2cpke")]
+position = Vector2(80, 0)
+
+[node name="BridgeTile7" parent="Tiles" unique_id=989244130 instance=ExtResource("3_2cpke")]
+position = Vector2(96, 0)
+
+[node name="BridgeTile8" parent="Tiles" unique_id=884143063 instance=ExtResource("3_2cpke")]
+position = Vector2(112, 0)
+
+[node name="BridgeTile9" parent="Tiles" unique_id=1578048146 instance=ExtResource("3_2cpke")]
+position = Vector2(128, 0)
+
+[node name="BridgeTile10" parent="Tiles" unique_id=593858129 instance=ExtResource("3_2cpke")]
+position = Vector2(144, 0)
+
+[node name="BridgeTile11" parent="Tiles" unique_id=2135211294 instance=ExtResource("3_2cpke")]
+position = Vector2(160, 0)
+
+[node name="BridgeTile12" parent="Tiles" unique_id=1363539924 instance=ExtResource("3_2cpke")]
+position = Vector2(176, 0)
+
+[node name="BridgeTile13" parent="Tiles" unique_id=1171781118 instance=ExtResource("3_2cpke")]
+position = Vector2(192, 0)
+
+[node name="Chain" type="Sprite2D" parent="Tiles" unique_id=2025425777]
+position = Vector2(192, -16)
+texture = ExtResource("4_yijaw")
+
+[connection signal="body_entered" from="Axe" to="." method="_on_axe_body_entered"]

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://dyaldrk2r4cpf"]
+
+[ext_resource type="Texture2D" uid="uid://cq62fh2fnycw1" path="res://sprites/props/Bridge.png" id="1_emnt4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ry5v1"]
+size = Vector2(16, 16)
+
+[node name="BridgeTile" type="StaticBody2D" unique_id=807750878]
+z_index = 4
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=903406230]
+texture = ExtResource("1_emnt4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=679402362]
+shape = SubResource("RectangleShape2D_ry5v1")

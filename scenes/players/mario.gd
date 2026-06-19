@@ -38,6 +38,8 @@ const PALETTE_LUIGI = {
 @onready var sfx_death: AudioStreamPlayer = $Sounds/SFXDeath
 @onready var sfx_fireball = $Sounds/SFXFireball
 
+signal auto_walking_finished
+
 var current_sprite: Sprite2D:
 	get:
 		match current_state:
@@ -70,6 +72,8 @@ var height_run = 80
 var invulnerability_duration = 3
 var starman_tween: Tween
 var just_hit_ceiling: bool = false
+var auto_walking_target: float =  0.0
+var cutscene_speed: float = 60.0
 
 var is_skidding = false
 var is_dying = false
@@ -78,6 +82,8 @@ var is_ceiling_blocked = false
 var is_invulnerable = false
 var is_starman = false
 var is_manual_jumping = false
+var is_cutscene = false
+var is_auto_walking = false
 
 var can_shoot = true
 
@@ -89,6 +95,33 @@ func _ready() -> void:
 		apply_palette(PALETTE_LUIGI)
 
 func _physics_process(delta: float) -> void:
+	if is_cutscene:
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+			play_anim("jump")
+		else:
+			velocity.y = 0
+			play_anim("idle")
+			
+		velocity.x = 0
+		move_and_slide()
+		return
+	
+	if is_auto_walking:
+		if not is_on_floor():
+			velocity += get_gravity() * delta
+			play_anim("jump")
+		else:
+			velocity.y = 0
+			play_anim("walk")
+		
+		velocity.x = cutscene_speed
+		move_and_slide()
+		
+		if global_position.x >= auto_walking_target:
+			end_auto_walking()
+		return
+	
 	if is_dying:
 		velocity += get_gravity() * delta
 		move_and_collide(velocity * delta)
@@ -303,7 +336,7 @@ func die():
 		flag.victory_started = true
 		
 	if not GameControl.is_testing:
-		if flag.victory_started:
+		if flag and flag.victory_started:
 			return
 	
 	if GameControl.is_multiplayer:
@@ -341,7 +374,6 @@ func respawn():
 	
 func disable():
 	set_physics_process(false)
-	set_process_input(false)
 	collision_layer = 0
 	collision_mask = 0
 	stomp_detector.monitoring = false
@@ -443,6 +475,19 @@ func end_starman_effect():
 	current_sprite.modulate = Color.WHITE
 	if enemy_detector:
 		enemy_detector.monitoring = false
+		
+func start_cutscene():
+	is_cutscene = true
+	current_sprite.flip_h = false
+	
+func start_auto_walking(target: float):
+	is_cutscene = false
+	is_auto_walking = true
+	auto_walking_target = target
+	
+func end_auto_walking():
+	is_auto_walking = false
+	emit_signal("auto_walking_finished")
 
 func _on_stomp_detector_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemies") and velocity.y > 0:

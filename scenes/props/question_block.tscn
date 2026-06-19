@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dwfoaiequwu24" path="res://scenes/props/question_block.gd" id="1_r6jbj"]
 [ext_resource type="Texture2D" uid="uid://b7wqqw02srchq" path="res://sprites/props/Coin Block OW.png" id="2_vn7ff"]
 [ext_resource type="Texture2D" uid="uid://cfgwg5nclhjvi" path="res://sprites/props/Coin Block UG.png" id="3_v73n6"]
+[ext_resource type="Texture2D" uid="uid://ewri21kowh0v" path="res://sprites/props/Coin Block Castle.png" id="4_nyisf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sshfo"]
 size = Vector2(15, 16)
@@ -111,6 +112,7 @@ z_index = 4
 script = ExtResource("1_r6jbj")
 texture_overworld = ExtResource("2_vn7ff")
 texture_underworld = ExtResource("3_v73n6")
+texture_castle = ExtResource("4_nyisf")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1507092124]
 texture = ExtResource("2_vn7ff")

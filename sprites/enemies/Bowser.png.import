@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cf60xxbm4dj5e"
-path="res://.godot/imported/Death Zone.png-e2c124cdb51d0eec5e0e84ae7c3f96ee.ctex"
+uid="uid://gtlyy45ghxmk"
+path="res://.godot/imported/Bowser.png-66cdf7c453122e599a55b092a7a93784.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/enemies/Death Zone.png"
-dest_files=["res://.godot/imported/Death Zone.png-e2c124cdb51d0eec5e0e84ae7c3f96ee.ctex"]
+source_file="res://sprites/enemies/Bowser.png"
+dest_files=["res://.godot/imported/Bowser.png-66cdf7c453122e599a55b092a7a93784.ctex"]
 
 [params]
 

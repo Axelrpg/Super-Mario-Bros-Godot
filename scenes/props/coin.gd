@@ -1,11 +1,13 @@
 extends Area2D
 
-@export var current_env = GameControl.LevelEnvironment.OVERWORLD
 @export var texture_overworld: Texture2D
 @export var texture_underworld: Texture2D
+@export var texture_castle: Texture2D
 
 @onready var sprite = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+var current_env = GameControl.LevelEnvironment.OVERWORLD
 
 func _ready() -> void:
 	animation_player.play("idle")
@@ -20,6 +22,8 @@ func update_texture() -> void:
 			sprite.texture = texture_overworld
 		GameControl.LevelEnvironment.UNDERWORLD:
 			sprite.texture = texture_underworld
+		GameControl.LevelEnvironment.CASTLE:
+			sprite.texture = texture_castle
 			
 func collect(player_id: int):
 	set_deferred("monitoring", false)

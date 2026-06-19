@@ -2,7 +2,8 @@ extends Node
 
 enum LevelEnvironment {
 	OVERWORLD,
-	UNDERWORLD
+	UNDERWORLD,
+	CASTLE
 }
 var current_env = LevelEnvironment.OVERWORLD
 

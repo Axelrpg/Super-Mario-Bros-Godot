@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
-@export var current_env = GameControl.LevelEnvironment.OVERWORLD
 @export var texture_overworld: Texture2D
 @export var texture_underworld: Texture2D
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+var current_env = GameControl.LevelEnvironment.OVERWORLD
 
 func _ready() -> void:
 	animation_player.play("idle")

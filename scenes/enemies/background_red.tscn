@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dvyf1w6n47f8n"]
+
+[ext_resource type="Texture2D" uid="uid://cv0u3xli7hl8n" path="res://sprites/enemies/Background Red.png" id="1_k5uyi"]
+
+[node name="Background Red" type="Sprite2D" unique_id=1447289682]
+texture = ExtResource("1_k5uyi")
