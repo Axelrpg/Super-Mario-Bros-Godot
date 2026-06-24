@@ -7,6 +7,12 @@ var active = false
 
 var can_be_collected: bool = true
 
+func _ready() -> void:
+	if NetManager.is_multiplayer_online:
+		set_multiplayer_authority(1)
+		if not is_multiplayer_authority():
+			set_physics_process(false)
+
 func  _physics_process(delta: float) -> void:
 	if is_on_floor():
 		velocity.x = direction * SPEED
@@ -24,3 +30,7 @@ func disable_collection(duration: float):
 	can_be_collected = false
 	await get_tree().create_timer(duration).timeout
 	can_be_collected = true
+	
+@rpc("authority", "call_local", "reliable")
+func collect_rpc() -> void:
+	queue_free()

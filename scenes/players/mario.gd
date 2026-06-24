@@ -87,14 +87,25 @@ var is_auto_walking = false
 
 var can_shoot = true
 
+func _enter_tree() -> void:
+	set_multiplayer_authority(int(name))
+
 func _ready() -> void:
 	original_layer = collision_layer
 	original_mask = collision_mask
 	
-	if player_id == 2:
-		apply_palette(PALETTE_LUIGI)
+	if NetManager.is_multiplayer_online:
+		player_id = name.to_int()
+		if player_id != multiplayer.get_unique_id():
+			apply_palette(PALETTE_LUIGI)
+	else:
+		if player_id == 2:
+			apply_palette(PALETTE_LUIGI)
 
 func _physics_process(delta: float) -> void:
+	if not is_multiplayer_authority():
+		return
+	
 	if is_cutscene:
 		if not is_on_floor():
 			velocity += get_gravity() * delta
@@ -158,7 +169,7 @@ func handle_gravity(delta: float) -> void:
 		velocity += get_gravity() * delta
 
 func handle_jump() -> void:
-	if Input.is_action_just_pressed("p%d_jump" % player_id) and is_on_floor():
+	if Input.is_action_just_pressed("p1_jump") and is_on_floor():
 		is_manual_jumping = true
 		velocity.y = get_jump_velocity(get_target_jump_height())
 		
@@ -170,7 +181,7 @@ func handle_jump() -> void:
 	if velocity.y >= 0:
 		is_manual_jumping = false
 
-	if Input.is_action_just_released("p%d_jump" % player_id) and velocity.y < 0:
+	if Input.is_action_just_released("p1_jump") and velocity.y < 0:
 		velocity.y *= JUMP_RELEASE_FORCE
 
 	if is_on_ceiling() and velocity.y < 0:
@@ -189,10 +200,10 @@ func handle_crouch_or_move() -> void:
 	
 	var is_crouching = current_state != PlayerState.SMALL \
 		and is_on_floor() \
-		and (Input.is_action_pressed("p%d_down" % player_id) or is_ceiling_blocked)
+		and (Input.is_action_pressed("p1_down") or is_ceiling_blocked)
 
 	if is_crouching:
-		var direction := Input.get_axis("p%d_left" % player_id, "p%d_right" % player_id)
+		var direction := Input.get_axis("p1_left", "p1_right")
 		if is_ceiling_blocked and direction != 0 and velocity.y < 0:
 			var escape_speed = (WALK_SPEED / 4.0) * direction
 			velocity.x = escape_speed
@@ -207,13 +218,13 @@ func handle_crouch_or_move() -> void:
 	if not is_on_floor() and is_ceiling_blocked:
 		update_animations_crouch()
 	else:
-		update_animations(Input.get_axis("p%d_left" % player_id, "p%d_right" % player_id))
+		update_animations(Input.get_axis("p1_left", "p1_right"))
 
 func handle_horizontal_movement() -> void:
-	var is_crouching = Input.is_action_pressed("p%d_down" % player_id)
-	var can_run = Input.is_action_pressed("p%d_run" % player_id) and not is_crouching
+	var is_crouching = Input.is_action_pressed("p1_down")
+	var can_run = Input.is_action_pressed("p1_run") and not is_crouching
 	var current_max_speed = RUN_SPEED if can_run else WALK_SPEED
-	var direction := Input.get_axis("p%d_left" % player_id, "p%d_right" % player_id)
+	var direction := Input.get_axis("p1_left", "p1_right")
 
 	if direction:
 		if sign(direction) != sign(velocity.x) and abs(velocity.x) > WALK_SPEED * 0.5:
@@ -229,7 +240,7 @@ func handle_horizontal_movement() -> void:
 		velocity.x = move_toward(velocity.x, 0, FRICTION)
 
 func handle_fireball() -> void:
-	if Input.is_action_just_pressed("p%d_run" % player_id) and current_state == PlayerState.FIRE:
+	if Input.is_action_just_pressed("p1_run") and current_state == PlayerState.FIRE:
 		if animation_player.current_animation != "crouch":
 			shoot_fireball()
 			
@@ -242,13 +253,13 @@ func update_animations(direction: float) -> void:
 		return
 
 	if not is_on_floor():
-		if current_state != PlayerState.SMALL and (is_ceiling_blocked or Input.is_action_pressed("p%d_down" % player_id)):
+		if current_state != PlayerState.SMALL and (is_ceiling_blocked or Input.is_action_pressed("p1_down")):
 			play_anim("crouch")
 		else:
 			play_anim("jump")
 		return
 
-	if Input.is_action_pressed("p%d_down" % player_id) or is_ceiling_blocked:
+	if Input.is_action_pressed("p1_down") or is_ceiling_blocked:
 		if current_state == PlayerState.SMALL:
 			if direction != 0:
 				play_anim("walk")
@@ -273,6 +284,13 @@ func update_animations_crouch() -> void:
 		play_anim("idle")
 	else:
 		play_anim("crouch")
+		
+func update_remote_animation() -> void:
+	var anim = GameEvents.CURRENT_ANIMATION
+	print(anim)
+	if anim != "" and animation_player.current_animation != anim:
+		animation_player.play(anim)
+	animation_player.speed_scale = GameEvents.ANIM_SPEED_SCALE
 
 func get_jump_velocity(h: float) -> float:
 	return -sqrt(2 * get_gravity().y * h)
@@ -289,7 +307,11 @@ func shoot_fireball():
 	
 		fireball.direction = -1 if current_sprite.flip_h else 1
 		fireball.global_position = global_position + Vector2(fireball.direction * 12, -8)
-		get_parent().add_child(fireball)
+		
+		if NetManager.is_multiplayer_online:
+			get_parent().add_child(fireball)
+		else:
+			get_parent().add_child(fireball)
 		
 		can_shoot = false
 		await get_tree().create_timer(0.15).timeout
@@ -339,7 +361,11 @@ func die():
 		if flag and flag.victory_started:
 			return
 	
-	if GameControl.is_multiplayer:
+	if NetManager.is_multiplayer_online:
+		await get_tree().create_timer(3.0).timeout
+		if is_instance_valid(self):
+			respawn()
+	elif GameControl.is_multiplayer:
 		GameControl.register_death(player_id)
 		
 		if GameControl.all_players_dead():
@@ -494,7 +520,7 @@ func _on_stomp_detector_body_entered(body: Node2D) -> void:
 		if body.has_method("die"):
 			body.die(self)
 			
-		if Input.is_action_pressed("p%d_jump" % player_id):
+		if Input.is_action_pressed("p1_jump"):
 			velocity.y = JUMP_VELOCITY * 0.9
 		else:
 			velocity.y = JUMP_VELOCITY * 0.6

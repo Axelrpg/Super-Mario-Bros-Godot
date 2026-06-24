@@ -3987,6 +3987,26 @@ size = Vector2(14, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8aya7"]
 size = Vector2(14, 17)
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_p4r84"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("Sprites/SmallMario:flip_h")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("Sprites/SuperMario:flip_h")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath("Sprites/FireMario:flip_h")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath("AnimationPlayer:current_animation")
+properties/4/spawn = true
+properties/4/replication_mode = 1
+properties/5/path = NodePath("AnimationPlayer:speed_scale")
+properties/5/spawn = true
+properties/5/replication_mode = 1
+
 [node name="Mario" type="CharacterBody2D" unique_id=1679571318 groups=["players"]]
 z_index = 4
 collision_layer = 2
@@ -4071,6 +4091,9 @@ stream = ExtResource("6_j1r8t")
 
 [node name="SFXFireball" type="AudioStreamPlayer" parent="Sounds" unique_id=1047612387]
 stream = ExtResource("7_e6qb2")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="." unique_id=1884665475]
+replication_config = SubResource("SceneReplicationConfig_p4r84")
 
 [connection signal="body_entered" from="StompDetector" to="." method="_on_stomp_detector_body_entered"]
 [connection signal="body_entered" from="EnemyDetector" to="." method="_on_enemy_detector_body_entered"]

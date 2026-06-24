@@ -24,7 +24,7 @@ func shoot_fireball():
 		sfx_fireball.play()
 		animation_player.play("shoot")
 		
-		var fireball_scene = preload("res://scenes/items/fire_ball.tscn")
+		var fireball_scene = preload("res://scenes/players/fire_ball.tscn")
 		var fireball = fireball_scene.instantiate()
 	
 		fireball.direction = -1 if sprite.flip_h else 1
