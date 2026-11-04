@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://b5d7ygxpjh0wi"]
 
 [ext_resource type="Script" uid="uid://clltjckvyo84f" path="res://scenes/players/mario.gd" id="1_5fuva"]
-[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="1_s0cxq"]
-[ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="3_iovkf"]
-[ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="4_8aya7"]
-[ext_resource type="AudioStream" uid="uid://05cf2d76i6du" path="res://sounds/jumpsmall.wav" id="5_llf1g"]
-[ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://sounds/death.wav" id="6_j1r8t"]
-[ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://sounds/jump.wav" id="6_p4r84"]
-[ext_resource type="AudioStream" uid="uid://scbpvbqrho17" path="res://sounds/pipepowerdown.wav" id="7_77dxu"]
-[ext_resource type="AudioStream" uid="uid://dw5p4uaf8sidr" path="res://sounds/fireball.wav" id="7_e6qb2"]
+[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://assets/sprites/players/mario/Mario.png" id="1_s0cxq"]
+[ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://assets/sprites/players/mario/Super Mario.png" id="3_iovkf"]
+[ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://assets/sprites/players/mario/Fire Mario.png" id="4_8aya7"]
+[ext_resource type="AudioStream" uid="uid://05cf2d76i6du" path="res://assets/audio/sfx/jumpsmall.wav" id="5_llf1g"]
+[ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://assets/audio/sfx/death.wav" id="6_j1r8t"]
+[ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://assets/audio/sfx/jump.wav" id="6_p4r84"]
+[ext_resource type="AudioStream" uid="uid://scbpvbqrho17" path="res://assets/audio/sfx/pipepowerdown.wav" id="7_77dxu"]
+[ext_resource type="AudioStream" uid="uid://dw5p4uaf8sidr" path="res://assets/audio/sfx/fireball.wav" id="7_e6qb2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s0cxq"]
 size = Vector2(12, 15.5)

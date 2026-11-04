@@ -2,7 +2,7 @@ extends Camera2D
 
 var world_root: Node2D = null
 
-var target_player: Node2D = null
+var target_player: Player = null
 var background_sprite: Sprite2D
 
 func _ready() -> void:
@@ -14,7 +14,7 @@ func _process(_delta: float) -> void:
 	if target_player:
 		global_position = target_player.global_position
 		
-func setup(root: Node2D, player: CharacterBody2D):
+func setup(root: Node2D, player: Player):
 	world_root = root
 	target_player = player
 	background_sprite = root.get_node("Area1/Background")

@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://tksj0vxatqlx"]
 
 [ext_resource type="Script" uid="uid://dwwmlsdvewnf" path="res://scenes/enemies/goomba.gd" id="1_emeqt"]
-[ext_resource type="Texture2D" uid="uid://dahh4apno8qab" path="res://sprites/enemies/Goomba OW.png" id="1_lpmmd"]
-[ext_resource type="Texture2D" uid="uid://dvjhjrirqvx0g" path="res://sprites/enemies/Goomba UG.png" id="3_ulfyc"]
+[ext_resource type="Texture2D" uid="uid://dahh4apno8qab" path="res://assets/sprites/enemies/Goomba OW.png" id="1_lpmmd"]
+[ext_resource type="Texture2D" uid="uid://dvjhjrirqvx0g" path="res://assets/sprites/enemies/Goomba UG.png" id="3_ulfyc"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_emeqt"]
 size = Vector2(12, 12)

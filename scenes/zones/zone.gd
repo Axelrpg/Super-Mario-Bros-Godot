@@ -10,11 +10,11 @@ func _on_body_entered(body: Node) -> void:
 	if body.is_in_group("players"):
 		match environment:
 			GameControl.LevelEnvironment.OVERWORLD:
-				GameControl.play_level_song_music(preload("res://music/1 - Running About.mp3"))
+				GameControl.play_level_song_music(preload("res://assets/audio/music/1 - Running About.mp3"))
 			GameControl.LevelEnvironment.UNDERWORLD:
-				GameControl.play_level_song_music(preload("res://music/3 - Underground.mp3"))
+				GameControl.play_level_song_music(preload("res://assets/audio/music/3 - Underground.mp3"))
 			GameControl.LevelEnvironment.CASTLE:
-				GameControl.play_level_song_music(preload("res://music/7 - Bowser's Castle.mp3"))
+				GameControl.play_level_song_music(preload("res://assets/audio/music/7 - Bowser's Castle.mp3"))
 	
 	if body.has_method("set_environment"):
 		body.set_environment(environment)

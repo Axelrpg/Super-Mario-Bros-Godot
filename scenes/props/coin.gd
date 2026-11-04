@@ -33,4 +33,5 @@ func collect(player_id: int):
 			
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		collect(body.player_id)
+		var player := body as Player
+		collect(player.player_id)

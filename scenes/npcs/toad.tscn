@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://coevnkb2bht4c"]
 
-[ext_resource type="Texture2D" uid="uid://wpvqh8yjl3vo" path="res://sprites/npc/Toad.png" id="1_4ty2s"]
+[ext_resource type="Texture2D" uid="uid://wpvqh8yjl3vo" path="res://assets/sprites/npc/Toad.png" id="1_4ty2s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdbxb"]
 size = Vector2(16, 24)

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dtjgaj01xdky6"]
 
 [ext_resource type="Script" uid="uid://bbyr2beah5tn7" path="res://scenes/players/super_mario.gd" id="1_mcqk5"]
-[ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://sprites/players/mario/Super Mario.png" id="1_o4t04"]
-[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://sprites/players/mario/Mario.png" id="3_r53bw"]
-[ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://sprites/players/mario/Fire Mario.png" id="4_mlqch"]
-[ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://sounds/jump.wav" id="5_jxspy"]
-[ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://sounds/death.wav" id="6_l4rif"]
+[ext_resource type="Texture2D" uid="uid://ddb55yv3tl7nv" path="res://assets/sprites/players/mario/Super Mario.png" id="1_o4t04"]
+[ext_resource type="Texture2D" uid="uid://dicl5cen081c7" path="res://assets/sprites/players/mario/Mario.png" id="3_r53bw"]
+[ext_resource type="Texture2D" uid="uid://8iqu8pb30lhv" path="res://assets/sprites/players/mario/Fire Mario.png" id="4_mlqch"]
+[ext_resource type="AudioStream" uid="uid://cmredbshhd4qi" path="res://assets/audio/sfx/jump.wav" id="5_jxspy"]
+[ext_resource type="AudioStream" uid="uid://ddvv143cymlsg" path="res://assets/audio/sfx/death.wav" id="6_l4rif"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mcqk5"]
 size = Vector2(16, 22)

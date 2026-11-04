@@ -125,7 +125,7 @@ func die(_player: Node2D = null):
 			block_state_change(0.3)
 		State.SHELL_IDLE:
 			GameControl.play_kick_kill_sound()
-			var mario = get_tree().get_first_node_in_group("players")
+			var mario: Player = get_tree().get_first_node_in_group("players") as Player
 			direction = sign(global_position.x - mario.global_position.x)
 			current_state = State.SHELL_MOVING
 		State.SHELL_MOVING:
@@ -176,11 +176,12 @@ func check_walk_direction():
 
 func _on_hitbox_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players") and can_change_state:
-		owner_player_id = body.player_id
+		var player := body as Player
+		owner_player_id = player.player_id
 		match current_state:
 			State.SHELL_IDLE:
 				GameControl.play_kick_kill_sound()
-				direction = sign(global_position.x - body.global_position.x)
+				direction = sign(global_position.x - player.global_position.x)
 				if direction == 0: direction = 1
 				current_state = State.SHELL_MOVING
 	elif body.is_in_group("enemies") and current_state == State.SHELL_MOVING and body != self:
@@ -196,11 +197,13 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 				direction *= -1
 				
 func _on_hurtbox_body_entered(body: Node2D) -> void:
-	if body.is_in_group("players") and body.velocity.y <= 0:
+	if body.is_in_group("players"):
+		var player := body as Player
+		if player.velocity.y > 0:
+			return
 		match current_state:
 			State.FLY, State.WALK, State.SHELL_MOVING:
-				if body.has_method("take_damage"):
-					body.take_damage() 
+				player.take_damage()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	if deactivate_timer:

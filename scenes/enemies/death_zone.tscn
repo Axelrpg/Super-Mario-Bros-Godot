@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://crki23t4m8xfc"]
 
 [ext_resource type="Script" uid="uid://b8apap8ccgg72" path="res://scenes/enemies/death_zone.gd" id="1_5gw30"]
-[ext_resource type="Texture2D" uid="uid://bdp2a3v0k5qpi" path="res://sprites/enemies/Fire.png" id="2_5gw30"]
+[ext_resource type="Texture2D" uid="uid://bdp2a3v0k5qpi" path="res://assets/sprites/enemies/Fire.png" id="2_5gw30"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ug54e"]
 size = Vector2(16, 13)

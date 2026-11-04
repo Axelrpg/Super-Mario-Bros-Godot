@@ -17,8 +17,8 @@ func update_texture() -> void:
 		GameControl.LevelEnvironment.UNDERWORLD:
 			sprite.texture = texture_underworld
 
-func break_or_bump(player: CharacterBody2D):
-	if player.current_state == player.PlayerState.SMALL:
+func break_or_bump(player: Player):
+	if player.current_state == Player.PlayerState.SMALL:
 		move_sprite(player)
 		GameControl.play_bump_sound()
 	else:

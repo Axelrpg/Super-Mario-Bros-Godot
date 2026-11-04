@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://b1l6qu1vcpcc2"]
 
 [ext_resource type="Script" uid="uid://cs2gx11jvap0j" path="res://scenes/props/goal_pole.gd" id="1_3k05p"]
-[ext_resource type="Texture2D" uid="uid://k4335mrsu0ag" path="res://sprites/props/Flag OW.png" id="2_mdwyc"]
-[ext_resource type="Texture2D" uid="uid://c8pgbl7l1m6cl" path="res://sprites/props/Flag UG.png" id="3_pxxy2"]
-[ext_resource type="Texture2D" uid="uid://c3jk3dluvwamp" path="res://sprites/props/Goal Pole OW.png" id="4_lwb1u"]
+[ext_resource type="Texture2D" uid="uid://k4335mrsu0ag" path="res://assets/sprites/props/Flag OW.png" id="2_mdwyc"]
+[ext_resource type="Texture2D" uid="uid://c8pgbl7l1m6cl" path="res://assets/sprites/props/Flag UG.png" id="3_pxxy2"]
+[ext_resource type="Texture2D" uid="uid://c3jk3dluvwamp" path="res://assets/sprites/props/Goal Pole OW.png" id="4_lwb1u"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="5_at27f"]
-[ext_resource type="AudioStream" uid="uid://bp5ey8qui4fjk" path="res://sounds/flagpole.wav" id="6_shn0y"]
+[ext_resource type="AudioStream" uid="uid://bp5ey8qui4fjk" path="res://assets/audio/sfx/flagpole.wav" id="6_shn0y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhevm"]
 size = Vector2(2, 152)

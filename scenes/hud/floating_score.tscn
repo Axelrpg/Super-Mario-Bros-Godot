@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://heqoep785crh"]
 
 [ext_resource type="Script" uid="uid://bkm7oq7g8pum6" path="res://scenes/hud/floating_score.gd" id="1_til22"]
-[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="2_h5byi"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://assets/fonts/font.ttf" id="2_h5byi"]
 
 [node name="FloatingScore" type="Marker2D" unique_id=642940923]
 z_index = 4

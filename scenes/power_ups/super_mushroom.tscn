@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://yjsjblcd4kgp"]
 
 [ext_resource type="Script" uid="uid://djnddxk8junms" path="res://scenes/power_ups/super_mushroom.gd" id="1_bpov2"]
-[ext_resource type="Texture2D" uid="uid://cgvxmlrhrhb8w" path="res://sprites/power_ups/Super Mushroom OW.png" id="1_jx1jm"]
+[ext_resource type="Texture2D" uid="uid://cgvxmlrhrhb8w" path="res://assets/sprites/power_ups/Super Mushroom OW.png" id="1_jx1jm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bpov2"]
 size = Vector2(15.5, 15.5)

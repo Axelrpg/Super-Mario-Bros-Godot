@@ -82,7 +82,8 @@ func spawn_score(value: int, pos: Vector2, body: Node2D = null):
 	if body == null:
 		player_id = 0
 	elif body.is_in_group("players"):
-		player_id = body.player_id
+		var player := body as Player
+		player_id = player.player_id
 	elif body.get("owner_player_id") != null:
 		player_id = body.owner_player_id
 	
@@ -92,7 +93,8 @@ func spawn_score(value: int, pos: Vector2, body: Node2D = null):
 	score_popup.global_position = pos
 	
 	if GameControl.is_multiplayer and player_id > 0:
-		var players = get_tree().get_nodes_in_group("players")
+		var players: Array[Player] = []
+		players.assign(get_tree().get_nodes_in_group("players"))
 		for p in players:
 			if p.player_id == player_id:
 				p.get_viewport().add_child(score_popup)
@@ -141,10 +143,10 @@ func advance_level():
 		
 	current_level = str(level)
 	
-func save_player_state(player: CharacterBody2D):
+func save_player_state(player: Player):
 	player_states[player.player_id] = player.current_state
 	
-func restore_player(player: CharacterBody2D):
+func restore_player(player: Player):
 	if player.player_id in player_states:
 		player.set_state(player_states[player.player_id])
 
@@ -172,7 +174,8 @@ func reset_values(custom_time: int = 300):
 	death_count = 0
 	
 func killer_player_by_timeout():
-	var players = get_tree().get_nodes_in_group("players")
+	var players: Array[Player] = []
+	players.assign(get_tree().get_nodes_in_group("players"))
 	
 	for player in players:
 		if player.has_method("die"):

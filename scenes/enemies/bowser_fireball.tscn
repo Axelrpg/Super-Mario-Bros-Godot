@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://k05hbr5yvjtu"]
 
 [ext_resource type="Script" uid="uid://dehctu84h1ge1" path="res://scenes/enemies/bowser_fireball.gd" id="1_38f4g"]
-[ext_resource type="Texture2D" uid="uid://dswa7tesq47db" path="res://sprites/enemies/Bowser Fire.png" id="2_vb7o2"]
+[ext_resource type="Texture2D" uid="uid://dswa7tesq47db" path="res://assets/sprites/enemies/Bowser Fire.png" id="2_vb7o2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ucn"]
 size = Vector2(20, 5)

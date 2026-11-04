@@ -103,9 +103,10 @@ func _on_hitbox_area_entered(area: Area2D) -> void:
 func _on_hurtbox_body_entered(body: Node2D) -> void:
 	if is_dying: return
 	
-	if body.is_in_group("players") and body.velocity.y <= 0:
-		if body.has_method("take_damage"):
-			body.take_damage()
+	if body.is_in_group("players"):
+		var player := body as Player
+		if player.velocity.y <= 0:
+			player.take_damage()
 
 func _on_visible_on_screen_notifier_2d_screen_entered() -> void:
 	if deactivate_timer:

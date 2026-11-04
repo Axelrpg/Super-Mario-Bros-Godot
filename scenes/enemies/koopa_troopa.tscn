@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://hwaxlnyo3cfb"]
 
 [ext_resource type="Script" uid="uid://b76hsux3m0gf7" path="res://scenes/enemies/koopa_troopa.gd" id="1_y6hc8"]
-[ext_resource type="Texture2D" uid="uid://8xjf6vt0ix8s" path="res://sprites/enemies/Koopa Troopa OW.png" id="2_mrcuh"]
-[ext_resource type="Texture2D" uid="uid://d13f0d8yx2v25" path="res://sprites/enemies/Koopa Troopa UG.png" id="3_mrcuh"]
-[ext_resource type="Texture2D" uid="uid://dk455nf0veevb" path="res://sprites/enemies/Koopa Troopa Red.png" id="4_k3imp"]
+[ext_resource type="Texture2D" uid="uid://8xjf6vt0ix8s" path="res://assets/sprites/enemies/Koopa Troopa OW.png" id="2_mrcuh"]
+[ext_resource type="Texture2D" uid="uid://d13f0d8yx2v25" path="res://assets/sprites/enemies/Koopa Troopa UG.png" id="3_mrcuh"]
+[ext_resource type="Texture2D" uid="uid://dk455nf0veevb" path="res://assets/sprites/enemies/Koopa Troopa Red.png" id="4_k3imp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2c837"]
 size = Vector2(15, 14)

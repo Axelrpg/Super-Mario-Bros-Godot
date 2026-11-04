@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cauo0pbe8ool2"]
 
-[ext_resource type="Texture2D" uid="uid://dxmn4hcmvdjtu" path="res://sprites/tileset/Underground - Pipes and scenery.png" id="1_blkkp"]
+[ext_resource type="Texture2D" uid="uid://dxmn4hcmvdjtu" path="res://assets/sprites/tileset/Underground - Pipes and scenery.png" id="1_blkkp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vi5id"]
 texture = ExtResource("1_blkkp")

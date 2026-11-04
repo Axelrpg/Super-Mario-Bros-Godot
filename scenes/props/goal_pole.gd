@@ -11,9 +11,9 @@ var current_env = GameControl.LevelEnvironment.OVERWORLD
 @onready var sfx_flag_pole = $SFXFlagPole
 
 var victory_started: bool = false
-var first_player_at_flag: CharacterBody2D = null
-var players_at_flag: Array = []
-var waiting_players: Array = []
+var first_player_at_flag: Player = null
+var players_at_flag: Array[Player] = []
+var waiting_players: Array[Player] = []
 
 func set_environment(env) -> void:
 	current_env = env
@@ -28,9 +28,9 @@ func update_texture() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		start_victory_sequence(body)
+		start_victory_sequence(body as Player)
 		
-func start_victory_sequence(player: CharacterBody2D):
+func start_victory_sequence(player: Player):
 	player.set_physics_process(false)
 	GameControl.stop_timer()
 	
@@ -58,7 +58,8 @@ func start_victory_sequence(player: CharacterBody2D):
 	
 	if GameControl.is_multiplayer:
 		players_at_flag.append(player)
-		var all_players = get_tree().get_nodes_in_group("players")
+		var all_players: Array[Player] = []
+		all_players.assign(get_tree().get_nodes_in_group("players"))
 		
 		if players_at_flag.size() >= all_players.size():
 			for waiting in waiting_players:
@@ -85,7 +86,7 @@ func start_victory_sequence(player: CharacterBody2D):
 	else:
 		run_flag_descent(player)
 	
-func run_flag_descent(player: CharacterBody2D):
+func run_flag_descent(player: Player):
 	GameControl.stop_level_song_music()
 	var arrival_position = arrival_point_small.global_position.y
 	var descent_speed = 75
@@ -110,7 +111,7 @@ func run_flag_descent(player: CharacterBody2D):
 		walk_to_the_castle(player)
 		)
 
-func walk_to_the_castle(player: CharacterBody2D):
+func walk_to_the_castle(player: Player):
 	GameControl.play_level_complete_music()
 	player.current_sprite.flip_h = false
 	player.set_physics_process(true)
@@ -150,7 +151,9 @@ func drain_time_bonus():
 func show_victory_ui():
 	await get_tree().create_timer(5).timeout
 	
-	for p in get_tree().get_nodes_in_group("players"):
+	var players: Array[Player] = []
+	players.assign(get_tree().get_nodes_in_group("players"))
+	for p in players:
 		GameControl.save_player_state(p)
 	
 	GameControl.next_level_scene = next_level_scene

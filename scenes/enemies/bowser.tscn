@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cl25eq68s36ji"]
 
 [ext_resource type="Script" uid="uid://ckjf30vmp6se3" path="res://scenes/enemies/bowser.gd" id="1_1mmjt"]
-[ext_resource type="Texture2D" uid="uid://gtlyy45ghxmk" path="res://sprites/enemies/Bowser.png" id="1_gis2s"]
+[ext_resource type="Texture2D" uid="uid://gtlyy45ghxmk" path="res://assets/sprites/enemies/Bowser.png" id="1_gis2s"]
 [ext_resource type="PackedScene" uid="uid://k05hbr5yvjtu" path="res://scenes/enemies/bowser_fireball.tscn" id="2_q1qpj"]
-[ext_resource type="AudioStream" uid="uid://bblieml2co5jl" path="res://sounds/fire.wav" id="4_gtpg1"]
-[ext_resource type="AudioStream" uid="uid://cssnyul00w6kx" path="res://sounds/bowserfall.wav" id="5_12pb7"]
+[ext_resource type="AudioStream" uid="uid://bblieml2co5jl" path="res://assets/audio/sfx/fire.wav" id="4_gtpg1"]
+[ext_resource type="AudioStream" uid="uid://cssnyul00w6kx" path="res://assets/audio/sfx/bowserfall.wav" id="5_12pb7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gis2s"]
 size = Vector2(22, 24)

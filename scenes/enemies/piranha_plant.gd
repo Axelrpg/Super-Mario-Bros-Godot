@@ -35,7 +35,8 @@ func move_to(target: Vector2):
 	await tween.finished
 	
 func is_player_nearby() -> bool:
-	var players = get_tree().get_nodes_in_group("players")
+	var players: Array[Player] = []
+	players.assign(get_tree().get_nodes_in_group("players"))
 	for player in players:
 		if global_position.distance_to(player.global_position) < detection_radius:
 			return true
@@ -54,5 +55,5 @@ func update_texture() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("players"):
-		if body.has_method("take_damage"):
-			body.take_damage()
+		var player := body as Player
+		player.take_damage()

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dellv182vxu34"]
 
-[ext_resource type="Texture2D" uid="uid://01lsswperegp" path="res://sprites/tileset/Overworld - Ground and Stone.png" id="1_jxt0j"]
+[ext_resource type="Texture2D" uid="uid://01lsswperegp" path="res://assets/sprites/tileset/Overworld - Ground and Stone.png" id="1_jxt0j"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_7b64v"]
 texture = ExtResource("1_jxt0j")

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://cvur512hryeab"]
 
-[ext_resource type="Texture2D" uid="uid://c8s2wr4lvh3cb" path="res://sprites/tileset/Overworld - Background.png" id="1_ghkyf"]
+[ext_resource type="Texture2D" uid="uid://c8s2wr4lvh3cb" path="res://assets/sprites/tileset/Overworld - Background.png" id="1_ghkyf"]
 [ext_resource type="Script" uid="uid://d216qycxo62k6" path="res://scenes/levels/singleplayer/world_1_3.gd" id="1_u25v7"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="1_uipqp"]
 [ext_resource type="PackedScene" uid="uid://dinj5ed1cnqf0" path="res://scenes/tilemaplayer/overworld_pipes_scenery.tscn" id="2_focbi"]

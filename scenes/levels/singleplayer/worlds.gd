@@ -1,7 +1,7 @@
 extends Node
 class_name Worlds
 
-@onready var luigi = $Luigi
+@onready var luigi: Player = $Luigi
 
 func _ready() -> void:
 	if not GameControl.is_multiplayer:

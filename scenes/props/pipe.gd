@@ -35,12 +35,13 @@ func _physics_process(_delta: float) -> void:
 		var bodies = entry_area.get_overlapping_bodies()
 		for body in bodies:
 			if body.is_in_group("players"):
-				if check_collision_by_direction(body, facing_dir):
-					var action = "p%d_%s" % [body.player_id, required_action]
+				var player := body as Player
+				if check_collision_by_direction(player, facing_dir):
+					var action = "p%d_%s" % [player.player_id, required_action]
 					if Input.is_action_pressed(action):
 						is_entrance = true
 						disable_piranha()
-						enter_pipe(body)
+						enter_pipe(player)
 
 func set_environment(env) -> void:
 	current_env = env
@@ -63,14 +64,14 @@ func disable_piranha():
 	piranha.monitoring = false
 	piranha.monitorable = false
 
-func check_collision_by_direction(player: CharacterBody2D, dir: Vector2) -> bool:
+func check_collision_by_direction(player: Player, dir: Vector2) -> bool:
 	if dir == Vector2.UP: return player.is_on_floor()
 	if dir == Vector2.DOWN: return player.is_on_ceiling()
 	if dir == Vector2.LEFT: return player.is_on_wall()
 	if dir == Vector2.RIGHT: return player.is_on_wall()
 	return false
 
-func enter_pipe(player: CharacterBody2D):
+func enter_pipe(player: Player):
 	player.set_physics_process(false)
 	player.z_index = 2
 	sfx_pipe.play()
@@ -79,7 +80,7 @@ func enter_pipe(player: CharacterBody2D):
 		GameControl.stop_timer()
 	
 	var direction = Vector2.DOWN.rotated(rotation)
-	var is_small = player.current_state == player.PlayerState.SMALL
+	var is_small = player.current_state == Player.PlayerState.SMALL
 	
 	var align_pos = player.global_position
 	if abs(direction.x) > 0.5:
@@ -103,7 +104,7 @@ func enter_pipe(player: CharacterBody2D):
 	
 	tween.finished.connect(func(): transport_player(player))
 	
-func transport_player(player: CharacterBody2D):
+func transport_player(player: Player):
 	if GameControl.is_multiplayer:
 		await MultiplayerTransition.fade_out(player.player_id, 0.5).finished
 	else:
@@ -130,9 +131,9 @@ func transport_player(player: CharacterBody2D):
 	
 	exit_pipe.exit_sequence(player, exit_pipe)
 	
-func exit_sequence(player: CharacterBody2D, exit_pipe: StaticBody2D):
+func exit_sequence(player: Player, exit_pipe: StaticBody2D):
 	var out_direction = Vector2.UP.rotated(rotation)
-	var is_small = player.current_state == player.PlayerState.SMALL
+	var is_small = player.current_state == Player.PlayerState.SMALL
 	sfx_pipe.play()
 	
 	var align_pos = player.global_position

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://o68xy5d6mpqc" path="res://scenes/levels/singleplayer/world_1_1.gd" id="1_3vdqc"]
 [ext_resource type="PackedScene" uid="uid://dellv182vxu34" path="res://scenes/tilemaplayer/overworld_ground_stone.tscn" id="1_p6tof"]
-[ext_resource type="Texture2D" uid="uid://c8s2wr4lvh3cb" path="res://sprites/tileset/Overworld - Background.png" id="2_mu0tm"]
+[ext_resource type="Texture2D" uid="uid://c8s2wr4lvh3cb" path="res://assets/sprites/tileset/Overworld - Background.png" id="2_mu0tm"]
 [ext_resource type="PackedScene" uid="uid://dinj5ed1cnqf0" path="res://scenes/tilemaplayer/overworld_pipes_scenery.tscn" id="2_snkvd"]
 [ext_resource type="PackedScene" uid="uid://wv82qxa6vltf" path="res://scenes/zones/zone.tscn" id="3_cq153"]
 [ext_resource type="PackedScene" uid="uid://b5d7ygxpjh0wi" path="res://scenes/players/mario.tscn" id="4_v1yw5"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://ik88a4xy7jy7" path="res://scenes/props/question_block.tscn" id="8_7rsdm"]
 [ext_resource type="PackedScene" uid="uid://ddludn4yid6rf" path="res://scenes/props/pipe.tscn" id="9_1vpwa"]
 [ext_resource type="PackedScene" uid="uid://ci643p1mqg8g2" path="res://scenes/levels/singleplayer/world_1_2.tscn" id="10_e1tat"]
-[ext_resource type="Texture2D" uid="uid://bkg3hca3bnytb" path="res://sprites/tileset/Underground - Background.png" id="10_x2hwb"]
+[ext_resource type="Texture2D" uid="uid://bkg3hca3bnytb" path="res://assets/sprites/tileset/Underground - Background.png" id="10_x2hwb"]
 [ext_resource type="PackedScene" uid="uid://bqe4gq0kep8h8" path="res://scenes/props/hidden_block.tscn" id="11_75u7g"]
 [ext_resource type="PackedScene" uid="uid://chei5cco5ew8e" path="res://scenes/props/brick_block_light.tscn" id="11_o0kya"]
 [ext_resource type="PackedScene" uid="uid://b1l6qu1vcpcc2" path="res://scenes/props/goal_pole.tscn" id="11_oqo2y"]

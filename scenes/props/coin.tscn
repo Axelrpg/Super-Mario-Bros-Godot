@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://caxbep8wavio"]
 
 [ext_resource type="Script" uid="uid://b0tvin7865jls" path="res://scenes/props/coin.gd" id="1_7734d"]
-[ext_resource type="Texture2D" uid="uid://b8rmo0a5juuei" path="res://sprites/props/Coin UG.png" id="3_r8n3v"]
-[ext_resource type="Texture2D" uid="uid://35a6epigc7jb" path="res://sprites/props/Coin OW.png" id="4_0n8k7"]
-[ext_resource type="Texture2D" uid="uid://boqjamwvoi448" path="res://sprites/props/Coin Castle.png" id="4_7734d"]
+[ext_resource type="Texture2D" uid="uid://b8rmo0a5juuei" path="res://assets/sprites/props/Coin UG.png" id="3_r8n3v"]
+[ext_resource type="Texture2D" uid="uid://35a6epigc7jb" path="res://assets/sprites/props/Coin OW.png" id="4_0n8k7"]
+[ext_resource type="Texture2D" uid="uid://boqjamwvoi448" path="res://assets/sprites/props/Coin Castle.png" id="4_7734d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pmwdt"]
 size = Vector2(10, 14)

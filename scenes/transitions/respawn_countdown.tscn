@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cgnt4cofqckud"]
 
 [ext_resource type="Script" uid="uid://dimvxuieg562l" path="res://scenes/transitions/respawn_countdown.gd" id="1_0bxy2"]
-[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://fonts/font.ttf" id="1_aoqar"]
+[ext_resource type="FontFile" uid="uid://c60fmeyc80l7a" path="res://assets/fonts/font.ttf" id="1_aoqar"]
 
 [node name="RespawnCountdown" type="CanvasLayer" unique_id=73424403]
 script = ExtResource("1_0bxy2")

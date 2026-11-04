@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ck3hgaxp2xh81"]
 
 [ext_resource type="Script" uid="uid://c2rdsj0wglnfu" path="res://scenes/props/bridge.gd" id="1_1l5wa"]
-[ext_resource type="Texture2D" uid="uid://dfkngv228etnx" path="res://sprites/props/Axe.png" id="2_3446g"]
+[ext_resource type="Texture2D" uid="uid://dfkngv228etnx" path="res://assets/sprites/props/Axe.png" id="2_3446g"]
 [ext_resource type="PackedScene" uid="uid://dyaldrk2r4cpf" path="res://scenes/props/bridge_tile.tscn" id="3_2cpke"]
-[ext_resource type="Texture2D" uid="uid://dme101qfdalr3" path="res://sprites/props/Chain.png" id="4_yijaw"]
+[ext_resource type="Texture2D" uid="uid://dme101qfdalr3" path="res://assets/sprites/props/Chain.png" id="4_yijaw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cpke"]
 size = Vector2(14, 14)

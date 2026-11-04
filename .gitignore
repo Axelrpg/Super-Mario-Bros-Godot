@@ -1,6 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 .nomedia
+*.tmp
 
 # Godot-specific ignores
 .import/
@@ -14,3 +15,12 @@ export_credentials.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Local editor settings (may contain machine-specific paths)
+.vscode/
+.idea/
+
+# Operating system metadata
+.DS_Store
+Thumbs.db
+desktop.ini

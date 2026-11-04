@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://ddludn4yid6rf"]
 
 [ext_resource type="Script" uid="uid://v7f6480tiv0u" path="res://scenes/props/pipe.gd" id="1_y1ehn"]
-[ext_resource type="Texture2D" uid="uid://cpv03n4836fra" path="res://sprites/props/Pipe OW.png" id="2_n83ka"]
-[ext_resource type="AudioStream" uid="uid://scbpvbqrho17" path="res://sounds/pipepowerdown.wav" id="3_0r48x"]
-[ext_resource type="Texture2D" uid="uid://bwo1gvmpt6r2i" path="res://sprites/props/Pipe UG.png" id="3_n83ka"]
+[ext_resource type="Texture2D" uid="uid://cpv03n4836fra" path="res://assets/sprites/props/Pipe OW.png" id="2_n83ka"]
+[ext_resource type="AudioStream" uid="uid://scbpvbqrho17" path="res://assets/audio/sfx/pipepowerdown.wav" id="3_0r48x"]
+[ext_resource type="Texture2D" uid="uid://bwo1gvmpt6r2i" path="res://assets/sprites/props/Pipe UG.png" id="3_n83ka"]
 [ext_resource type="PackedScene" uid="uid://i84k6ew42a0d" path="res://scenes/enemies/piranha_plant.tscn" id="4_0r48x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_234el"]

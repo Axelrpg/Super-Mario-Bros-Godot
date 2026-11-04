@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://cj3ogbcgwd40h"]
 
 [ext_resource type="Script" uid="uid://b7hbel2dvbww6" path="res://scenes/levels/singleplayer/world_1_4.gd" id="1_rntnv"]
-[ext_resource type="Texture2D" uid="uid://bkg3hca3bnytb" path="res://sprites/tileset/Underground - Background.png" id="1_y35ej"]
+[ext_resource type="Texture2D" uid="uid://bkg3hca3bnytb" path="res://assets/sprites/tileset/Underground - Background.png" id="1_y35ej"]
 [ext_resource type="PackedScene" uid="uid://wv82qxa6vltf" path="res://scenes/zones/zone.tscn" id="2_vf0at"]
 [ext_resource type="PackedScene" uid="uid://b3cl6oy8kuuy6" path="res://scenes/tilemaplayer/castle_ground_stone.tscn" id="3_rntnv"]
 [ext_resource type="PackedScene" uid="uid://b5d7ygxpjh0wi" path="res://scenes/players/mario.tscn" id="4_vf0at"]

@@ -36,16 +36,17 @@ func _physics_process(_delta: float) -> void:
 	
 	for body in bodies:
 		if body.is_in_group("players"):
-			var is_below = body.global_position.y > global_position.y
+			var player := body as Player
+			var is_below = player.global_position.y > global_position.y
 			
 			if is_hidden_block:
-				if is_below and body.velocity.y < -10 and not is_empty:
-					handle_hit(body)
+				if is_below and player.velocity.y < -10 and not is_empty:
+					handle_hit(player)
 			else:
-				if is_below and body.velocity.y > 10 and not is_empty:
-					handle_hit(body)
+				if is_below and player.velocity.y > 10 and not is_empty:
+					handle_hit(player)
 				
-func handle_hit(player: CharacterBody2D):
+func handle_hit(player: Player):
 	if is_hidden_block:
 		set_collision_layer_value(1, true)
 		set_collision_layer_value(5, false)
@@ -65,7 +66,7 @@ func handle_hit(player: CharacterBody2D):
 		ItemType.NONE:
 			break_or_bump(player)
 
-func give_power_up(player: CharacterBody2D):
+func give_power_up(player: Player):
 	is_empty = true
 	animation_player.play("empty")
 	
@@ -78,7 +79,7 @@ func give_power_up(player: CharacterBody2D):
 	elif content == ItemType.EXTRA_LIFE:
 		item_to_spawn = EXTRA_LIFE_SCENE.instantiate()
 	else:
-		if player.current_state == player.PlayerState.SMALL:
+		if player.current_state == Player.PlayerState.SMALL:
 			item_to_spawn = MUSHROOM_SCENE.instantiate()
 		else:
 			item_to_spawn = FIRE_FLOWER_SCENE.instantiate()
@@ -113,7 +114,7 @@ func spawn_animation_tween(item: CharacterBody2D):
 		if is_instance_valid(item):
 			item.set_physics_process(true)
 
-func give_coin(player: CharacterBody2D):
+func give_coin(player: Player):
 	if is_empty: return
 	if is_hitting: return
 	is_hitting = true
@@ -142,13 +143,13 @@ func spawn_coin_visual():
 	get_parent().add_child(coin)
 	coin.global_position = global_position + Vector2(0, -16)
 	
-func move_sprite(player: Node2D = null):
+func move_sprite(player: Player = null):
 	var tween = create_tween()
 	tween.tween_property(sprite, "position:y", -8, 0.1).set_trans(Tween.TRANS_QUAD)
 	tween.tween_property(sprite, "position:y", 0, 0.1).set_trans(Tween.TRANS_QUAD)
 	check_objects_above(player)
 	
-func check_objects_above(player: Node2D = null):
+func check_objects_above(player: Player = null):
 	var bodies = top_checker.get_overlapping_bodies()
 	
 	for body in bodies:
@@ -177,5 +178,5 @@ func check_objects_above(player: Node2D = null):
 		if area.is_in_group("coins"):
 			area.collect(player.player_id)
 
-func break_or_bump(_player: CharacterBody2D):
+func break_or_bump(_player: Player):
 	pass

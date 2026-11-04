@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dbmygarqjx4jl"]
 
 [ext_resource type="Script" uid="uid://bwxidmfdlam7a" path="res://scenes/enemies/fire_bar_ball.gd" id="1_22alc"]
-[ext_resource type="Texture2D" uid="uid://b43pnq0lpe1w8" path="res://sprites/players/Fire Ball 1.png" id="1_q5hrr"]
+[ext_resource type="Texture2D" uid="uid://b43pnq0lpe1w8" path="res://assets/sprites/players/Fire Ball 1.png" id="1_q5hrr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_22alc"]
 size = Vector2(8, 8)

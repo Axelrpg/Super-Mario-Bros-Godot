@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 enum PlayerState {
 	SMALL,
@@ -140,7 +141,7 @@ func set_global_variables():
 	
 func apply_palette(palette: Dictionary):
 	var mat = ShaderMaterial.new()
-	mat.shader = preload("res://shaders/palette_swap.gdshader")
+	mat.shader = preload("res://assets/shaders/palette_swap.gdshader")
 	for param in palette:
 		mat.set_shader_parameter(param, palette[param])
 		

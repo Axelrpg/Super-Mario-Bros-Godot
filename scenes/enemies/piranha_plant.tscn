@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://i84k6ew42a0d"]
 
 [ext_resource type="Script" uid="uid://mnh1a6i1bsa1" path="res://scenes/enemies/piranha_plant.gd" id="1_35mqq"]
-[ext_resource type="Texture2D" uid="uid://bcesl71kd6hlj" path="res://sprites/enemies/Piranha Plant OW.png" id="1_rf4ya"]
-[ext_resource type="Texture2D" uid="uid://b3fefgg1e3l6b" path="res://sprites/enemies/Piranha Plant UG.png" id="3_0qbey"]
+[ext_resource type="Texture2D" uid="uid://bcesl71kd6hlj" path="res://assets/sprites/enemies/Piranha Plant OW.png" id="1_rf4ya"]
+[ext_resource type="Texture2D" uid="uid://b3fefgg1e3l6b" path="res://assets/sprites/enemies/Piranha Plant UG.png" id="3_0qbey"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hjbcw"]
 size = Vector2(16, 23)

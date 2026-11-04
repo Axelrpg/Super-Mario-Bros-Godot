@@ -6,9 +6,10 @@ func _ready() -> void:
 	setup_camera_limits()
 
 func _process(_delta: float) -> void:
-	var players = get_tree().get_nodes_in_group("players")
+	var players: Array[Player] = []
+	players.assign(get_tree().get_nodes_in_group("players"))
 	if players.size() > 0:
-		var target = players[0]
+		var target: Player = players[0]
 		global_position = target.global_position
 
 func setup_camera_limits():

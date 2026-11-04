@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b6mdxddcnp34i" path="res://scenes/enemies/firebar.gd" id="1_qqjg1"]
 [ext_resource type="PackedScene" uid="uid://dbmygarqjx4jl" path="res://scenes/enemies/fire_bar_ball.tscn" id="2_5tvuf"]
-[ext_resource type="Texture2D" uid="uid://b43pnq0lpe1w8" path="res://sprites/players/Fire Ball 1.png" id="3_3jwhq"]
+[ext_resource type="Texture2D" uid="uid://b43pnq0lpe1w8" path="res://assets/sprites/players/Fire Ball 1.png" id="3_3jwhq"]
 
 [node name="Firebar" type="Node2D" unique_id=869945958]
 script = ExtResource("1_qqjg1")

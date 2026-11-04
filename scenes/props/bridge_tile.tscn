@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dyaldrk2r4cpf"]
 
-[ext_resource type="Texture2D" uid="uid://cq62fh2fnycw1" path="res://sprites/props/Bridge.png" id="1_emnt4"]
+[ext_resource type="Texture2D" uid="uid://cq62fh2fnycw1" path="res://assets/sprites/props/Bridge.png" id="1_emnt4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ry5v1"]
 size = Vector2(16, 16)

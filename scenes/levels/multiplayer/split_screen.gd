@@ -16,8 +16,8 @@ var level_scene: PackedScene
 @onready var multiplayer_hud = $MultiplayerHUD
 
 var world_instance: Node2D
-var mario: CharacterBody2D
-var luigi: CharacterBody2D
+var mario: Player
+var luigi: Player
 
 func _ready() -> void:
 	level_scene = GameControl.next_level_scene
@@ -26,8 +26,8 @@ func _ready() -> void:
 	
 	await get_tree().process_frame
 	
-	mario = world_instance.get_node("Mario")
-	luigi = world_instance.get_node("Luigi")
+	mario = world_instance.get_node("Mario") as Player
+	luigi = world_instance.get_node("Luigi") as Player
 	camera_left.setup(world_instance, mario)
 	
 	if GameControl.player_states.has(mario.player_id):

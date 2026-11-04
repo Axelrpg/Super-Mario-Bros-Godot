@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bqe4gq0kep8h8"]
 
 [ext_resource type="Script" uid="uid://bp0hhmdd3j6kb" path="res://scenes/props/hidden_block.gd" id="1_7ns85"]
-[ext_resource type="Texture2D" uid="uid://b7wqqw02srchq" path="res://sprites/props/Coin Block OW.png" id="2_2g7ux"]
-[ext_resource type="Texture2D" uid="uid://cfgwg5nclhjvi" path="res://sprites/props/Coin Block UG.png" id="3_lv56t"]
+[ext_resource type="Texture2D" uid="uid://b7wqqw02srchq" path="res://assets/sprites/props/Coin Block OW.png" id="2_2g7ux"]
+[ext_resource type="Texture2D" uid="uid://cfgwg5nclhjvi" path="res://assets/sprites/props/Coin Block UG.png" id="3_lv56t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sshfo"]
 size = Vector2(15, 16)
